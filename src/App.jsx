@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -7,7 +6,7 @@ function App() {
   return (
     <>
       <div>
-          <img src={img.jpeg} className="logo" alt="Vite logo" />
+          <img src={"/img.jpeg"} className="logo" alt="Vite logo" />
       </div>
     </>
   )
