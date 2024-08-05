@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import { AppBar, Box, InputBase, Grid, Typography } from '@mui/material';
+import { AppBar, Box, InputBase, Grid, Typography, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import useCompetitions from '../utils/useCompetitions';
 
 
@@ -19,10 +20,7 @@ const logoMap = {
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
+    backgroundColor: '#fff',
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -39,10 +37,12 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    color:theme.palette.third.main
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
+    color: 'third.main',
+    padding: '5px',
     width: '100%',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
@@ -83,10 +83,23 @@ export default function AppNavbar() {
                         </Search>
                     </Grid>
                     <Grid item xs sx={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
-                        xs=4
+                        <Button
+                            endIcon={<EmojiEventsIcon />}
+                            sx={{
+                                borderColor: '#fff',
+                                color: '#fff',
+                                '&:hover': {
+                                    borderColor: '#fff',
+                                    backgroundColor: '#2130a2',
+                                },
+                                fontSize:'16px'
+                            }}
+                        >
+                            Best Under23
+                        </Button>
                     </Grid>
                 </Grid>
-                <Grid container spacing={0} alignItems="center" sx={{ backgroundColor: 'third.main'}}>
+                <Grid container spacing={0} alignItems="center" sx={{ backgroundColor: 'third.main' }}>
                     {loading && <p>Loading...</p>}
                     {error && <p>Error: {error}</p>}
                     {!loading && !error && competitions.length === 0 && <p>No competitions found</p>}
@@ -108,7 +121,7 @@ export default function AppNavbar() {
                             }}
                         >
                             <img src={logoMap[competition]} alt={competition} width="30px" height="30px" style={{ marginRight: '5px', padding: '5px' }} />
-                            <Typography sx={{ fontSize: '10px', textTransform:'uppercase', fontWeight:'500' }}>{competition}</Typography>
+                            <Typography sx={{ fontSize: '10px', textTransform: 'uppercase', fontWeight: '500' }}>{competition}</Typography>
                         </Grid>
                     ))}
                 </Grid>
