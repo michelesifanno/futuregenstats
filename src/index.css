@@ -3,3 +3,12 @@
 body {
   margin: 0px !important;
 }
+
+.MuiGrid-item {
+  padding: 0px !important;
+}
+
+.MuiGrid-root {
+  margin: 0px !important;
+  width: 100% !important;
+}

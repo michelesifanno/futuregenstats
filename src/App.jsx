@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import supabase from './supabase/client';
 import theme from './template/theme';
+import AppNavbar from './components/AppNavbar';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -29,9 +30,10 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ background: 'blue', padding: 2 }}>
+      <AppNavbar></AppNavbar>
+      <Box sx={{ padding: 2 }}>
         <img src="/logo.png" className="logo" alt="Vite logo" width="15%" />
-        <Typography variant="h4" color="white">
+        <Typography variant="h4" color="text.primary">
           KITEMMUUU
         </Typography>
         {error && <Typography color="red">Error fetching data: {error.message}</Typography>}

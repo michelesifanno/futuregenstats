@@ -119,16 +119,25 @@ def fetch_all_player_ids():
     player_ids = [row['id'] for row in response.data]
     return player_ids
 
+def fetch_existing_player_ids():
+    response = supabase.table('players_stats').select('player_id').execute()
+    existing_ids = [row['player_id'] for row in response.data]
+    return existing_ids
+
 def main():
-    player_ids = fetch_all_player_ids()
-    
-    if not player_ids:
-        print("No player IDs found. Exiting.")
+    all_player_ids = fetch_all_player_ids()
+    existing_player_ids = fetch_existing_player_ids()
+
+    # Trova gli ID rimanenti
+    remaining_ids = [player_id for player_id in all_player_ids if player_id not in existing_player_ids]
+
+    if not remaining_ids:
+        print("No remaining player IDs to process. Exiting.")
         return
 
     # Usa ThreadPoolExecutor per eseguire richieste in parallelo
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        futures = [executor.submit(fetch_player_data, player_id) for player_id in player_ids]
+        futures = [executor.submit(fetch_player_data, player_id) for player_id in remaining_ids]
         for future in concurrent.futures.as_completed(futures):
             try:
                 future.result()
