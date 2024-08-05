@@ -22,7 +22,6 @@ export default function useCompetitions() {
                     throw error;
                 }
 
-                console.log("Data received:", data); // Aggiungi questo log
                 // Estrai valori unici dalla colonna 'competition'
                 const uniqueCompetitions = Array.from(new Set(data.map(item => item.competition)));
                 setCompetitions(uniqueCompetitions);
