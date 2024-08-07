@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, Grid, Paper, Box } from '@mui/material';
 import supabase from '../supabase/client';
 import { useTheme } from '@emotion/react';
+import TopPlayers from '../components/TopPlayers';
 
 function Homepage() {
     const theme = useTheme();
@@ -31,14 +32,19 @@ function Homepage() {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <Box sx={{ flexGrow: 1, width: '100%', background: theme.palette.secondary.main, padding: '140px 40px' }}>
+        <Box sx={{ background: theme.palette.secondary.main, padding: '160px 40px' }}>
             <Typography variant="h2" gutterBottom>
                 Player Directory
             </Typography>
-            <Grid container spacing={2}>
+            <Grid container>
+                <Grid item>
+                    <TopPlayers filter={'matches'}/>
+                </Grid>
+            </Grid>
+            <Grid container>
                 {players.map((player) => (
                     <Grid item xs={12} sm={6} md={4} key={player.id}>
-                        <Box sx={{ margin: 1 }}>
+                        <Box sx={{padding:1}}>
                             <Paper elevation={3} sx={{ padding: 2 }}>
                                 <Typography variant="h6">{player.name}</Typography>
                                 <Typography variant="body1"><strong>Position:</strong> {player.position}</Typography>

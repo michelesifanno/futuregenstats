@@ -79,7 +79,7 @@ export default function AppNavbar() {
                         <img src="/logo.png" alt="Future Gen Stats Logo" style={{ maxWidth: '200px' }} />
                     </Grid>
                     {!isMobile && (
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <Search>
                                 <SearchIconWrapper>
                                     <SearchIcon />
@@ -92,31 +92,10 @@ export default function AppNavbar() {
                         </Grid>
                     )}
                     <Grid item xs sx={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
-                        {isMobile && (
-                            <IconButton color="inherit" onClick={toggleDrawer}>
-                                <SearchIcon />
-                            </IconButton>
-                        )}
-                        {isMobile ? (
-                            <IconButton color="inherit" onClick={toggleDrawer}>
-                                <EmojiEventsIcon />
-                            </IconButton>
-                        ) : (
-                            <Button
-                            endIcon={<EmojiEventsIcon />}
-                            sx={{
-                                borderColor: '#fff',
-                                color: '#fff',
-                                '&:hover': {
-                                    borderColor: '#fff',
-                                    backgroundColor: '#2130a2',
-                                },
-                                fontSize: '16px',
-                            }}
-                        >
-                            Best Under23
-                        </Button>
-                        )}
+                    <Typography variant="body1">
+                        <strong>Updated on: </strong>
+                        04/08/2024
+                    </Typography> 
                     </Grid>
                 </Grid>
                 {/* Drawer per la barra di ricerca mobile */}
@@ -171,7 +150,7 @@ export default function AppNavbar() {
                                 transition: 'background-color 0.3s ease',
                             }}
                         >
-                            <img src={logoMap[competition]} alt={competition} width="30px" height="30px" style={{ marginRight: isMobile ? '0px' : '5px', padding: '5px' }} />
+                            <img src={logoMap[competition]} alt={competition} width="40px" height="40px" style={{ marginRight: isMobile ? '0px' : '5px', padding: '5px' }} />
                             <Typography
                                 sx={{
                                     fontSize: '10px',
