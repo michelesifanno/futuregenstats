@@ -9,6 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import PlayerAvatar from './PlayerAvatar';
 import { Typography } from '@mui/material';
 
 const logoMap = {
@@ -46,6 +47,9 @@ const PlayersTable = ({ filter }) => {
               <TableCell>
                 <Typography sx={{textTransform:'uppercase', fontWeight:500, fontSize:'14px'}}>{player.name}</Typography>
                 <Typography sx={{fontWeight:400, fontSize:'12px'}}>{player.team}</Typography>
+              </TableCell>
+              <TableCell>
+              <PlayerAvatar position={player.position} />
               </TableCell>
               <TableCell><Flag nationality={player.nationality} /></TableCell>
               <TableCell>

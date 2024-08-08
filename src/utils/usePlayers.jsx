@@ -29,7 +29,7 @@ const usePlayers = (filter) => {
               subbed_out
             `)
             .order(filter, { ascending: false })
-            .limit(5);
+            .limit(10);
 
           if (error) throw error;
           statsData = data;
@@ -41,7 +41,6 @@ const usePlayers = (filter) => {
             .select(`
               id,
               name,
-              position,
               nationality,
               birthday,
               market_value,
@@ -49,7 +48,7 @@ const usePlayers = (filter) => {
               current_team
             `)
             .order('market_value', { ascending: false })
-            .limit(5);
+            .limit(10);
 
           if (error) throw error;
           infoData = data;
@@ -62,6 +61,7 @@ const usePlayers = (filter) => {
           .select(`
             id,
             name,
+            position,
             nationality,
             team,
             competition
