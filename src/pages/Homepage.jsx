@@ -4,7 +4,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@emotion/react';
 import TopPlayers from '../components/TopPlayers';
 import TopCompetitions from '../components/TopCompetitions';
-import ForeignPlayersChart from '../components/ForeignPlayersChart';
 
 function Homepage() {
     const theme = useTheme();
@@ -20,7 +19,6 @@ function Homepage() {
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={8}>
                     <Box sx={{ padding: isMobile ? '0px' : '10px' }}>
-                    <ForeignPlayersChart />
                         <Accordion defaultExpanded>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -76,6 +74,7 @@ function Homepage() {
                     </Box>
 
                 </Grid>
+                
                 <Grid item xs={12} sm={4}>
                     <Box sx={{ padding: isMobile ? '0px' : '10px' }}>
                         <Accordion defaultExpanded>
