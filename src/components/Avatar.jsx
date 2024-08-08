@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Avatar = ({ name }) => {
+export function Avatar ({ name }) {
   const initials = name.split(' ').map(word => word[0]).join('').toUpperCase();
   return (
     <div style={{
@@ -19,9 +19,4 @@ const Avatar = ({ name }) => {
   );
 };
 
-const Flag = ({ nationality }) => {
-  const flagSrc = `/flags/${nationality.toLowerCase()}.png`;
-  return <img src={flagSrc} alt={nationality} style={{ width: '30px', height: '20px' }} />;
-};
-
-export { Avatar, Flag };
+export default Avatar;

@@ -1,90 +1,70 @@
-import React, { useEffect, useState } from 'react';
-import supabase from '../supabase/client';
-import { Avatar } from './Avatar';
+import React from 'react';
+import usePlayers from '../utils/usePlayers';
+import Avatar from '../components/Avatar';
+import Flag from '../components/Flag'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { Typography } from '@mui/material';
 
-const TopPlayers = ({ filter }) => {
-  const [players, setPlayers] = useState([]);
+const logoMap = {
+  'Premier League': 'competitions/col-premier-league.png',
+  'Serie A': 'competitions/col-serie-a.png',
+  'Bundesliga': 'competitions/col-bundesliga.png',
+  'La Liga': 'competitions/col-la-liga.png',
+  'Ligue 1': 'competitions/col-ligue-1.png',
+  'Brasileirão': 'competitions/col-brasilerao.png',
+  'Primeira Liga': 'competitions/col-primeira-liga.png',
+  'Eredivisie': 'competitions/col-eredivise.png',
+};
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let query;
-      switch (filter) {
-        case 'matches':
-          query = supabase
-            .from('players_stats')
-            .select(`
-              players(name),
-              matches
-            `)
-            .order('matches', { ascending: false })
-            .limit(10);
-          break;
-        case 'goals':
-          query = supabase
-            .from('players_stats')
-            .select(`
-              players(name),
-              goals
-            `)
-            .order('goals', { ascending: false })
-            .limit(10);
-          break;
-        case 'assists':
-          query = supabase
-            .from('players_stats')
-            .select(`
-              players(name),
-              assists
-            `)
-            .order('assists', { ascending: false })
-            .limit(10);
-          break;
-        case 'starting_xi':
-          query = supabase
-            .from('players_stats')
-            .select(`
-              players(name),
-              starting_xi
-            `)
-            .order('starting_xi', { ascending: false })
-            .limit(10);
-          break;
-        default:
-          query = supabase
-            .from('players_info')
-            .select(`
-              name,
-              market_value
-            `)
-            .order('market_value', { ascending: false })
-            .limit(10);
-          break;
-      }
+// Helper function
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
 
-      const { data, error } = await query;
-      if (error) {
-        console.error('Error fetching data:', error);
-      } else {
-        setPlayers(data);
-      }
-    };
+const PlayersTable = ({ filter }) => {
+  const { players, error } = usePlayers(filter);
 
-    fetchData();
-  }, [filter]);
+  if (error) {
+    return <div>Error fetching data: {error.message}</div>;
+  }
 
   return (
-    <div>
-      <h2>Top Players by {filter}</h2>
-      <ul>
-        {players.map(player => (
-          <li key={player.id}>
-            <Avatar name={player.players.name} />
-            {player.players.name} - {player[filter]}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <TableContainer component={Paper} style={{ marginBottom: '20px' }}>
+      <Table>
+        <TableBody>
+          {players.map(player => (
+            <TableRow key={player.id}>
+              <TableCell>
+                <Avatar name={player.name} />
+              </TableCell>
+              <TableCell>
+                <Typography sx={{textTransform:'uppercase', fontWeight:500, fontSize:'14px'}}>{player.name}</Typography>
+                <Typography sx={{fontWeight:400, fontSize:'12px'}}>{player.team}</Typography>
+              </TableCell>
+              <TableCell><Flag nationality={player.nationality} /></TableCell>
+              <TableCell>
+              <img src={logoMap[player.competition]} alt={player.competition} width="30px"/>
+                </TableCell>
+              <TableCell><Typography sx={{textTransform:'uppercase', fontSize:'14px', textAlign:'right'}}><strong>{player[filter] !== undefined ? player[filter] : 'N/A'}</strong> {capitalizeFirstLetter(filter)}</Typography></TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
-export default TopPlayers;
+
+export default function TopPlayers({ filter }) {
+  return (
+    <div>
+      <PlayersTable filter={filter} />
+    </div>
+  );
+}

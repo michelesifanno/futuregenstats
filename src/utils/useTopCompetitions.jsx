@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import supabase from '../supabase/client';
 
-const CompetitionsFilter = ({ filter }) => {
+const useTopCompetitions = (filter) => {
   const [competitions, setCompetitions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCompetitions = async () => {
       setLoading(true);
       setError(null);
 
@@ -23,7 +23,6 @@ const CompetitionsFilter = ({ filter }) => {
 
             if (numPlayersError) throw numPlayersError;
 
-            // Aggrega il numero di giocatori per competizione
             const numPlayersCount = numPlayersData.reduce((acc, player) => {
               acc[player.competition] = (acc[player.competition] || 0) + 1;
               return acc;
@@ -31,7 +30,7 @@ const CompetitionsFilter = ({ filter }) => {
 
             data = Object.keys(numPlayersCount).map(competition => ({
               competition,
-              count: numPlayersCount[competition],
+              sum: numPlayersCount[competition], // Usa `sum` per uniformità
             }));
             break;
 
@@ -59,7 +58,6 @@ const CompetitionsFilter = ({ filter }) => {
               })
             );
 
-            // Aggrega i goal totali per competizione
             const totalGoalsCount = competitionGoals.reduce((acc, { competition, goals }) => {
               acc[competition] = (acc[competition] || 0) + goals;
               return acc;
@@ -67,7 +65,7 @@ const CompetitionsFilter = ({ filter }) => {
 
             data = Object.keys(totalGoalsCount).map(competition => ({
               competition,
-              sum: totalGoalsCount[competition],
+              sum: totalGoalsCount[competition], // Usa `sum` per uniformità
             }));
             break;
 
@@ -95,7 +93,6 @@ const CompetitionsFilter = ({ filter }) => {
               })
             );
 
-            // Aggrega gli assist totali per competizione
             const totalAssistsCount = competitionAssists.reduce((acc, { competition, assists }) => {
               acc[competition] = (acc[competition] || 0) + assists;
               return acc;
@@ -103,7 +100,7 @@ const CompetitionsFilter = ({ filter }) => {
 
             data = Object.keys(totalAssistsCount).map(competition => ({
               competition,
-              sum: totalAssistsCount[competition],
+              sum: totalAssistsCount[competition], // Usa `sum` per uniformità
             }));
             break;
 
@@ -131,7 +128,6 @@ const CompetitionsFilter = ({ filter }) => {
               })
             );
 
-            // Aggrega le partite totali per competizione
             const totalMatchesCount = competitionMatches.reduce((acc, { competition, matches }) => {
               acc[competition] = (acc[competition] || 0) + matches;
               return acc;
@@ -139,7 +135,7 @@ const CompetitionsFilter = ({ filter }) => {
 
             data = Object.keys(totalMatchesCount).map(competition => ({
               competition,
-              sum: totalMatchesCount[competition],
+              sum: totalMatchesCount[competition], // Usa `sum` per uniformità
             }));
             break;
 
@@ -150,7 +146,6 @@ const CompetitionsFilter = ({ filter }) => {
 
             if (avgMarketValueError) throw avgMarketValueError;
 
-            // Aggrega il valore di mercato medio per competizione
             const marketValueSum = avgMarketValueData.reduce((acc, { current_team, market_value }) => {
               if (!acc[current_team]) {
                 acc[current_team] = { total: 0, count: 0 };
@@ -179,35 +174,10 @@ const CompetitionsFilter = ({ filter }) => {
       }
     };
 
-    fetchData();
+    fetchCompetitions();
   }, [filter]);
 
-  const renderContent = () => {
-    if (loading) return <p>Caricamento in corso...</p>;
-    if (error) return <p>{error}</p>;
-
-    return (
-      <ul>
-        {competitions.map(comp => (
-          <li key={comp.competition}>
-            {comp.competition} -{' '}
-            {filter === 'num_players' && `${comp.count} giocatori`}
-            {filter === 'total_goals' && `${comp.sum} goal`}
-            {filter === 'total_assists' && `${comp.sum} assist`}
-            {filter === 'total_matches' && `${comp.sum} partite`}
-            {filter === 'avg_market_value' && `€${comp.avg.toFixed(2)}`}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-
-  return (
-    <div>
-      <h2>Competizioni per {filter.replace('_', ' ').toUpperCase()}</h2>
-      {renderContent()}
-    </div>
-  );
+  return { competitions, loading, error };
 };
 
-export default CompetitionsFilter;
+export default useTopCompetitions;

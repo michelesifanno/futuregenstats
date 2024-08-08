@@ -9,10 +9,7 @@ const competitions = [
     { id: 2015, name: 'Ligue 1' },
     { id: 2014, name: 'La Liga' },
     { id: 2013, name: 'Brasileirão' }, // Campeonato Brasileiro Série A
-    { id: 2003, name: 'Eredivisie' }, // Olanda
     { id: 2017, name: 'Primeira Liga' }, // Portogallo
-    { id: 2018, name: 'J1 League' }, // Giappone
-    { id: 1016, name: 'Major League Soccer' } // Stati Uniti
 ];
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));

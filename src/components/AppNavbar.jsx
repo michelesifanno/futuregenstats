@@ -9,13 +9,13 @@ import useCompetitions from '../utils/useCompetitions';
 const drawerWidth = '100%';
 
 const logoMap = {
-    'Premier League': '/premier-league.png',
-    'Serie A': '/serie-a.png',
-    'Bundesliga': '/bundesliga.png',
-    'La Liga': '/la-liga.png',
-    'Ligue 1': '/ligue-1.png',
-    'Brasileirão': '/brasilerao.png',
-    'Primeira Liga': '/primeira-liga.png',
+    'Premier League': 'competitions/premier-league.png',
+    'Serie A': 'competitions/serie-a.png',
+    'Bundesliga': 'competitions/bundesliga.png',
+    'La Liga': 'competitions/la-liga.png',
+    'Ligue 1': 'competitions/ligue-1.png',
+    'Brasileirão': 'competitions/brasilerao.png',
+    'Primeira Liga': 'competitions/primeira-liga.png',
 };
 
 const Search = styled('div')(({ theme }) => ({
@@ -72,7 +72,7 @@ export default function AppNavbar() {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, position: 'fixed', width: '100%' }}>
+        <Box sx={{ flexGrow: 1, position: 'fixed', width: '100%', zIndex: '1' }}>
             <AppBar sx={{ alignItems: 'center' }}>
                 <Grid container spacing={2} alignItems="center" sx={{ padding: '20px' }}>
                     <Grid item xs sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
@@ -91,11 +91,23 @@ export default function AppNavbar() {
                             </Search>
                         </Grid>
                     )}
+                    {isMobile && (
+                        <IconButton
+                            edge="end"
+                            color="inherit"
+                            aria-label="search"
+                            onClick={toggleDrawer}
+                            sx={{ ml: 2 }}
+                        >
+                            <SearchIcon />
+                        </IconButton>
+                    )}
+
                     <Grid item xs sx={{ display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
-                    <Typography variant="body1">
-                        <strong>Updated on: </strong>
-                        04/08/2024
-                    </Typography> 
+                        <Typography variant="body1">
+                            <strong>Updated on: </strong>
+                            04/08/2024
+                        </Typography>
                     </Grid>
                 </Grid>
                 {/* Drawer per la barra di ricerca mobile */}
@@ -111,6 +123,7 @@ export default function AppNavbar() {
                             alignItems: 'center',
                             boxSizing: 'border-box',
                             backgroundColor: '#fff',
+                            zIndex: '2',
                         },
                     }}
                 >

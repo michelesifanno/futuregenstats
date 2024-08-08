@@ -1,64 +1,139 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Typography, Grid, Paper, Box } from '@mui/material';
-import supabase from '../supabase/client';
+import React, { useState } from 'react';
+import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Grid, useMediaQuery } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@emotion/react';
 import TopPlayers from '../components/TopPlayers';
+import TopCompetitions from '../components/TopCompetitions';
 
 function Homepage() {
     const theme = useTheme();
-    const [players, setPlayers] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const [filter, setFilter] = useState('matches'); // Imposta il filtro predefinito
 
-    useEffect(() => {
-        const fetchPlayers = async () => {
-            try {
-                let { data, error } = await supabase
-                    .from('players')
-                    .select('*');
-                if (error) throw error;
-                setPlayers(data);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchPlayers();
-    }, []);
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    const handleFilterChange = (event) => {
+        setFilter(event.target.value);
+    };
 
     return (
-        <Box sx={{ background: theme.palette.secondary.main, padding: '160px 40px' }}>
-            <Typography variant="h2" gutterBottom>
-                Player Directory
-            </Typography>
-            <Grid container>
-                <Grid item>
-                    <TopPlayers filter={'matches'}/>
+        <Box sx={{ background: theme.palette.secondary.main, padding: '160px 20px' }}>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={8}>
+                    <Box sx={{ padding: isMobile ? '0px' : '10px' }}>
+                        <Accordion defaultExpanded>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="experience"
+                                id="experience"
+                            >
+                                <Typography sx={{ fontWeight: 500, fontSize: '18px' }}>Most experienced players</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <TopPlayers filter={'matches'} />
+                            </AccordionDetails>
+                        </Accordion>
+
+                        <Accordion defaultExpanded>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="goals"
+                                id="goals"
+                            >
+                                <Typography sx={{ fontWeight: 500, fontSize: '18px' }}>Top Scorer</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <TopPlayers filter={'goals'} />
+                            </AccordionDetails>
+                        </Accordion>
+
+                        <Accordion defaultExpanded>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="assist"
+                                id="assist"
+                            >
+                                <Typography sx={{ fontWeight: 500, fontSize: '18px' }}>Assistman</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <TopPlayers filter={'assists'} />
+                            </AccordionDetails>
+                        </Accordion>
+
+                        <Accordion defaultExpanded>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="assist"
+                                id="goals"
+                            >
+                                <Typography sx={{ fontWeight: 500, fontSize: '18px' }}>First choice</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <TopPlayers filter={'starting_xi'} />
+                            </AccordionDetails>
+                        </Accordion>
+
+                    </Box>
+
                 </Grid>
-            </Grid>
-            <Grid container>
-                {players.map((player) => (
-                    <Grid item xs={12} sm={6} md={4} key={player.id}>
-                        <Box sx={{padding:1}}>
-                            <Paper elevation={3} sx={{ padding: 2 }}>
-                                <Typography variant="h6">{player.name}</Typography>
-                                <Typography variant="body1"><strong>Position:</strong> {player.position}</Typography>
-                                <Typography variant="body1"><strong>Nationality:</strong> {player.nationality}</Typography>
-                                <Typography variant="body1"><strong>Date of Birth:</strong> {new Date(player.dateofbirth).toLocaleDateString()}</Typography>
-                                <Typography variant="body1"><strong>Team:</strong> {player.team}</Typography>
-                                <Typography variant="body1"><strong>Competition:</strong> {player.competition}</Typography>
-                            </Paper>
-                        </Box>
-                    </Grid>
-                ))}
+                <Grid item xs={12} sm={4}>
+                    <Box sx={{ padding: isMobile ? '0px' : '10px' }}>
+                        <Accordion defaultExpanded>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="players-competitions"
+                                id="players-competition"
+                            >
+                                <Typography sx={{ fontWeight: 500, fontSize: '18px' }}>Players for Competitions</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <TopCompetitions filter={'num_players'} />
+                            </AccordionDetails>
+                        </Accordion>
+
+                        <Accordion defaultExpanded>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="matches-competitions"
+                                id="matches-competition"
+                            >
+                                <Typography sx={{ fontWeight: 500, fontSize: '18px' }}>Matches for Competitions</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <TopCompetitions filter={'total_matches'} />
+                            </AccordionDetails>
+                        </Accordion>
+
+                        <Accordion defaultExpanded>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="goals-competitions"
+                                id="goals-competition"
+                            >
+                                <Typography sx={{ fontWeight: 500, fontSize: '18px' }}>Goals for Competitions</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <TopCompetitions filter={'total_goals'} />
+                            </AccordionDetails>
+                        </Accordion>
+
+                        <Accordion defaultExpanded>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="assists-competitions"
+                                id="assists-competition"
+                            >
+                                <Typography sx={{ fontWeight: 500, fontSize: '18px' }}>Assists for Competitions</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <TopCompetitions filter={'total_assists'} />
+                            </AccordionDetails>
+                        </Accordion>
+
+
+                    </Box>
+                </Grid>
             </Grid>
         </Box>
     );
-};
+}
 
 export default Homepage;

@@ -21,6 +21,7 @@ export default function useCompetitions() {
                 if (error) {
                     throw error;
                 }
+                console.log(data);
 
                 // Estrai valori unici dalla colonna 'competition'
                 const uniqueCompetitions = Array.from(new Set(data.map(item => item.competition)));
@@ -31,9 +32,9 @@ export default function useCompetitions() {
                 setLoading(false);
             }
         }
-
+        
         fetchCompetitions();
     }, []); // L'array vuoto come dipendenza significa che l'effetto viene eseguito solo una volta al montaggio del componente
-
+    
     return { competitions, error, loading };
 }

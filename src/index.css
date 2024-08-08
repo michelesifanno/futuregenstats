@@ -12,3 +12,30 @@ body {
   margin: 0px !important;
   width: 100% !important;
 }
+
+.MuiTableContainer-root {
+  box-shadow: none!important;
+}
+.MuiAccordionDetails-root {
+  padding: 0px;
+}
+
+.MuiAccordionSummary-content {
+  margin:0px!important;
+}
+
+.MuiAccordionSummary-root {
+  padding: 30px !important;
+  margin: 0px !important;
+
+}
+
+.MuiAccordion-root {
+  box-shadow: none !important;
+  border-radius: 20px !important;
+  margin-bottom:15px!important;
+}
+
+.MuiAccordion-root::before {
+  display: none!important;
+}
