@@ -39,10 +39,3 @@ body {
 .MuiAccordion-root::before {
   display: none!important;
 }
-
-.MuiAvatar-root {
-  font-size: 14px;
-  font-weight: 500;
-  width: 30px;
-  height: 30px;
-}

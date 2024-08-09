@@ -1,7 +1,7 @@
 import React from 'react';
-import { Avatar as MuiAvatar } from '@mui/material';
+import { Avatar as MuiAvatar, Typography } from '@mui/material';
 
-export function Avatar({ position }) {
+export default function PlayerAvatar({ position }) {
   // Funzione per determinare il colore e l'acronimo
   const getAvatarDetails = (position) => {
     const positionLower = position.toLowerCase();
@@ -29,10 +29,10 @@ export function Avatar({ position }) {
   const { color, acronym } = getAvatarDetails(position);
 
   return (
-    <MuiAvatar sx={{ backgroundColor: color, width: 40, height: 40 }}>
+    <MuiAvatar sx={{ backgroundColor: color, width: 30, height: 30 }}>
+      <Typography sx={{fontSize:'12px', fontWeight:'500'}}>
       {acronym}
+      </Typography>   
     </MuiAvatar>
   );
 }
-
-export default Avatar;
