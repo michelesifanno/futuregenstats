@@ -78,7 +78,7 @@ export default function AppNavbar() {
                     )}
                     <Grid item xs={1} />
                     {isMobile && (
-                        <Grid item xs={isMobile ? 2 : 1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: isMobile ? '0px 10px!important' : '0px 20px!important', backgroundColor: '#202cb7', height: '100%' }}>
+                        <Grid item xs={isMobile ? 2 : 1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: isMobile ? '0px!important' : '0px 20px!important', backgroundColor: '#202cb7', height: '100%' }}>
                             <IconButton
                                 color="inherit"
                                 aria-label="search"
@@ -97,7 +97,7 @@ export default function AppNavbar() {
                             flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            padding: isMobile ? '0px 10px!important' : '0px 20px!important',
+                            padding: isMobile ? '0px!important' : '0px 20px!important',
                             backgroundColor: '#00e8da',
                             height: '100%',
                         }}
@@ -129,7 +129,7 @@ export default function AppNavbar() {
                             flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            padding: isMobile ? '0px 10px!important' : '0px 20px!important',
+                            padding: isMobile ? '0px!important' : '0px 20px!important',
                             backgroundColor: '#171d8d',
                             height: '100%',
                         }}
@@ -140,7 +140,7 @@ export default function AppNavbar() {
                             onClick={toggleDrawer}
                             sx={{ ml: 2, padding: '0px', margin: '0px!important', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
                         >
-                            <MenuIcon sx={{ fontSize: isMobile ? '26px' : '30px' }} />
+                            <MenuIcon sx={{ fontSize: isMobile ? '36px' : '30px' }} />
                             {/* Visualizza il testo solo su desktop */}
                             <Typography
                                 sx={{

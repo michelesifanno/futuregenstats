@@ -1,11 +1,15 @@
 import React from 'react';
 import { Container, Typography, Box, List, ListItem, ListItemText } from '@mui/material';
+import BestPlayersByCompetition from '../components/BestPlayersByCompetition';
 
 export default function About () {
+    const competitionId = 'IT1';
+
   return (
     <Container maxWidth="md" sx={{ padding: '160px 0px 40px 0px' }}>
+        <BestPlayersByCompetition competitionId={competitionId} />
       <Typography variant="h2" gutterBottom>
-        Future Gen Stats
+         a Future Gen Stats
       </Typography>
 
       <Typography variant="h5" paragraph>
