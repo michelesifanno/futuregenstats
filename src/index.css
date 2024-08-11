@@ -5,7 +5,7 @@ body {
 }
 
 .MuiGrid-item {
-  padding: 0px !important;
+  padding: 0px!important;
 }
 
 .MuiGrid-root {
@@ -38,4 +38,14 @@ body {
 
 .MuiAccordion-root::before {
   display: none!important;
+}
+
+.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root {
+  font-size: 30px !important;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.css-bfhx1x {
+  padding: 0px 10px!important; 
 }
