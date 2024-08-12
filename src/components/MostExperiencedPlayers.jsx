@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Grid, Button, Typography, useMediaQuery, InputLabel, MenuItem, FormControl, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
-import { useBestPlayersPerCompetition } from '../utils/useBestPlayersPerCompetition';
-import { useCompetitions } from '../utils/useCompetitions';
+import { useMostExperiencedPlayers } from '../utils/useMostExperiencedPlayers';
 import { CircularProgress } from '@mui/material';
 
 
@@ -45,20 +44,13 @@ const rankStyles = {
   },
 };
 
-export default function BestPlayersByCompetition() {
+export default function MostExperiencedPlayers() {
 
   const theme = useTheme();
   const [ageCategory, setAgeCategory] = useState('Under 23');
-  const [competitionId, setCompetitionId] = useState('IT1');
-  const { players, loading: playersLoading, error: playersError } = useBestPlayersPerCompetition(competitionId, ageCategory);
-  const { competitions, loading: competitionsLoading, error: competitionsError } = useCompetitions();
+  const { players, loading: playersLoading, error: playersError } = useMostExperiencedPlayers(ageCategory);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-
-
-  const handleCompetitionChange = (id) => {
-    setCompetitionId(id);
-  };
 
   const handleAgeCategoryChange = (event) => {
     setAgeCategory(event.target.value);
@@ -67,42 +59,17 @@ export default function BestPlayersByCompetition() {
   const sortedPlayers = players
     .sort((a, b) => a.rank - b.rank);
 
-  // Filtrare solo le competizioni con gli ID specificati
-  const filteredCompetitions = competitions.filter(competition =>
-    ['IT1', 'ES1', 'FR1', 'GB1', 'L1'].includes(competition.id)
-  );
-
-  if (competitionsLoading || playersLoading) return <CircularProgress />;
-  if (competitionsError) return <p>Error: {competitionsError}</p>;
   if (playersError) return <p>Error: {playersError}</p>;
 
   return (
     <>
       <div style={{ padding: '20px' }}>
-        <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '14px', marginBottom: isMobile ? '10px' : '20px' }}>Seleziona la competizione e la categoria. Lo score è calcolato da un algoritmo che tiene conto di variabili relative alla stagione 23/24.</Typography>
+        <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '14px', marginBottom: isMobile ? '10px' : '20px' }}>
+            Mediante un algoritmo, lo score segnala i giovani calciatori con maggior esperienza.
+            </Typography>
         <Grid container spacing={2}>
-          {/* Colonna per le competizioni */}
-          <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: (isMobile || isTablet) ? 'center' : 'flex-start', alignItems: 'center' }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-              {filteredCompetitions.map((competition) => (
-                <StyledButton
-                  key={competition.id}
-                  variant={competitionId === competition.id ? 'contained' : 'outlined'}
-                  onClick={() => handleCompetitionChange(competition.id)}
-                  sx={{ margin: '2px', height: isMobile ? '60px' : '80px', padding: '0px', minWidth: isMobile ? '60px' : '80px' }}
-                >
-                  <img
-                    src={competition.competitionimage}
-                    alt={competition.name}
-                    style={{ width: isMobile ? '30px' : '40px' }}
-                  />
-                </StyledButton>
-              ))}
-            </div>
-          </Grid>
-
           {/* Colonna per le categorie di età */}
-          <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
             {(isMobile || isTablet) ? (
               <FormControl fullWidth sx={{ marginTop: isMobile ? '20px' : '0px' }}>
                 <Select
@@ -124,14 +91,14 @@ export default function BestPlayersByCompetition() {
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {['Under 18', 'Under 19', 'Under 20', 'Under 21', 'Under 22', 'Under 23'].map((category) => (
                   <StyledButton
-                    key={category}
-                    variant={ageCategory === category ? 'contained' : 'outlined'}
-                    onClick={() => handleAgeCategoryChange({ target: { value: category } })}
-                    sx={{ padding: '10px 15px', margin: '2px', fontSize: '14px' }}
-                  >
-                    {category}
-                  </StyledButton>
-                ))}
+                  key={category}
+                  variant={ageCategory === category ? 'contained' : 'outlined'}
+                  onClick={() => handleAgeCategoryChange({ target: { value: category } })}
+                  sx={{ padding: '10px 20px', margin: '5px', fontSize: '14px' }}
+                >
+                  {category}
+                </StyledButton>
+              ))}
               </div>
             )}
           </Grid>
@@ -143,7 +110,7 @@ export default function BestPlayersByCompetition() {
         </Typography>
       ) : (<br />)}
       <TableContainer>
-        <Table aria-label="best-players-by-competition">
+        <Table aria-label="most-experienced-players">
           <TableBody>
             {sortedPlayers.map((player, index) => {
               let rankStyle = {};

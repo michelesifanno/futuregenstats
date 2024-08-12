@@ -3,6 +3,8 @@ import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Grid, u
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@emotion/react';
 import BestPlayersByCompetition from '../components/BestPlayersByCompetition';
+import MostExperiencedPlayers from '../components/MostExperiencedPlayers';
+
 
 function Homepage() {
     const theme = useTheme();
@@ -17,9 +19,26 @@ function Homepage() {
     return (
         <Box sx={{ background: theme.palette.secondary.main, padding: isMobile ? '100px 10px' : '120px 20px' }}>
             <Grid container spacing={2}>
-                <Grid item xs={12}>
+            <Grid item xs={12}>
                     <Box>
                         <Accordion defaultExpanded>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon sx={{fontSize:'20px'}} />}
+                                aria-controls="most-experienced-players"
+                                id="most-experienced-players"
+                                sx={{padding:'4px 20px'}}
+                            >
+                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Most Experienced Players</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails sx={{padding: '0px'}}>
+                                <MostExperiencedPlayers />
+                            </AccordionDetails>
+                        </Accordion>
+                    </Box>
+                </Grid>
+                <Grid item xs={12}>
+                    <Box>
+                        <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{fontSize:'20px'}} />}
                                 aria-controls="best-players-by-competition"
@@ -34,6 +53,7 @@ function Homepage() {
                         </Accordion>
                     </Box>
                 </Grid>
+
             </Grid>
         </Box>
     );
