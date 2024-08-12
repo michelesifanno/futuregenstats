@@ -37,12 +37,12 @@ function Homepage() {
                     </Box>
                 </Grid>
                 <Grid item xs={12}>
-                    <Box>
+                    <Box id="best-players-by-competition">
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
-                                aria-controls="best-players-by-competition"
-                                id="best-players-by-competition"
+                                aria-controls="best-players-competition"
+                                id="best-players-competition"
                                 sx={{ padding: '4px 20px' }}
                             >
                                 <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori giovani per competizione 🏆</Typography>

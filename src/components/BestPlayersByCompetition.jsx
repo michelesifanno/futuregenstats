@@ -56,12 +56,21 @@ export default function BestPlayersByCompetition() {
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
 
 
+
   const handleCompetitionChange = (id) => {
     setCompetitionId(id);
+    const element = document.getElementById('best-players-by-competition');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleAgeCategoryChange = (event) => {
     setAgeCategory(event.target.value);
+    const element = document.getElementById('best-players-by-competition');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const sortedPlayers = players
