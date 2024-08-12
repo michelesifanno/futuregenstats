@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Grid, Button, Typography, useMediaQuery, InputLabel, MenuItem, FormControl, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import { useBestPlayersPerCompetition } from '../utils/useBestPlayersPerCompetition';
@@ -60,8 +60,8 @@ export default function BestPlayersByCompetition() {
     setCompetitionId(id);
   };
 
-  const handleAgeCategoryChange = (category) => {
-    setAgeCategory(category);
+  const handleAgeCategoryChange = (event) => {
+    setAgeCategory(event.target.value);
   };
 
   const sortedPlayers = players
@@ -110,7 +110,7 @@ export default function BestPlayersByCompetition() {
                   id="age-select"
                   value={ageCategory}
                   onChange={handleAgeCategoryChange}
-                  sx={{fontSize: isMobile ? '14px' : '18px'}}
+                  sx={{ fontSize: isMobile ? '14px' : '18px' }}
                 >
                   <MenuItem value="Under 18">Under 18</MenuItem>
                   <MenuItem value="Under 19">Under 19</MenuItem>
@@ -126,7 +126,7 @@ export default function BestPlayersByCompetition() {
                   <StyledButton
                     key={category}
                     variant={ageCategory === category ? 'contained' : 'outlined'}
-                    onClick={() => handleAgeCategoryChange(category)}
+                    onClick={() => handleAgeCategoryChange({ target: { value: category } })}
                     sx={{ padding: '10px 20px', margin: '5px', fontSize: '12px' }}
                   >
                     {category}
@@ -137,107 +137,105 @@ export default function BestPlayersByCompetition() {
           </Grid>
         </Grid>
       </div>
-      {/* Mostra i giocatori se presenti */}
       {players.length === 0 ? (
         <Typography sx={{ fontWeight: 500, fontSize: '16px', padding: '40px 20px', color: 'red' }}>
-          Non ci sono giocatori da visualizzare per la competizione e categoria selezionata
+          Non ci sono giocatori che soddisfano le richieste.
         </Typography>
-      ) : (
-        <TableContainer>
-          <Table aria-label="best-players-by-competition">
-            <TableBody>
-              {sortedPlayers.map((player, index) => {
-                let rankStyle = {};
-                if (index === 0) {
-                  rankStyle = rankStyles.gold;
-                } else if (index === 1) {
-                  rankStyle = rankStyles.silver;
-                } else if (index === 2) {
-                  rankStyle = rankStyles.bronze;
-                }
-                return (
-                  <TableRow
-                    key={player.player_id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 }, ...rankStyle}}
+      ) : (<br />)}
+      <TableContainer>
+        <Table aria-label="best-players-by-competition">
+          <TableBody>
+            {sortedPlayers.map((player, index) => {
+              let rankStyle = {};
+              if (index === 0) {
+                rankStyle = rankStyles.gold;
+              } else if (index === 1) {
+                rankStyle = rankStyles.silver;
+              } else if (index === 2) {
+                rankStyle = rankStyles.bronze;
+              }
+              return (
+                <TableRow
+                  key={player.player_id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 }, ...rankStyle }}
+                >
+                  <TableCell
+                    align="left"
+                    sx={{
+                      padding: isMobile ? '30px 0px 30px 15px' : '20px'
+                    }}
                   >
+                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '18px', color: rankStyle.color }}>
+                      {player.rank}
+                    </Typography>
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{
+                      padding: isMobile ? '8px' : '20px'
+                    }}
+                  >
+                    <img src={player.player_image} alt={player.player_name} style={{ width: isMobile ? '36px' : '50px', borderRadius: '5px' }} />
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{
+                      padding: isMobile ? '8px' : '20px'
+                    }}
+                  >
+                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '18px' }}>
+                      {player.player_name}
+                    </Typography>
+                    <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '16px' }}>
+                      {player.positions}
+                    </Typography>
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{
+                      padding: isMobile ? '8px' : '20px'
+                    }}
+                  >
+                    <img src={player.club_image} alt={`${player.club_name} logo`} style={{ width: isMobile ? '30px' : '40px' }} />
+                  </TableCell>
+                  {!(isMobile || isTablet) && (
                     <TableCell
                       align="left"
                       sx={{
-                        padding: isMobile ? '30px 0px 30px 15px' : '20px'
+                        padding: isMobile ? '8px' : '20px'
                       }}
                     >
-                      <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '18px', color: rankStyle.color }}>
-                        {player.rank}
+                      <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>{player.nationalities}</Typography>
+                    </TableCell>
+                  )}
+                  {!(isMobile || isTablet) && (
+                    <TableCell
+                      align="left"
+                      sx={{
+                        padding: isMobile ? '8px' : '20px'
+                      }}
+                    >
+                      <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
+                        {player.marketvalue} {player.marketvaluecurrency}
                       </Typography>
                     </TableCell>
-                    <TableCell
-                      align="left"
-                      sx={{
-                        padding: isMobile ? '8px' : '20px'
-                      }}
-                    >
-                      <img src={player.player_image} alt={player.player_name} style={{ width: isMobile ? '36px' : '50px', borderRadius: '5px' }} />
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      sx={{
-                        padding: isMobile ? '8px' : '20px'
-                      }}
-                    >
-                      <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '18px' }}>
-                        {player.player_name}
-                      </Typography>
-                      <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '16px' }}>
-                        {player.positions}
-                      </Typography>
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      sx={{
-                        padding: isMobile ? '8px' : '20px'
-                      }}
-                    >
-                      <img src={player.club_image} alt={`${player.club_name} logo`} style={{ width: isMobile ? '30px' : '40px' }} />
-                    </TableCell>
-                    {!(isMobile || isTablet) && (
-                      <TableCell
-                      align="left"
-                      sx={{
-                        padding: isMobile ? '8px' : '20px'
-                      }}
-                    >
-                        <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>{player.nationalities}</Typography>
-                      </TableCell>
-                    )}
-                    {!(isMobile || isTablet) && (
-                      <TableCell
-                      align="left"
-                      sx={{
-                        padding: isMobile ? '8px' : '20px'
-                      }}
-                    >
-                        <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
-                          {player.marketvalue} {player.marketvaluecurrency}
-                        </Typography>
-                      </TableCell>
-                    )}
-                    <TableCell
-                      align="right"
-                      sx={{
-                        padding: isMobile ? '30px 15px 30px 0px' : '20px'
-                      }}
-                    >
-                      <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px', color: rankStyle.color }}>
-                        {player.total_score}
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+                  )}
+                  <TableCell
+                    align="right"
+                    sx={{
+                      padding: isMobile ? '30px 15px 30px 0px' : '20px'
+                    }}
+                  >
+                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px', color: rankStyle.color }}>
+                      {player.total_score}
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 }
