@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import { AppBar, Box, InputBase, Grid, Drawer, IconButton, useMediaQuery, Button, Typography } from '@mui/material';
+import { AppBar, Box, InputBase, Grid, Drawer, IconButton, Typography, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import DiamondOutlinedIcon from '@mui/icons-material/DiamondOutlined';
@@ -13,10 +13,6 @@ const Search = styled('div')(({ theme }) => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: '#fff',
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: '100%', // Assicurati che la larghezza sia impostata al 100%
-    },
     display: 'flex',
     alignItems: 'center',
 }));
@@ -29,7 +25,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize:'20px!important',
+    fontSize: '20px!important',
     color: theme.palette.third.main,
 }));
 
@@ -39,14 +35,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
         padding: '14px',
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width')
+        transition: theme.transitions.create('width'),
     },
 }));
 
 export default function AppNavbar() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const [drawerOpen, setDrawerOpen] = React.useState(false);
+    const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
@@ -57,14 +54,37 @@ export default function AppNavbar() {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, position: 'fixed', width: '100%', zIndex: '1', height: 'auto' }}>
+        <Box sx={{ flexGrow: 1, position: 'fixed', width: '100%', zIndex: 1, height: 'auto' }}>
             <AppBar sx={{ alignItems: 'center', height: isMobile ? '70px' : '80px' }}>
-                <Grid container spacing={2} alignItems="center" sx={{ height: '100%' }}>
-                    <Grid item xs={isMobile ? 5 : 3} sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center', padding: isMobile ? '0px 10px!important' : '0px 20px!important' }}>
-                        <img src="/logo.png" alt="Future Gen Stats Logo" style={{ maxWidth: isMobile ? '180px' : '220px' }} />
+                <Grid container alignItems="center" sx={{ height: '100%' }}>
+                    {/* Logo */}
+                    <Grid
+                        item
+                        xs={6}
+                        sm={4}
+                        md={2}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'start',
+                            alignItems: 'center',
+                            padding: isMobile ? '0px 10px!important' : '0px 20px!important',
+                        }}
+                    >
+                        <img
+                            src="/logo.png"
+                            alt="Future Gen Stats Logo"
+                            style={{ maxWidth: isMobile ? '180px' : '220px' }}
+                        />
                     </Grid>
+
+                    {/* Search bar (visible on tablets and desktops) */}
                     {!isMobile && (
-                        <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                        <Grid
+                            item
+                            sm={6}
+                            md={8}
+                            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', padding: isTablet ? '0px 20px!important' : '0px 120px!important' }}
+                        >
                             <Search>
                                 <SearchIconWrapper>
                                     <SearchIcon />
@@ -76,86 +96,124 @@ export default function AppNavbar() {
                             </Search>
                         </Grid>
                     )}
-                    <Grid item xs={1} />
+
+                    {/* Mobile search icon */}
                     {isMobile && (
-                        <Grid item xs={isMobile ? 2 : 1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: isMobile ? '0px!important' : '0px 20px!important', backgroundColor: '#202cb7', height: '100%' }}>
+                        <Grid
+                            item
+                            xs={2}
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'end',
+                                alignItems: 'center',
+                                padding: '0px!important',
+                                backgroundColor: (isMobile || isTablet) ? 'none' : '#202cb7',
+                                height: '100%',
+                            }}
+                        >
                             <IconButton
                                 color="inherit"
                                 aria-label="search"
                                 onClick={toggleDrawer}
-                                sx={{ ml: 2, padding: '0px', margin: '0px!important' }}
+                                sx={{ padding: '0px', margin: '0px!important' }}
                             >
-                                <SearchIcon sx={{ fontSize: isMobile ? '26px' : '34px' }} />
+                                <SearchIcon sx={{ fontSize: '26px' }} />
                             </IconButton>
                         </Grid>
                     )}
+
+                    {/* IHG Icon and text */}
                     <Grid
                         item
-                        xs={isMobile ? 2 : 1}
+                        xs={2}
+                        sm={1}
+                        md={1}
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            padding: isMobile ? '0px!important' : '0px 20px!important',
-                            backgroundColor: '#00e8da',
+                            padding: '0px!important',
+                            backgroundColor: (isMobile || isTablet) ? 'none' : '#00e8da',
                             height: '100%',
                         }}
                     >
                         <IconButton
                             color="inherit"
-                            aria-label="search"
+                            aria-label="ihg"
                             onClick={toggleDrawer}
-                            sx={{ ml: 2, padding: '0px', margin: '0px!important', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+                            sx={{
+                                padding: '0px',
+                                margin: '0px!important',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
                         >
-                            <DiamondOutlinedIcon sx={{ color:'third.main', fontSize: isMobile ? '26px' : '30px' }} />
+                            <DiamondOutlinedIcon
+                                sx={{
+                                    color: (isMobile || isTablet) ? 'secondary.main' : 'third.main',
+                                    fontSize: (isMobile || isTablet) ? '26px' : '30px',
+                                }}
+                            />
                             <Typography
                                 sx={{
-                                    fontSize: '14px',
+                                    fontSize: '12px',
                                     color: 'third.main',
-                                    fontWeight:'500',
-                                    display: isMobile ? 'none' : 'block',
+                                    fontWeight: '500',
+                                    display: (isMobile || isTablet ) ? 'none' : 'block',
+                                    marginTop:'2px',
                                 }}
                             >
                                 IHG
                             </Typography>
                         </IconButton>
                     </Grid>
+
+                    {/* Menu Icon */}
                     <Grid
                         item
-                        xs={isMobile ? 2 : 1}
+                        xs={2}
+                        sm={1}
+                        md={1}
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            padding: isMobile ? '0px!important' : '0px 20px!important',
+                            padding: '0px!important',
                             backgroundColor: '#171d8d',
                             height: '100%',
                         }}
                     >
                         <IconButton
                             color="inherit"
-                            aria-label="search"
+                            aria-label="menu"
                             onClick={toggleDrawer}
-                            sx={{ ml: 2, padding: '0px', margin: '0px!important', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+                            sx={{
+                                padding: '0px',
+                                margin: '0px!important',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
                         >
                             <MenuIcon sx={{ fontSize: isMobile ? '36px' : '30px' }} />
-                            {/* Visualizza il testo solo su desktop */}
                             <Typography
                                 sx={{
-                                    fontSize: '14px',
+                                    fontSize: '12px',
                                     color: 'secondary.main',
-                                    fontWeight:'500',
-                                    display: isMobile ? 'none' : 'block',
+                                    fontWeight: '500',
+                                    display: (isMobile || isTablet ) ? 'none' : 'block',
+                                    marginTop:'1px',
                                 }}
                             >
                                 MENU
                             </Typography>
                         </IconButton>
                     </Grid>
-
                 </Grid>
+
                 {/* Drawer per la barra di ricerca mobile */}
                 <Drawer
                     anchor="top"
@@ -169,7 +227,7 @@ export default function AppNavbar() {
                             alignItems: 'center',
                             boxSizing: 'border-box',
                             backgroundColor: '#fff',
-                            zIndex: '2',
+                            zIndex: 2,
                         },
                     }}
                 >

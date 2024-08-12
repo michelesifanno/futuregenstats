@@ -1,13 +1,12 @@
-// theme.js
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2047e4',  // Il colore che hai fornito
+      main: '#2047e4',  // Colore principale
     },
     secondary: {
-      main: '#ff6f61',  // Colore complementare ispirato a Sofascore
+      main: '#ff6f61',  // Colore secondario
     },
     third: {
       main: '#2c3ec4',
@@ -35,6 +34,28 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'Inter, Arial, sans-serif',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          backgroundColor: 'rgba(32, 71, 228, 0.1)',  // Colore di sfondo al passaggio del mouse
+          borderColor: '#0033cc',  // Colore del bordo al passaggio del mouse
+          color: '#ffffff',  // Colore del testo per il bottone contenuto
+          '&:hover': {
+            backgroundColor: 'rgba(32, 71, 228, 0.1)',  // Colore di sfondo al passaggio del mouse
+          },
+        },
+        outlined: {
+          borderColor: '#2047e4',  // Colore del bordo per il bottone outline
+          color: '#eee',  // Colore del testo per il bottone outline
+          '&:hover': {
+            borderColor: '#0033cc',  // Colore del bordo al passaggio del mouse
+            backgroundColor: 'rgba(32, 71, 228, 0.1)',  // Colore di sfondo al passaggio del mouse
+          },
+        },
+      },
+    },
   },
 });
 

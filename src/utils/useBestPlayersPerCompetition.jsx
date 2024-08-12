@@ -10,7 +10,7 @@ const formatMarketValue = (value) => {
 };
 
 // Hook per ottenere i migliori giocatori per competizione e categoria di età
-export const useBestPlayersPerCompetition = (competitionId, ageCategory) => {
+export function useBestPlayersPerCompetition (competitionId, ageCategory) {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -58,16 +58,25 @@ export const useBestPlayersPerCompetition = (competitionId, ageCategory) => {
           let positions = 'N/A';
           try {
             const positionsObj = player.players.positions;
-            positions = Object.values(positionsObj).map(pos => pos.name).join(', ');
+            if (positionsObj && typeof positionsObj === 'object') {
+              const positionsArray = Object.values(positionsObj)
+                .filter(pos => pos && pos.name);  // Filtra le posizioni che non sono null e hanno una proprietà name
+        
+              if (positionsArray.length > 0) {
+                positions = positionsArray[0].name;  // Prende solo la prima posizione
+              }
+            }
           } catch (e) {
             console.error('Errore nella conversione di positions:', e);
           }
-
+        
           // Parsing delle nazionalità
           let nationalities = 'N/A';
           try {
             const nationalitiesArray = player.players.nationalities;
-            nationalities = nationalitiesArray.map(nat => nat.name).join(', ');
+            if (nationalitiesArray) {
+              nationalities = nationalitiesArray.map(nat => nat.name).join(', ');
+            }
           } catch (e) {
             console.error('Errore nella conversione di nationalities:', e);
           }

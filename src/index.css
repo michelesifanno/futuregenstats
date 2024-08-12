@@ -16,23 +16,15 @@ body {
 .MuiTableContainer-root {
   box-shadow: none!important;
 }
-.MuiAccordionDetails-root {
-  padding: 0px;
+
+.MuiAccordionSummary-root.Mui-expanded {
+  border-bottom: 1px solid #eee!important;
 }
 
-.MuiAccordionSummary-content {
-  margin:0px!important;
-}
-
-.MuiAccordionSummary-root {
-  padding: 30px !important;
-  margin: 0px !important;
-
-}
 
 .MuiAccordion-root {
   box-shadow: none !important;
-  border-radius: 20px !important;
+  border-radius: 5px !important;
   margin-bottom:15px!important;
 }
 
@@ -49,3 +41,5 @@ body {
 .css-bfhx1x {
   padding: 0px 10px!important; 
 }
+
+

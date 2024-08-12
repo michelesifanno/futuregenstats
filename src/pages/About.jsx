@@ -3,11 +3,10 @@ import { Container, Typography, Box, List, ListItem, ListItemText } from '@mui/m
 import BestPlayersByCompetition from '../components/BestPlayersByCompetition';
 
 export default function About () {
-    const competitionId = 'IT1';
 
   return (
     <Container maxWidth="md" sx={{ padding: '160px 0px 40px 0px' }}>
-        <BestPlayersByCompetition competitionId={competitionId} />
+        <BestPlayersByCompetition  />
       <Typography variant="h2" gutterBottom>
          a Future Gen Stats
       </Typography>
