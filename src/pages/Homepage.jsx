@@ -26,7 +26,7 @@ function Homepage() {
                                 id="best-players-by-competition"
                                 sx={{padding:'4px 20px'}}
                             >
-                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '18px' }}>Migliori giovani calciatori per competizione</Typography>
+                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori giovani calciatori per competizione</Typography>
                             </AccordionSummary>
                             <AccordionDetails sx={{padding: '0px'}}>
                                 <BestPlayersByCompetition />

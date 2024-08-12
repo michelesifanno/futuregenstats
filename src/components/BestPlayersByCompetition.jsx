@@ -89,7 +89,7 @@ export default function BestPlayersByCompetition() {
                   key={competition.id}
                   variant={competitionId === competition.id ? 'contained' : 'outlined'}
                   onClick={() => handleCompetitionChange(competition.id)}
-                  sx={{ margin: '5px', height: '60px', padding: '0px', minWidth: '60px' }}
+                  sx={{ margin: '2px', height: '60px', padding: '0px', minWidth: '60px' }}
                 >
                   <img
                     src={competition.competitionimage}
@@ -160,7 +160,7 @@ export default function BestPlayersByCompetition() {
                   sx={{ '&:last-child td, &:last-child th': { border: 0 }, ...rankStyle }}
                 >
                   <TableCell
-                    align="left"
+                    align="center"
                     sx={{
                       padding: isMobile ? '30px 0px 30px 15px' : '20px'
                     }}
@@ -175,7 +175,7 @@ export default function BestPlayersByCompetition() {
                       padding: isMobile ? '8px' : '20px'
                     }}
                   >
-                    <img src={player.player_image} alt={player.player_name} style={{ width: isMobile ? '36px' : '50px', borderRadius: '5px' }} />
+                    <img src={player.player_image} alt={player.player_name} style={{ width: isMobile ? '36px' : '45px', borderRadius: '5px' }} />
                   </TableCell>
                   <TableCell
                     align="left"
@@ -183,10 +183,10 @@ export default function BestPlayersByCompetition() {
                       padding: isMobile ? '8px' : '20px'
                     }}
                   >
-                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '18px' }}>
+                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
                       {player.player_name}
                     </Typography>
-                    <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '16px' }}>
+                    <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '14px' }}>
                       {player.positions}
                     </Typography>
                   </TableCell>
@@ -205,7 +205,7 @@ export default function BestPlayersByCompetition() {
                         padding: isMobile ? '8px' : '20px'
                       }}
                     >
-                      <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>{player.nationalities}</Typography>
+                      <Typography sx={{ fontWeight: 500, fontSize:'14px' }}>{player.nationalities}</Typography>
                     </TableCell>
                   )}
                   {!(isMobile || isTablet) && (
@@ -215,7 +215,7 @@ export default function BestPlayersByCompetition() {
                         padding: isMobile ? '8px' : '20px'
                       }}
                     >
-                      <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
+                      <Typography sx={{ fontWeight: 500, fontSize: '14px' }}>
                         {player.marketvalue} {player.marketvaluecurrency}
                       </Typography>
                     </TableCell>
@@ -226,7 +226,7 @@ export default function BestPlayersByCompetition() {
                       padding: isMobile ? '30px 15px 30px 0px' : '20px'
                     }}
                   >
-                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px', color: rankStyle.color }}>
+                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '18px', color: rankStyle.color }}>
                       {player.total_score}
                     </Typography>
                   </TableCell>
