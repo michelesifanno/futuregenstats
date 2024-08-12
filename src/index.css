@@ -38,8 +38,6 @@ body {
   margin: 0px !important;
 }
 
-.css-bfhx1x {
-  padding: 0px 10px!important; 
+.MuiTableRow-root:hover {
+  background-color: #f8f8f8;
 }
-
-
