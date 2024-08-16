@@ -24,7 +24,7 @@ function Homepage() {
         <Box sx={{ background: theme.palette.secondary.main, padding: isMobile ? '100px 10px' : '120px 20px' }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Box>
+                    <Box sx={{padding: isMobile ? '0px' : '20px 40px'}}>
                         <Accordion defaultExpanded>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
@@ -41,8 +41,8 @@ function Homepage() {
                     </Box>
                 </Grid>
                 <Grid item xs={12}>
-                    <Box id="best-players-by-competition">
-                        <Accordion>
+                <Box sx={{padding: isMobile ? '0px' : '20px 40px'}}>
+                <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
                                 aria-controls="best-players-competition"
@@ -59,7 +59,7 @@ function Homepage() {
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                <Box id="best-gk" sx={{paddingRight: isMobile ? '0px' : '10px'}}>
+                <Box id="best-gk" sx={{padding: isMobile ? '0px' : '20px 40px', paddingRight: isMobile ? '0px' : '20px'}}>
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
@@ -77,7 +77,7 @@ function Homepage() {
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                <Box id="best-df" sx={{paddingLeft: isMobile ? '0px' : '10px'}}>
+                <Box id="best-df" sx={{padding: isMobile ? '0px' : '20px 40px', paddingLeft: isMobile ? '0px' : '20px'}}>
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
@@ -95,7 +95,7 @@ function Homepage() {
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                <Box id="best-mf" sx={{paddingRight: isMobile ? '0px' : '10px'}}>
+                <Box id="best-mf" sx={{padding: isMobile ? '0px' : '20px 40px', paddingRight: isMobile ? '0px' : '20px'}}>
                 <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
@@ -113,7 +113,7 @@ function Homepage() {
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                    <Box id="best-fw" sx={{paddingLeft: isMobile ? '0px' : '10px'}}>
+                    <Box id="best-fw" sx={{padding: isMobile ? '0px' : '20px 40px', paddingLeft: isMobile ? '0px' : '20px'}}>
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
