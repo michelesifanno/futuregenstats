@@ -14,6 +14,7 @@ function Homepage() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+    const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
     const [filter, setFilter] = useState('matches'); // Imposta il filtro predefinito
 
     const handleFilterChange = (event) => {
@@ -25,7 +26,7 @@ function Homepage() {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Box sx={{padding: isMobile ? '0px' : '20px 40px'}}>
-                        <Accordion defaultExpanded>
+                        <Accordion defaultExpanded={isDesktop}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
                                 aria-controls="most-experienced-players"
@@ -42,7 +43,7 @@ function Homepage() {
                 </Grid>
                 <Grid item xs={12}>
                 <Box sx={{padding: isMobile ? '0px' : '20px 40px'}}>
-                <Accordion>
+                <Accordion defaultExpanded={isDesktop}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
                                 aria-controls="best-players-competition"
@@ -60,7 +61,7 @@ function Homepage() {
 
                 <Grid item xs={12} md={6}>
                 <Box id="best-gk" sx={{padding: isMobile ? '0px' : '20px 40px', paddingRight: isMobile ? '0px' : '20px'}}>
-                        <Accordion>
+                        <Accordion defaultExpanded={isDesktop}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
                                 aria-controls="best-gk"
@@ -78,7 +79,7 @@ function Homepage() {
 
                 <Grid item xs={12} md={6}>
                 <Box id="best-df" sx={{padding: isMobile ? '0px' : '20px 40px', paddingLeft: isMobile ? '0px' : '20px'}}>
-                        <Accordion>
+                        <Accordion defaultExpanded={isDesktop}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
                                 aria-controls="best-df"
@@ -96,7 +97,7 @@ function Homepage() {
 
                 <Grid item xs={12} md={6}>
                 <Box id="best-mf" sx={{padding: isMobile ? '0px' : '20px 40px', paddingRight: isMobile ? '0px' : '20px'}}>
-                <Accordion>
+                <Accordion defaultExpanded={isDesktop}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
                                 aria-controls="best-mf"
@@ -111,10 +112,10 @@ function Homepage() {
                         </Accordion>
                     </Box>
                 </Grid>
-
+                
                 <Grid item xs={12} md={6}>
                     <Box id="best-fw" sx={{padding: isMobile ? '0px' : '20px 40px', paddingLeft: isMobile ? '0px' : '20px'}}>
-                        <Accordion>
+                        <Accordion defaultExpanded={isDesktop}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
                                 aria-controls="best-fw"
@@ -129,7 +130,6 @@ function Homepage() {
                         </Accordion>
                     </Box>
                 </Grid>
-
 
             </Grid>
         </Box>
