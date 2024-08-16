@@ -65,11 +65,6 @@ export default function BestMF() {
 
   return (
     <>
-      <div style={{ padding: '20px' }}>
-        <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '14px', marginBottom: isMobile ? '10px' : '20px' }}>
-            Mediante un algoritmo, lo score segnala i migliori portieri.
-        </Typography>
-      </div>
       {players.length === 0 ? (
         <Typography sx={{ fontWeight: 500, fontSize: '16px', padding: '40px 20px', color: 'red' }}>
           Non ci sono giocatori che soddisfano le richieste.
