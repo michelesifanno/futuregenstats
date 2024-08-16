@@ -3,6 +3,7 @@ import { Grid, Button, Typography, useMediaQuery, InputLabel, MenuItem, FormCont
 import { styled, useTheme } from '@mui/material/styles';
 import { useMostExperiencedPlayers } from '../utils/useMostExperiencedPlayers';
 import { CircularProgress } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 
 // Stili personalizzati per i bottoni
@@ -65,8 +66,8 @@ export default function MostExperiencedPlayers() {
     <>
       <div style={{ padding: '20px' }}>
         <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '14px', marginBottom: isMobile ? '10px' : '20px' }}>
-            Mediante un algoritmo, lo score segnala i giovani calciatori con maggior esperienza.
-            </Typography>
+          Mediante un algoritmo, lo score segnala i giovani calciatori con maggior esperienza.
+        </Typography>
         <Grid container spacing={2}>
           {/* Colonna per le categorie di età */}
           <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
@@ -91,14 +92,14 @@ export default function MostExperiencedPlayers() {
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {['Under 18', 'Under 19', 'Under 20', 'Under 21', 'Under 22', 'Under 23'].map((category) => (
                   <StyledButton
-                  key={category}
-                  variant={ageCategory === category ? 'contained' : 'outlined'}
-                  onClick={() => handleAgeCategoryChange({ target: { value: category } })}
-                  sx={{ padding: '10px 20px', margin: '5px', fontSize: '14px' }}
-                >
-                  {category}
-                </StyledButton>
-              ))}
+                    key={category}
+                    variant={ageCategory === category ? 'contained' : 'outlined'}
+                    onClick={() => handleAgeCategoryChange({ target: { value: category } })}
+                    sx={{ padding: '10px 20px', margin: '5px', fontSize: '14px' }}
+                  >
+                    {category}
+                  </StyledButton>
+                ))}
               </div>
             )}
           </Grid>
@@ -151,7 +152,9 @@ export default function MostExperiencedPlayers() {
                     }}
                   >
                     <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
-                      {player.player_name}
+                      <Link to={`/player/${player.player_id}`}>
+                        {player.player_name}
+                      </Link>
                     </Typography>
                     <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '14px' }}>
                       {player.positions}
@@ -172,7 +175,7 @@ export default function MostExperiencedPlayers() {
                         padding: isMobile ? '8px' : '20px'
                       }}
                     >
-                      <Typography sx={{ fontWeight: 500, fontSize:'14px' }}>{player.nationalities}</Typography>
+                      <Typography sx={{ fontWeight: 500, fontSize: '14px' }}>{player.nationalities}</Typography>
                     </TableCell>
                   )}
                   {!(isMobile || isTablet) && (
