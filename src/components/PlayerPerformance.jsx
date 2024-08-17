@@ -3,8 +3,8 @@ import { useMediaQuery, Accordion, AccordionSummary, AccordionDetails, Typograph
 import { useTheme } from '@emotion/react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export default function PlayerPerformance ({ performance = [], name })  {
-    
+export default function PlayerPerformance({ performance = [], name }) {
+
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
@@ -21,7 +21,7 @@ export default function PlayerPerformance ({ performance = [], name })  {
     const totalConcededGoals = performance.reduce((acc, curr) => acc + (curr.conceded_goals || 0), 0);
     const totalOwnGoals = performance.reduce((acc, curr) => acc + (curr.own_goals || 0), 0);
     const totalPenaltyGoals = performance.reduce((acc, curr) => acc + (curr.penalty_goals || 0), 0);
-    
+
     // Aggregare le competizioni
     const competitions = performance.map((p) => ({
         id: p.competition_id,
@@ -29,6 +29,39 @@ export default function PlayerPerformance ({ performance = [], name })  {
         image: p.competition_image,
         matches: p.matches
     }));
+
+    const performanceByCompetition = performance.reduce((acc, curr) => {
+        const comp = acc[curr.competition_id] || {
+            competition_name: curr.competition_name,
+            competition_image: curr.competition_image,
+            goals: 0,
+            matches: 0,
+            minutes_played: 0,
+            assists: 0,
+            yellow_cards: 0,
+            red_cards: 0,
+            conceded_goals: 0,
+            own_goals: 0,
+            penalty_goals: 0,
+            to_nil: 0,
+            yellow_red_cards: 0,
+        };
+
+        comp.goals += curr.goals || 0;
+        comp.matches += curr.matches || 0;
+        comp.minutes_played += curr.minutes_played || 0;
+        comp.assists += curr.assists || 0;
+        comp.yellow_cards += curr.yellow_cards || 0;
+        comp.red_cards += curr.red_cards || 0;
+        comp.conceded_goals += curr.conceded_goals || 0;
+        comp.own_goals += curr.own_goals || 0;
+        comp.penalty_goals += curr.penalty_goals || 0;
+        comp.to_nil += curr.to_nil || 0;
+        comp.yellow_red_cards += curr.yellow_red_cards || 0;
+
+        acc[curr.competition_id] = comp;
+        return acc;
+    }, {});
 
     // Rimuovere le competizioni duplicate
     const uniqueCompetitions = Array.from(new Set(competitions.map(c => c.id)))
@@ -40,60 +73,67 @@ export default function PlayerPerformance ({ performance = [], name })  {
         <div>
             <Accordion defaultExpanded>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="general-stats-content" id="general-stats-header">
-                    <Typography>Statistiche Generali di <span style={{color:'#2047e4', fontWeight:600}}>{name}</span></Typography>
+                    {!isGoalkeeper && (
+                        <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>
+                            Statistiche generali di <span style={{ color: '#2047e4', fontWeight: 600 }}>{name}</span> ⚽️
+                        </Typography>
+                    )}
+                    {isGoalkeeper && (
+                        <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>
+                            Statistiche generali di <span style={{ color: '#2047e4', fontWeight: 600 }}>{name}</span> 🧤
+                        </Typography>
+                    )}
                 </AccordionSummary>
                 <AccordionDetails>
                     <TableContainer component={Paper}>
                         <Table>
                             <TableBody>
                                 <TableRow>
-                                    <TableCell>Goals</TableCell>
-                                    <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{totalGoals}</TableCell>
+                                    <TableCell className="title-stats">Goals</TableCell>
+                                    <TableCell className="value-stats" >{totalGoals}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Partite</TableCell>
-                                    <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{totalMatches}</TableCell>
+                                    <TableCell className="title-stats">Partite</TableCell>
+                                    <TableCell className="value-stats" >{totalMatches}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Minuti giocati</TableCell>
-                                    <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{totalMinutesPlayed}</TableCell>
+                                    <TableCell className="title-stats">Minuti giocati</TableCell>
+                                    <TableCell className="value-stats" >{totalMinutesPlayed}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Assists</TableCell>
-                                    <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{totalAssists}</TableCell>
+                                    <TableCell className="title-stats">Assists</TableCell>
+                                    <TableCell className="value-stats" >{totalAssists}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Cartellini gialli</TableCell>
-                                    <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{totalYellowCards}</TableCell>
+                                    <TableCell className="title-stats">Cartellini gialli</TableCell>
+                                    <TableCell className="value-stats" >{totalYellowCards}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Cartellini rossi</TableCell>
-                                    <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{totalRedCards}</TableCell>
-                                </TableRow>
-                                {isGoalkeeper && (
-                                <TableRow>
-                                    <TableCell>Goal concessi</TableCell>
-                                    <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{totalConcededGoals}</TableCell>
-                                </TableRow>
-                                )}
-                                <TableRow>
-                                    <TableCell>Autogol</TableCell>
-                                    <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{totalOwnGoals}</TableCell>
+                                    <TableCell className="title-stats">Cartellini rossi</TableCell>
+                                    <TableCell className="value-stats" >{totalRedCards}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Rigori segnati</TableCell>
-                                    <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{totalPenaltyGoals}</TableCell>
+                                    <TableCell className="title-stats">Autogol</TableCell>
+                                    <TableCell className="value-stats" >{totalOwnGoals}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell className="title-stats">Rigori segnati</TableCell>
+                                    <TableCell className="value-stats" >{totalPenaltyGoals}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell className="title-stats">Doppia ammonizione</TableCell>
+                                    <TableCell className="value-stats">{performance.reduce((acc, curr) => acc + (curr.yellow_red_cards || 0), 0)}</TableCell>
                                 </TableRow>
                                 {isGoalkeeper && (
                                     <TableRow>
-                                        <TableCell>Doppia ammonizione</TableCell>
-                                        <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{performance.reduce((acc, curr) => acc + (curr.yellow_red_cards || 0), 0)}</TableCell>
+                                        <TableCell className="title-stats">Goal concessi</TableCell>
+                                        <TableCell className="value-stats">{totalConcededGoals}</TableCell>
                                     </TableRow>
                                 )}
                                 {isGoalkeeper && (
                                     <TableRow>
-                                        <TableCell>Porta inviolata</TableCell>
-                                        <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{performance.reduce((acc, curr) => acc + (curr.to_nil || 0), 0)}</TableCell>
+                                        <TableCell className="title-stats">Porta inviolata</TableCell>
+                                        <TableCell className="value-stats">{performance.reduce((acc, curr) => acc + (curr.to_nil || 0), 0)}</TableCell>
                                     </TableRow>
                                 )}
                             </TableBody>
@@ -102,34 +142,82 @@ export default function PlayerPerformance ({ performance = [], name })  {
                 </AccordionDetails>
             </Accordion>
 
-            <Accordion defaultExpanded={isMobile || isTablet}>
+            <Accordion defaultExpanded>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="competitions-content" id="competitions-header">
-                    <Typography>Competizioni Giocate</Typography>
+                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>
+                        Competizioni giocate 🏆
+                    </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    {uniqueCompetitions.length > 0 ? (
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableBody>
-                                    {uniqueCompetitions.map((comp) => (
-                                        <TableRow key={comp.id}>
-                                            <TableCell>
-                                                {comp.image ? (
-                                                    <img src={comp.image} alt={comp.name} style={{ width: 50, height: 50 }} />
-                                                ) : (
-                                                    'N/A'
-                                                )}
-                                            </TableCell>
-                                            <TableCell>{comp.name || 'N/A'}</TableCell>
-                                            <TableCell sx={{color:'#2047e4', textAlign:'right'}}>{comp.matches || 0} partite</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    ) : (
-                        <Typography>Nessuna competizione trovata.</Typography>
-                    )}
+                    {Object.values(performanceByCompetition).map((comp, index) => (
+                        <Accordion key={index}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls={`competition-${index}-content`}
+                                id={`competition-${index}-header`}
+                                sx={{ display: 'flex!important', alignItems: 'center!important', borderBottom:'1px solid #eee' }}
+                            >
+                                <img src={comp.competition_image} alt={comp.competition_name} style={{ width: 30, marginRight: '10px' }} />
+                                <Typography sx={{fontSize:'14px'}}>{comp.competition_name}</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <TableContainer component={Paper}>
+                                    <Table>
+                                        <TableBody>
+                                            <TableRow>
+                                                <TableCell className="title-stats-comp">Goals</TableCell>
+                                                <TableCell className="value-stats-comp" >{comp.goals}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell className="title-stats-comp">Partite</TableCell>
+                                                <TableCell className="value-stats-comp" >{comp.matches}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell className="title-stats-comp">Minuti giocati</TableCell>
+                                                <TableCell className="value-stats-comp" >{comp.minutes_played}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell className="title-stats-comp">Assists</TableCell>
+                                                <TableCell className="value-stats-comp" >{comp.assists}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell className="title-stats-comp">Cartellini gialli</TableCell>
+                                                <TableCell className="value-stats-comp" >{comp.yellow_cards}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell className="title-stats-comp">Cartellini rossi</TableCell>
+                                                <TableCell className="value-stats-comp" >{comp.red_cards}</TableCell>
+                                            </TableRow>
+                                            {isGoalkeeper && (
+                                                <>
+                                                    <TableRow>
+                                                        <TableCell className="title-stats-comp">Goal concessi</TableCell>
+                                                        <TableCell className="value-stats-comp" >{comp.conceded_goals}</TableCell>
+                                                    </TableRow>
+                                                    <TableRow>
+                                                        <TableCell className="title-stats-comp">Doppia ammonizione</TableCell>
+                                                        <TableCell className="value-stats-comp" >{comp.yellow_red_cards}</TableCell>
+                                                    </TableRow>
+                                                    <TableRow>
+                                                        <TableCell className="title-stats-comp">Porta inviolata</TableCell>
+                                                        <TableCell className="value-stats-comp" >{comp.to_nil}</TableCell>
+                                                    </TableRow>
+                                                </>
+                                            )}
+                                            <TableRow>
+                                                <TableCell className="title-stats-comp">Autogol</TableCell>
+                                                <TableCell className="value-stats-comp" >{comp.own_goals}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell className="title-stats-comp">Rigori segnati</TableCell>
+                                                <TableCell className="value-stats-comp" >{comp.penalty_goals}</TableCell>
+                                            </TableRow>
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </AccordionDetails>
+                        </Accordion>
+                    ))}
                 </AccordionDetails>
             </Accordion>
         </div>

@@ -24,12 +24,12 @@ export default function Player() {
     return (
         <Box sx={{
             background: theme.palette.secondary.main,
-            padding: isMobile ? '80px 0px' : '100px 20px',
+            padding: isMobile ? '100px 10px' : '110px 20px',
             minHeight: '100vh',
         }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={7}>
-                    <Box sx={{ padding: isMobile ? '10px' : '10px 20px' }}>
+                    <Box sx={{ padding: isMobile ? '0px 0px 10px 0px' : '10px' }}>
                         <PlayerName
                             image={player?.image}
                             name={player?.name}
@@ -39,7 +39,7 @@ export default function Player() {
                             value_currency={player?.marketvaluecurrency}
                         />
                     </Box>
-                    <Box sx={{ padding: isMobile ? '10px' : '10px 20px' }}>
+                    <Box sx={{ padding: isMobile ? '0px 0px' : '10px' }}>
                         <PlayerInfo
                             club_name={club?.name}
                             club_image={club?.image}
@@ -52,9 +52,12 @@ export default function Player() {
                             positions={player?.positions}
                         />
                     </Box>
+                    <Box sx={{ padding: isMobile ? '10px 0px 0px 0px' : '10px' }}>
+                        <PlayerNews playerName={player?.name} />
+                    </Box>
                 </Grid>
                 <Grid item xs={12} md={5}>
-                    <Box sx={{ padding: isMobile ? '10px' : '10px 20px' }}>
+                    <Box sx={{ padding: isMobile ? '0px 0px' : '10px' }}>
                         <PlayerPerformance
                             performance={performance}
                             name={player?.name}
