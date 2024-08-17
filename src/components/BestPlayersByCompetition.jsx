@@ -4,6 +4,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import { useBestPlayersPerCompetition } from '../utils/useBestPlayersPerCompetition';
 import { useCompetitions } from '../utils/useCompetitions';
 import { CircularProgress } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 
 // Stili personalizzati per i bottoni
@@ -193,7 +194,9 @@ export default function BestPlayersByCompetition() {
                     }}
                   >
                     <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
+                    <Link to={`/player/${player.player_id}`} style={{textDecoration: 'none', color: '#333'}}>
                       {player.player_name}
+                      </Link>
                     </Typography>
                     <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '14px' }}>
                       {player.positions}

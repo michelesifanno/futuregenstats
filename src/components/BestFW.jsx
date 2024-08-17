@@ -3,6 +3,7 @@ import { Grid, Button, Typography, useMediaQuery, CircularProgress, Table, Table
 import { styled, useTheme } from '@mui/material/styles';
 import { useBestPlayersByRole } from '../utils/useBestPlayersByRole';
 import { useCompetitions } from '../utils/useCompetitions';
+import { Link } from 'react-router-dom';
 
 // Stili personalizzati per i bottoni
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -112,7 +113,9 @@ export default function BestFW() {
                       }}
                     >
                       <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
+                      <Link to={`/player/${player.player_id}`} style={{textDecoration: 'none', color: '#333'}}>
                         {player.player_name}
+                        </Link>
                       </Typography>
                     </TableCell>
                     <TableCell

@@ -33,7 +33,7 @@ function Homepage() {
                                 id="most-experienced-players"
                                 sx={{ padding: '4px 20px' }}
                             >
-                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Most Experienced Players 👴🏻</Typography>
+                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Giovani con più esperienza 👴🏻</Typography>
                             </AccordionSummary>
                             <AccordionDetails sx={{ padding: '0px' }}>
                                 <MostExperiencedPlayers />
@@ -68,7 +68,7 @@ function Homepage() {
                                 id="best-gk"
                                 sx={{ padding: '4px 20px' }}
                             >
-                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori portieri 🧤</Typography>
+                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori giovani portieri 🧤</Typography>
                             </AccordionSummary>
                             <AccordionDetails sx={{ padding: '0px' }}>
                                 <BestGK />
@@ -86,7 +86,7 @@ function Homepage() {
                                 id="best-df"
                                 sx={{ padding: '4px 20px' }}
                             >
-                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori difensori 🧱</Typography>
+                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori giovani difensori 🧱</Typography>
                             </AccordionSummary>
                             <AccordionDetails sx={{ padding: '0px' }}>
                                 <BestDF />
@@ -104,7 +104,7 @@ function Homepage() {
                                 id="best-mf"
                                 sx={{ padding: '4px 20px' }}
                             >
-                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori centrocampisti 👟</Typography>
+                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori giovani centrocampisti 👟</Typography>
                             </AccordionSummary>
                             <AccordionDetails sx={{ padding: '0px' }}>
                                 <BestMF />
@@ -122,7 +122,7 @@ function Homepage() {
                                 id="best-fw"
                                 sx={{ padding: '4px 20px' }}
                             >
-                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori attaccanti ⚽️</Typography>
+                                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori giovani attaccanti ⚽️</Typography>
                             </AccordionSummary>
                             <AccordionDetails sx={{ padding: '0px' }}>
                                 <BestFW />
