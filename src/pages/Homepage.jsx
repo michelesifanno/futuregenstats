@@ -22,11 +22,11 @@ function Homepage() {
     };
 
     return (
-        <Box sx={{ background: theme.palette.secondary.main, padding: isMobile ? '100px 10px' : '120px 20px' }}>
+        <Box sx={{ background: theme.palette.secondary.main, padding: isMobile ? '100px 10px' : '120px 20px', minHeight:'100vh' }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Box sx={{padding: isMobile ? '0px' : '20px 40px'}}>
-                        <Accordion defaultExpanded={isDesktop}>
+                        <Accordion defaultExpanded>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
                                 aria-controls="most-experienced-players"

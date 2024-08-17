@@ -41,8 +41,3 @@ body {
 .MuiTableRow-root:hover {
   background-color: #f8f8f8;
 }
-
-a {
-  text-decoration: none;
-  color: #333;
-}

@@ -1,55 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { usePlayers } from '../utils/usePlayers';
 import { useTheme } from '@emotion/react';
-import {
-    Box,
-    Typography,
-    Grid,
-    CircularProgress,
-    useMediaQuery
-} from '@mui/material';
-
+import { Box, Typography, Grid, CircularProgress, useMediaQuery } from '@mui/material';
+import PlayerName from '../components/PlayerName';
+import PlayerInfo from '../components/PlayerInfo';
+import PlayerPerformance from '../components/PlayerPerformance';
+import PlayerNews from '../components/PlayerNews';
 
 export default function Player() {
     const { slug } = useParams();
     const { player, performance, club, loading, error } = usePlayers(slug);
+    console.log('Player:', player);
+    console.log('Performance:', performance);
+    console.log('Club:', club);
+
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-    const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-
 
     if (loading) return <CircularProgress />;
     if (error) return <Typography color="error">Errore: {error}</Typography>;
 
     return (
-        <Box sx={{ background: theme.palette.secondary.main, padding: isMobile ? '100px 10px' : '120px 20px' }}>
+        <Box sx={{
+            background: theme.palette.secondary.main,
+            padding: isMobile ? '80px 0px' : '100px 20px',
+            minHeight: '100vh',
+        }}>
             <Grid container spacing={2}>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            borderRadius: '5px',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            padding: '20px',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            backgroundColor: '#fff',
-                        }}
-                    >
-                        <Grid item xs={12} md={4}>
-                            <img src={player.image} alt={player.name} style={{ width: isMobile ? '36px' : '120px', borderRadius: '5px' }} />
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                            <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '14px' }}>
-                                {player.name}
-                            </Typography>
-                        </Grid>
+                <Grid item xs={12} md={7}>
+                    <Box sx={{ padding: isMobile ? '10px' : '10px 20px' }}>
+                        <PlayerName
+                            image={player?.image}
+                            name={player?.name}
+                            position={player?.positions}
+                            club_image={club?.image}
+                            value={player?.marketvalue}
+                            value_currency={player?.marketvaluecurrency}
+                        />
+                    </Box>
+                    <Box sx={{ padding: isMobile ? '10px' : '10px 20px' }}>
+                        <PlayerInfo
+                            club_name={club?.name}
+                            club_image={club?.image}
+                            dateofbirth={player?.dateOfBirth}
+                            age={player?.age}
+                            height={player?.height}
+                            nationalities={player?.nationalities}
+                            foot={player?.foot}
+                            shirtnumber={player?.shirtnumber}
+                            positions={player?.positions}
+                        />
                     </Box>
                 </Grid>
+                <Grid item xs={12} md={5}>
+                    <Box sx={{ padding: isMobile ? '10px' : '10px 20px' }}>
+                        <PlayerPerformance
+                            performance={performance}
+                            name={player?.name}
+                        />
+                    </Box>
+                </Grid>
+            </Grid>
         </Box>
     );
 }

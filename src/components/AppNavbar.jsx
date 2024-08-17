@@ -54,7 +54,7 @@ export default function AppNavbar() {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, position: 'fixed', width: '100%', zIndex: 1, height: 'auto' }}>
+        <Box sx={{ flexGrow: 1, position: 'fixed', width: '100%', zIndex: 999999, height: 'auto' }}>
             <AppBar sx={{ alignItems: 'center', height: isMobile ? '70px' : '80px' }}>
                 <Grid container alignItems="center" sx={{ height: '100%' }}>
                     {/* Logo */}

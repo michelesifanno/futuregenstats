@@ -152,7 +152,7 @@ export default function MostExperiencedPlayers() {
                     }}
                   >
                     <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
-                      <Link to={`/player/${player.player_id}`}>
+                      <Link to={`/player/${player.player_id}`} style={{textDecoration: 'none', color: '#333'}}>
                         {player.player_name}
                       </Link>
                     </Typography>
