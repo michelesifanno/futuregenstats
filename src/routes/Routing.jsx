@@ -20,11 +20,6 @@ import Under18 from "../pages/Under18";
           path: "/player/:slug",
           element: <Player />,
         },
-        {
-          path: "/under-18",
-          element: <Under18 />,
-        },
-
           ]
         }
       ]
