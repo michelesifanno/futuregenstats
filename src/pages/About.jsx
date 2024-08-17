@@ -8,7 +8,7 @@ export default function About () {
     <Container maxWidth="md" sx={{ padding: '160px 0px 40px 0px' }}>
         <BestPlayersByCompetition  />
       <Typography variant="h2" gutterBottom>
-         a Future Gen Stats
+         Future Gen Stats
       </Typography>
 
       <Typography variant="h5" paragraph>

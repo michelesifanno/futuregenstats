@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import { AppBar, Box, InputBase, Grid, Drawer, IconButton, Typography, useMediaQuery } from '@mui/material';
+import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import DiamondOutlinedIcon from '@mui/icons-material/DiamondOutlined';
@@ -54,7 +55,7 @@ export default function AppNavbar() {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, position: 'fixed', width: '100%', zIndex: 999999, height: 'auto' }}>
+        <Box sx={{ flexGrow: 1, position: 'fixed', width: '100%', zIndex: 4, height: 'auto' }}>
             <AppBar sx={{ alignItems: 'center', height: isMobile ? '70px' : '80px' }}>
                 <Grid container alignItems="center" sx={{ height: '100%' }}>
                     {/* Logo */}
@@ -70,11 +71,14 @@ export default function AppNavbar() {
                             padding: isMobile ? '0px 10px!important' : '0px 20px!important',
                         }}
                     >
-                        <img
-                            src="/logo.png"
-                            alt="Future Gen Stats Logo"
-                            style={{ maxWidth: isMobile ? '180px' : '220px' }}
-                        />
+                        <Link to="/" style={{ textDecoration: 'none', marginBottom:'-5px!important' }}>
+                            <img
+                                src="/logo.png"
+                                alt="Future Gen Stats Logo"
+                                style={{ maxWidth: isMobile ? '180px' : '220px' }}
+                                href="/"
+                            />
+                        </Link>
                     </Grid>
 
                     {/* Search bar (visible on tablets and desktops) */}
@@ -161,8 +165,8 @@ export default function AppNavbar() {
                                     fontSize: '12px',
                                     color: 'third.main',
                                     fontWeight: '500',
-                                    display: (isMobile || isTablet ) ? 'none' : 'block',
-                                    marginTop:'2px',
+                                    display: (isMobile || isTablet) ? 'none' : 'block',
+                                    marginTop: '2px',
                                 }}
                             >
                                 IHG
@@ -204,8 +208,8 @@ export default function AppNavbar() {
                                     fontSize: '12px',
                                     color: 'secondary.main',
                                     fontWeight: '500',
-                                    display: (isMobile || isTablet ) ? 'none' : 'block',
-                                    marginTop:'1px',
+                                    display: (isMobile || isTablet) ? 'none' : 'block',
+                                    marginTop: '1px',
                                 }}
                             >
                                 MENU
@@ -227,7 +231,7 @@ export default function AppNavbar() {
                             alignItems: 'center',
                             boxSizing: 'border-box',
                             backgroundColor: '#fff',
-                            zIndex: 2,
+                            zIndex: 5,
                         },
                     }}
                 >

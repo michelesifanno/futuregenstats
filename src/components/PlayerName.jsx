@@ -59,6 +59,7 @@ export default function PlayerName({ image, name, position, club_image, value, v
                                 sx={{
                                     fontWeight: 700,
                                     fontSize: '30px',
+                                    lineHeight:'36px',
                                     textAlign: 'left',
                                     color: '#fff',
                                 }}
@@ -69,6 +70,8 @@ export default function PlayerName({ image, name, position, club_image, value, v
                                 sx={{
                                     fontWeight: 500,
                                     fontSize: '20px',
+                                    lineHeight:'30px',
+                                    marginTop:'10px',
                                     textAlign: 'left',
                                     color: '#fff',
                                 }}

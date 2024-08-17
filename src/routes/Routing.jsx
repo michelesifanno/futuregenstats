@@ -4,6 +4,7 @@ import {
   import Root from '../pages/Root';
 import Homepage from "../pages/Homepage";
 import Player from "../pages/Player";
+import Under18 from "../pages/Under18";
 
 
   export const router = createBrowserRouter([
@@ -19,6 +20,11 @@ import Player from "../pages/Player";
           path: "/player/:slug",
           element: <Player />,
         },
+        {
+          path: "/under-18",
+          element: <Under18 />,
+        },
+
           ]
         }
       ]
