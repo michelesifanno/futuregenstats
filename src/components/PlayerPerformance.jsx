@@ -149,16 +149,19 @@ export default function PlayerPerformance({ performance = [], name }) {
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    {Object.values(performanceByCompetition).map((comp, index) => (
+                {Object.values(performanceByCompetition).map((comp, index) => {
+                // Check if minutes_played is greater than 0
+                if (comp.minutes_played > 0) {
+                    return (
                         <Accordion key={index}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls={`competition-${index}-content`}
                                 id={`competition-${index}-header`}
-                                sx={{ display: 'flex!important', alignItems: 'center!important', borderBottom:'1px solid #eee' }}
+                                sx={{ display: 'flex!important', alignItems: 'center!important', borderBottom: '1px solid #eee' }}
                             >
                                 <img src={comp.competition_image} alt={comp.competition_name} style={{ width: 30, marginRight: '10px' }} />
-                                <Typography sx={{fontSize:'14px'}}>{comp.competition_name}</Typography>
+                                <Typography sx={{ fontSize: '14px' }}>{comp.competition_name}</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <TableContainer component={Paper}>
@@ -166,58 +169,62 @@ export default function PlayerPerformance({ performance = [], name }) {
                                         <TableBody>
                                             <TableRow>
                                                 <TableCell className="title-stats-comp">Goals</TableCell>
-                                                <TableCell className="value-stats-comp" >{comp.goals}</TableCell>
+                                                <TableCell className="value-stats-comp">{comp.goals}</TableCell>
                                             </TableRow>
                                             <TableRow>
                                                 <TableCell className="title-stats-comp">Partite</TableCell>
-                                                <TableCell className="value-stats-comp" >{comp.matches}</TableCell>
+                                                <TableCell className="value-stats-comp">{comp.matches}</TableCell>
                                             </TableRow>
                                             <TableRow>
                                                 <TableCell className="title-stats-comp">Minuti giocati</TableCell>
-                                                <TableCell className="value-stats-comp" >{comp.minutes_played}</TableCell>
+                                                <TableCell className="value-stats-comp">{comp.minutes_played}</TableCell>
                                             </TableRow>
                                             <TableRow>
                                                 <TableCell className="title-stats-comp">Assists</TableCell>
-                                                <TableCell className="value-stats-comp" >{comp.assists}</TableCell>
+                                                <TableCell className="value-stats-comp">{comp.assists}</TableCell>
                                             </TableRow>
                                             <TableRow>
                                                 <TableCell className="title-stats-comp">Cartellini gialli</TableCell>
-                                                <TableCell className="value-stats-comp" >{comp.yellow_cards}</TableCell>
+                                                <TableCell className="value-stats-comp">{comp.yellow_cards}</TableCell>
                                             </TableRow>
                                             <TableRow>
                                                 <TableCell className="title-stats-comp">Cartellini rossi</TableCell>
-                                                <TableCell className="value-stats-comp" >{comp.red_cards}</TableCell>
+                                                <TableCell className="value-stats-comp">{comp.red_cards}</TableCell>
                                             </TableRow>
                                             {isGoalkeeper && (
                                                 <>
                                                     <TableRow>
                                                         <TableCell className="title-stats-comp">Goal concessi</TableCell>
-                                                        <TableCell className="value-stats-comp" >{comp.conceded_goals}</TableCell>
+                                                        <TableCell className="value-stats-comp">{comp.conceded_goals}</TableCell>
                                                     </TableRow>
                                                     <TableRow>
                                                         <TableCell className="title-stats-comp">Doppia ammonizione</TableCell>
-                                                        <TableCell className="value-stats-comp" >{comp.yellow_red_cards}</TableCell>
+                                                        <TableCell className="value-stats-comp">{comp.yellow_red_cards}</TableCell>
                                                     </TableRow>
                                                     <TableRow>
                                                         <TableCell className="title-stats-comp">Porta inviolata</TableCell>
-                                                        <TableCell className="value-stats-comp" >{comp.to_nil}</TableCell>
+                                                        <TableCell className="value-stats-comp">{comp.to_nil}</TableCell>
                                                     </TableRow>
                                                 </>
                                             )}
                                             <TableRow>
                                                 <TableCell className="title-stats-comp">Autogol</TableCell>
-                                                <TableCell className="value-stats-comp" >{comp.own_goals}</TableCell>
+                                                <TableCell className="value-stats-comp">{comp.own_goals}</TableCell>
                                             </TableRow>
                                             <TableRow>
                                                 <TableCell className="title-stats-comp">Rigori segnati</TableCell>
-                                                <TableCell className="value-stats-comp" >{comp.penalty_goals}</TableCell>
+                                                <TableCell className="value-stats-comp">{comp.penalty_goals}</TableCell>
                                             </TableRow>
                                         </TableBody>
                                     </Table>
                                 </TableContainer>
                             </AccordionDetails>
                         </Accordion>
-                    ))}
+                    );
+                } else {
+                    return null; // Skip rendering the Accordion if minutes_played is not greater than 0
+                }
+            })}
                 </AccordionDetails>
             </Accordion>
         </div>
