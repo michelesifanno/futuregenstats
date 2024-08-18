@@ -9,6 +9,7 @@ import BestGK from '../components/BestGK';
 import BestDF from '../components/BestDF';
 import BestMF from '../components/BestMF';
 import BestFW from '../components/BestFW';
+import AdBanner from '../components/AdBanner';
 
 
 function Homepage() {
@@ -51,9 +52,14 @@ function Homepage() {
                             </Accordion>
                         </Box>
                     </Grid>
+                    <AdBanner
+                        adClient="ca-pub-1316608172290883"
+                        adSlot="1186890591"
+                        adFormat="auto"
+                        fullWidthResponsive={true} />
                     <Grid item xs={12}>
                         <Box sx={{ padding: isMobile ? '0px' : '20px 40px' }}>
-                            <Accordion defaultExpanded={isDesktop}>
+                            <Accordion defaultExpanded>
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
                                     aria-controls="best-players-competition"
@@ -68,7 +74,11 @@ function Homepage() {
                             </Accordion>
                         </Box>
                     </Grid>
-
+                    <AdBanner
+                        adClient="ca-pub-1316608172290883"
+                        adSlot="1186890591"
+                        adFormat="auto"
+                        fullWidthResponsive={true} />
                     <Grid item xs={12} md={6}>
                         <Box id="best-gk" sx={{ padding: isMobile ? '0px' : '20px 40px', paddingRight: isMobile ? '0px' : '20px' }}>
                             <Accordion defaultExpanded={isDesktop}>
@@ -86,7 +96,6 @@ function Homepage() {
                             </Accordion>
                         </Box>
                     </Grid>
-
                     <Grid item xs={12} md={6}>
                         <Box id="best-df" sx={{ padding: isMobile ? '0px' : '20px 40px', paddingLeft: isMobile ? '0px' : '20px' }}>
                             <Accordion defaultExpanded={isDesktop}>
@@ -140,7 +149,11 @@ function Homepage() {
                             </Accordion>
                         </Box>
                     </Grid>
-
+                    <AdBanner
+                        adClient="ca-pub-1316608172290883"
+                        adSlot="1186890591"
+                        adFormat="auto"
+                        fullWidthResponsive={true} />
                 </Grid>
             </Box>
         </>
