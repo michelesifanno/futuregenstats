@@ -9,13 +9,13 @@ import AdBanner from '../components/AdBanner';
 
 
 
-function Under18() {
+function Under23() {
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const pageTitle = `Migliori Giovani Calciatori Under 18 | Future Gen Stats`;
-    const metaDescription = `I migliori calciatori Under 18 per ruolo. Scopri tutte le statistiche generali dei giovani Under 18 dei top 5 campionati europei.`;
+    const pageTitle = `Migliori Giovani Calciatori Under 23 | Future Gen Stats`;
+    const metaDescription = `I migliori calciatori Under 23 per ruolo. Scopri tutte le statistiche generali dei giovani Under 23 dei top 5 campionati europei.`;
 
     return (
         <>
@@ -34,11 +34,11 @@ function Under18() {
                                     id="best-df"
                                     sx={{ padding: '4px 20px' }}
                                 >
-                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Tutti i calciatori Under 18 📌</Typography>
+                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Tutti i calciatori Under 23 📌</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails sx={{ padding: '0px' }}>
                                     <PlayerTable
-                                        ageCategory={"Under 18"}
+                                        ageCategory={"Under 23"}
                                     />
                                 </AccordionDetails>
                             </Accordion>
@@ -54,12 +54,12 @@ function Under18() {
                                     id="best-df"
                                     sx={{ padding: '4px 20px' }}
                                 >
-                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori Portieri Under 18 🧤</Typography>
+                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori Portieri Under 23 🧤</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails sx={{ padding: '0px' }}>
                                     <BestUnderByRoleByAge
                                         role={"Porta"}
-                                        ageCategory={"Under 18"}
+                                        ageCategory={"Under 23"}
                                     />
                                 </AccordionDetails>
                             </Accordion>
@@ -74,12 +74,12 @@ function Under18() {
                                     id="best-df"
                                     sx={{ padding: '4px 20px' }}
                                 >
-                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori Difensori Under 18 🧱</Typography>
+                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori Difensori Under 23 🧱</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails sx={{ padding: '0px' }}>
                                     <BestUnderByRoleByAge
                                         role={"Difesa"}
-                                        ageCategory={"Under 18"}
+                                        ageCategory={"Under 23"}
                                     />
                                 </AccordionDetails>
                             </Accordion>
@@ -99,12 +99,12 @@ function Under18() {
                                     id="best-df"
                                     sx={{ padding: '4px 20px' }}
                                 >
-                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori Centrocampisti Under 18 👟</Typography>
+                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori Centrocampisti Under 23 👟</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails sx={{ padding: '0px' }}>
                                     <BestUnderByRoleByAge
                                         role={"Centrocampo"}
-                                        ageCategory={"Under 18"}
+                                        ageCategory={"Under 23"}
                                     />
                                 </AccordionDetails>
                             </Accordion>
@@ -119,12 +119,12 @@ function Under18() {
                                     id="best-df"
                                     sx={{ padding: '4px 20px' }}
                                 >
-                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori Attaccanti Under 18 ⚽️</Typography>
+                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori Attaccanti Under 23 ⚽️</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails sx={{ padding: '0px' }}>
                                     <BestUnderByRoleByAge
                                         role={"Attacco"}
-                                        ageCategory={"Under 18"}
+                                        ageCategory={"Under 23"}
                                     />
                                 </AccordionDetails>
                             </Accordion>
@@ -136,4 +136,4 @@ function Under18() {
     );
 }
 
-export default Under18;
+export default Under23;

@@ -71,3 +71,13 @@ body {
   font-size: 14px!important;
   font-weight: 400!important;
 }
+
+.MuiDataGrid-cell {
+  border:none!important;
+  display: flex!important;
+  align-items: center!important;
+}
+
+.MuiDataGrid-root {
+  border-width: 0px!important;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { usePlayers } from '../utils/usePlayers';
+import { usePlayer } from '../utils/usePlayer';
 import { useTheme } from '@emotion/react';
 import { Box, Typography, Grid, CircularProgress, useMediaQuery } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
@@ -11,7 +11,7 @@ import PlayerNews from '../components/PlayerNews';
 
 export default function Player() {
     const { slug } = useParams();
-    const { player, performance, club, loading, error } = usePlayers(slug);
+    const { player, performance, club, loading, error } = usePlayer(slug);
     console.log('Player:', player);
     console.log('Performance:', performance);
     console.log('Club:', club);

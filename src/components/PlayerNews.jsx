@@ -3,19 +3,23 @@ import { Typography, Table, TableBody, TableCell, TableContainer, TableRow, Avat
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@emotion/react';
 
-export default function PlayerNews({ playerName, playerClub }) {
+export default function PlayerNews({ playerName, playerClub, playerRole }) {
   const [news, setNews] = useState([]);
   const [error, setError] = useState(null);
   const apiKey = import.meta.env.VITE_NEWS_API; // Assicurati che la chiave API sia correttamente configurata
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const sanitizeString = (str) => {
+    return str.replace(/[^\w\s]/gi, ' ').trim();
+  };
+  
   useEffect(() => {
     const fetchNews = async () => {
+      const sanitizedClubName = sanitizeString(playerClub);
       try {
         const response = await fetch(
-          `https://gnews.io/api/v4/search?q=${encodeURIComponent(playerName)}&token=${apiKey}&lang=it&max=6`
-        );
+          `https://gnews.io/api/v4/search?q=${encodeURIComponent(playerName)}%20${encodeURIComponent(sanitizedClubName)}&token=${apiKey}&lang=it&max=6`        );
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
         

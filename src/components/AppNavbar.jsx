@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import { AppBar, Box, InputBase, Grid, Drawer, IconButton, Typography, useMediaQuery } from '@mui/material';
+import { AppBar, Box, InputBase, Grid, Drawer, IconButton, Typography, useMediaQuery, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import DiamondOutlinedIcon from '@mui/icons-material/DiamondOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
+import MenuItems from './MenuItems'
 
-const drawerWidth = '100%';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -41,18 +41,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function AppNavbar() {
+
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-    const [drawerOpen, setDrawerOpen] = useState(false);
+    const drawerWidth = (isMobile || isTablet ) ? '100%' : '400px';
+    const [searchDrawerOpen, setSearchDrawerOpen] = useState(false);
+    const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
 
-    const toggleDrawer = () => {
-        setDrawerOpen(!drawerOpen);
+
+    const toggleSearchDrawer = () => {
+        setSearchDrawerOpen(!searchDrawerOpen);
+    };
+
+    const toggleMenuDrawer = () => {
+        setMenuDrawerOpen(!menuDrawerOpen);
     };
 
     const handleDrawerClose = () => {
-        setDrawerOpen(false);
+        setSearchDrawerOpen(false);
+        setMenuDrawerOpen(false);
     };
+
 
     return (
         <Box sx={{ flexGrow: 1, position: 'fixed', width: '100%', zIndex: 4, height: 'auto' }}>
@@ -118,7 +128,7 @@ export default function AppNavbar() {
                             <IconButton
                                 color="inherit"
                                 aria-label="search"
-                                onClick={toggleDrawer}
+                                onClick={toggleSearchDrawer}
                                 sx={{ padding: '0px', margin: '0px!important' }}
                             >
                                 <SearchIcon sx={{ fontSize: '26px' }} />
@@ -145,7 +155,7 @@ export default function AppNavbar() {
                         <IconButton
                             color="inherit"
                             aria-label="ihg"
-                            onClick={toggleDrawer}
+                            onClick={toggleSearchDrawer}
                             sx={{
                                 padding: '0px',
                                 margin: '0px!important',
@@ -193,7 +203,7 @@ export default function AppNavbar() {
                         <IconButton
                             color="inherit"
                             aria-label="menu"
-                            onClick={toggleDrawer}
+                            onClick={toggleMenuDrawer}
                             sx={{
                                 padding: '0px',
                                 margin: '0px!important',
@@ -221,7 +231,7 @@ export default function AppNavbar() {
                 {/* Drawer per la barra di ricerca mobile */}
                 <Drawer
                     anchor="top"
-                    open={drawerOpen}
+                    open={searchDrawerOpen}
                     onClose={handleDrawerClose}
                     sx={{
                         '& .MuiDrawer-paper': {
@@ -248,6 +258,33 @@ export default function AppNavbar() {
                         />
                     </Search>
                 </Drawer>
+
+                <Drawer
+                anchor='right'
+                open={menuDrawerOpen}
+                onClose={handleDrawerClose}
+                sx={{ width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' } }}
+            >
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%',
+                        padding: '10px',
+                        backgroundColor:'#171d8d',
+                    }}
+                >
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <IconButton onClick={handleDrawerClose} sx={{marginLeft:'auto', color:'#00e8da'}}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
+                    <Divider sx={{ marginY: '10px' }} />
+                    <MenuItems />
+                </Box>
+            </Drawer>
+
+
             </AppBar>
         </Box>
     );

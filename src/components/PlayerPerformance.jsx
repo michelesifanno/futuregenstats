@@ -145,7 +145,7 @@ export default function PlayerPerformance({ performance = [], name }) {
             <Accordion defaultExpanded>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="competitions-content" id="competitions-header">
                     <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>
-                        Competizioni giocate 🏆
+                        Statistiche per Competizione 🏆
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>

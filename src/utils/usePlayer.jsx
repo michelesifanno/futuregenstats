@@ -8,35 +8,55 @@ const formatMarketValue = (value) => {
     return `${(numericValue / 1000000).toFixed(1)} mil.`;
 };
 
-export function usePlayers(ageCategory) {
-    const [players, setPlayers] = useState([]);
+// Funzione per recuperare i dettagli del giocatore e le sue performance
+export function usePlayer(playerId) {
+    const [player, setPlayer] = useState(null);
+    const [performance, setPerformance] = useState([]);
+    const [club, setClub] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchPlayers = async () => {
+        const fetchPlayerAndPerformance = async () => {
             try {
                 setLoading(true);
-
-                // Recupera le informazioni dei giocatori e dei loro club
-                const { data: playersData, error: playersError } = await supabase
+                
+                // Recupera le informazioni del giocatore e del club
+                const { data: playerData, error: playerError } = await supabase
                     .from('players')
                     .select(`
                         *,
                         clubs (
-                            id,
                             name,
                             image
                         )
                     `)
-                    .eq('age_category', ageCategory)
-                    .order('marketvalue', { ascending: false });
+                    .eq('id', playerId)
+                    .single();
 
-                if (playersError) throw playersError;
+                if (playerError) throw playerError;
 
-                // Formatta i dati dei giocatori
-                const formattedPlayers = playersData.map((player) => formatPlayerData(player));
-                setPlayers(formattedPlayers);
+                // Recupera le performance del giocatore
+                const { data: performanceData, error: performanceError } = await supabase
+                    .from('players_performance')
+                    .select('*')
+                    .eq('player_id', playerId);
+                    console.log('Performance Data:', performanceData); // Log per verificare i dati delle performance
+                if (performanceError) throw performanceError;
+
+                // Recupera le informazioni del club
+                const { data: clubData, error: clubError } = await supabase
+                    .from('clubs')
+                    .select('*')
+                    .eq('id', playerData?.club_id)
+                    .single();
+
+                if (clubError) throw clubError;
+
+                // Setta i dati nello stato
+                setPlayer(formatPlayerData(playerData));
+                setPerformance(performanceData);
+                setClub(clubData);
 
             } catch (err) {
                 setError(err.message || 'Errore nel recupero dei dati');
@@ -45,8 +65,8 @@ export function usePlayers(ageCategory) {
             }
         };
 
-        fetchPlayers();
-    }, [ageCategory]);
+        fetchPlayerAndPerformance();
+    }, [playerId]);
 
     // Funzione per formattare i dati del giocatore
     const formatPlayerData = (player) => {
@@ -76,24 +96,15 @@ export function usePlayers(ageCategory) {
             console.error('Errore nella conversione di nationalities:', e);
         }
 
-        // Aggiungi il valore numerico e formattato del marketvalue
-        const marketValueNumeric = parseFloat(player.marketvalue) || 0;
-        const marketValueFormatted = formatMarketValue(player.marketvalue);
-
         return {
             ...player,
             dateOfBirth: player.dateofbirth ? new Date(player.dateofbirth).toLocaleDateString() : 'N/A',
             positions,
             nationalities,
-            marketvalue: marketValueNumeric, // Valore numerico
-            marketvalueFormatted: marketValueFormatted, // Valore formattato per la visualizzazione
-            club: {
-                id: player.clubs?.id || 'N/A',
-                name: player.clubs?.name || 'N/A',
-                image: player.clubs?.image || '',
-            },
+            marketvalue: formatMarketValue(player.marketvalue),
+            is_goalkeeper: player.is_goalkeeper,
         };
     };
 
-    return { players, loading, error };
+    return { player, performance, club, loading, error };
 }

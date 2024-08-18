@@ -124,6 +124,16 @@ export default function BestFW() {
                         padding: isMobile ? '8px' : '20px'
                       }}
                     >
+                      <Typography sx={{ fontWeight: 500, fontSize: '14px' }}>
+                        {player.marketvalue} {player.marketvaluecurrency}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{
+                        padding: isMobile ? '8px' : '20px'
+                      }}
+                    >
                       <img src={player.club_image} alt={`${player.club_name} logo`} style={{ width: isMobile ? '30px' : '40px'}} />
                     </TableCell>
                   </TableRow>
