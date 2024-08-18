@@ -28,6 +28,7 @@ async function generateSitemap() {
     // Route statiche definite in React Router Dom
     const staticRoutes = [
       '/',
+      '/privacy-policy',
       '/best-under-18',
     ];
 

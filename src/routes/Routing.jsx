@@ -4,6 +4,7 @@ import {
   import Root from '../pages/Root';
 import Homepage from "../pages/Homepage";
 import Player from "../pages/Player";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
 import Under18 from "../pages/Under18";
 
 
@@ -16,6 +17,11 @@ import Under18 from "../pages/Under18";
           path: "/",
           element: <Homepage />
         },
+        {
+          path: "/privacy-policy",
+          element: <PrivacyPolicy />
+        },
+
         {
           path: "/player/:slug",
           element: <Player />,
