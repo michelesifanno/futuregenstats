@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run generate-sitemap && vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-sitemap": "node generate-sitemap.js"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",
@@ -19,9 +20,11 @@
     "axios": "^1.7.3",
     "chart.js": "^4.4.3",
     "date-fns": "^3.6.0",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "next": "^14.2.5",
     "node-cron": "^3.0.3",
+    "node-fetch": "^3.3.2",
     "react": "^18.3.1",
     "react-apexcharts": "^1.4.1",
     "react-chartjs-2": "^5.2.0",
