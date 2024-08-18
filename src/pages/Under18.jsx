@@ -3,14 +3,15 @@ import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Grid, u
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
-import BestPlayersByAge from '../components/BestPlayersByAge';
+import BestUnder from '../components/BestUnder';
 
 function Under18() {
+
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const pageTitle = `I migliori Giovani Calciatori Under 18 | Future Gen Stats`;
-    const metaDescription = `I migliori per ruolo e tutte le statistiche generali dei giovani calciatori Under 18 dei top 5 campionati europei.`;
+    const pageTitle = `Migliori Giovani Calciatori Under 18 | Future Gen Stats`;
+    const metaDescription = `I migliori calciatori Under 18 per ruolo. Scopri tutte le statistiche generali dei giovani Under 18 dei top 5 campionati europei.`;
 
     return (
         <>
@@ -25,16 +26,16 @@ function Under18() {
                             <Accordion defaultExpanded>
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
-                                    aria-controls="most-experienced-players"
-                                    id="most-experienced-players"
+                                    aria-controls="best-df"
+                                    id="best-df"
                                     sx={{ padding: '4px 20px' }}
                                 >
-                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Giovani con più esperienza 👴🏻</Typography>
+                                    <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '16px' : '18px' }}>Migliori portieri Under 18 🧤</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails sx={{ padding: '0px' }}>
-                                    <BestPlayersByAge
-                                        role={'Porta'}
-                                        age_category={'Under 18'}
+                                    <BestUnder
+                                        role={"Porta"}
+                                        age_category={"Under 18"}
                                     />
                                 </AccordionDetails>
                             </Accordion>

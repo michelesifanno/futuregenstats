@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import supabase from '../supabase/client';
+import supabase from '../supabase/client'; // Assicurati che questo percorso sia corretto
 
+// Funzione per formattare il valore di mercato
 const formatMarketValue = (value) => {
     if (!value) return 'N/A';
     const numericValue = parseFloat(value);
@@ -8,10 +9,23 @@ const formatMarketValue = (value) => {
     return `${(numericValue / 1000000).toFixed(1)} mil.`;
 };
 
-export function useBestPlayersByRoleByCompetition(role, competitionIds, ageCategory) {
+// Hook per ottenere i migliori giocatori per ruolo e categoria di età
+export function useBestUnder(role, filteredCompetitionIds, age_category) {
+    // Verifica i dati passati
     const [players, setPlayers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    console.log("Filtered Competition IDs:", filteredCompetitionIds);
+console.log("Role:", role);
+console.log("Age Category:", age_category);
+
+// Verifica i dati restituiti
+console.log("Players:", players);
+console.log("Players Loading:", loading);
+console.log("Players Error:", error);
+
+
 
     useEffect(() => {
         const fetchPlayers = async () => {
@@ -46,27 +60,48 @@ export function useBestPlayersByRoleByCompetition(role, competitionIds, ageCateg
                                 image
                             )
                         )
-                    `);
+                    `)
+                    .limit(10);
                 
                 if (role) {
                     query = query.eq('role', role);
                 }
 
-                if (competitionIds && competitionIds.length > 0) {
-                    query = query.in('competition_id', competitionIds);
+                if (age_category) {
+                    query = query.eq('age_category', age_category);
                 }
 
-                if (ageCategory) {
-                    query = query.eq('age_category', ageCategory);
+                if (filteredCompetitionIds && filteredCompetitionIds.length > 0) {
+                    query = query.in('competition_id', filteredCompetitionIds);
                 }
 
                 const { data, error } = await query;
 
-                if (error) throw error;
+                if (error) {
+                    throw error;
+                }
 
+                // Formattazione dei dati
                 const formattedData = data.map(player => {
-                    const nationalities = player.players.nationalities?.map(nat => nat.name).join(', ') || 'N/A';
-                    const positions = player.players.positions?.map(pos => pos.name).join(', ') || 'N/A';
+                    let nationalities = 'N/A';
+                    try {
+                        const nationalitiesArray = player.players.nationalities;
+                        if (nationalitiesArray && Array.isArray(nationalitiesArray)) {
+                            nationalities = nationalitiesArray.map(nat => nat.name).join(', ');
+                        }
+                    } catch (e) {
+                        console.error('Errore nella conversione di nationalities:', e);
+                    }
+
+                    let positions = 'N/A';
+                    try {
+                        const positionsArray = player.players.positions;
+                        if (positionsArray && Array.isArray(positionsArray)) {
+                            positions = positionsArray.map(pos => pos.name).join(', ');
+                        }
+                    } catch (e) {
+                        console.error('Errore nella conversione di positions:', e);
+                    }
 
                     return {
                         player_id: player.player_id,
@@ -79,8 +114,8 @@ export function useBestPlayersByRoleByCompetition(role, competitionIds, ageCateg
                         player_image: player.players.image,
                         club_name: player.players.clubs.name,
                         club_image: player.players.clubs.image,
-                        positions,
-                        nationalities,
+                        positions: positions,
+                        nationalities: nationalities,
                         marketvalue: formatMarketValue(player.players.marketvalue),
                         marketvaluecurrency: player.players.marketvaluecurrency,
                         weighted_goals: player.weighted_goals,
@@ -101,7 +136,7 @@ export function useBestPlayersByRoleByCompetition(role, competitionIds, ageCateg
         };
 
         fetchPlayers();
-    }, [role, competitionIds, ageCategory]);
+    }, [role, filteredCompetitionIds, age_category]); 
 
     return { players, loading, error };
 }

@@ -22,8 +22,8 @@ function Homepage() {
         setFilter(event.target.value);
     };
 
-    const pageTitle = `Future Gen Stats | Analisi dei Giovani Talenti di Calcio`;
-    const metaDescription = `Future Gen Stats è la piattaforma per monitorare e analizzare i giovani talenti calcistici. Dati aggiornati e algoritmi avanzati per valutare i migliori prospetti.`;
+    const pageTitle = `Future Gen Stats | Analisi dei Migliori Giovani Talenti di Calcio`;
+    const metaDescription = `Future Gen Stats è la piattaforma per monitorare e analizzare i migliori giovani talenti calcistici. Dati aggiornati e algoritmi avanzati per valutare i migliori prospetti.`;
 
 
     return (
