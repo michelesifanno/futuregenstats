@@ -13,10 +13,13 @@ const usePlayerFotMobData = (playerId) => {
             try {
                 const response = await axios.get(`/api/api/playerData?id=${playerId}`);
                 const data = response.data;
-
-                // Estrai e formatta i dati necessari
-                
-                setPlayerData(data);
+    
+                // Assicurati che i dati siano completi
+                if (data && data.id) {
+                    setPlayerData(data);
+                } else {
+                    setError('Incomplete data received');
+                }
             } catch (err) {
                 setError('Error fetching player data');
             } finally {
@@ -27,6 +30,7 @@ const usePlayerFotMobData = (playerId) => {
         fetchPlayerData();
     }, [playerId]);
 
+    
     return { playerData, loading, error };
 };
 
