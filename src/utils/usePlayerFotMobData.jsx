@@ -15,7 +15,7 @@ const usePlayerFotMobData = (playerId) => {
                     ? 'https://www.fotmob.com' // URL completo in produzione
                     : ''; // URL relativo in sviluppo
 
-                const response = await axios.get(`${baseURL}/api/api/playerData?id=${playerId}`);
+                const response = await axios.get(`${baseURL}/api/playerData?id=${playerId}`);
                 const data = response.data;
 
                 // Assicurati che i dati siano completi
