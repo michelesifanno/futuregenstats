@@ -1,3 +1,4 @@
+// usePlayerFotMobData.js
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -10,20 +11,12 @@ const usePlayerFotMobData = (playerId) => {
         const fetchPlayerData = async () => {
             setLoading(true);
             try {
-                // Determina l'URL base in base all'ambiente
-                const baseURL = process.env.NODE_ENV === 'production' 
-                    ? 'https://www.fotmob.com' // URL completo in produzione
-                    : ''; // URL relativo in sviluppo
-
-                const response = await axios.get(`${baseURL}/api/playerData?id=${playerId}`);
+                const response = await axios.get(`/api/api/playerData?id=${playerId}`);
                 const data = response.data;
 
-                // Assicurati che i dati siano completi
-                if (data && data.id) {
-                    setPlayerData(data);
-                } else {
-                    setError('Incomplete data received');
-                }
+                // Estrai e formatta i dati necessari
+                
+                setPlayerData(data);
             } catch (err) {
                 setError('Error fetching player data');
             } finally {
