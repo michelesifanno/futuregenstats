@@ -8,6 +8,7 @@ import PlayerName from '../components/PlayerName';
 import PlayerInfo from '../components/PlayerInfo';
 import PlayerPerformance from '../components/PlayerPerformance';
 import PlayerNews from '../components/PlayerNews';
+import PlayerSearch from '../utils/PlayerSearch';
 
 export default function Player() {
     const { slug } = useParams();
@@ -59,6 +60,11 @@ export default function Player() {
                                 foot={player?.foot}
                                 shirtnumber={player?.shirtnumber}
                                 positions={player?.positions}
+                            />
+                        </Box>
+                        <Box sx={{ padding: isMobile ? '10px 0px 0px 0px' : '10px' }}>
+                            <PlayerSearch
+                                playerName={player?.name}
                             />
                         </Box>
                         <Box sx={{ padding: isMobile ? '10px 0px 0px 0px' : '10px' }}>
