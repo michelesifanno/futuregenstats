@@ -39,18 +39,9 @@ const PlayerDetails = ({ playerId }) => {
         );
     };
 
-    if (t.primaryTeam && t.primaryTeam.teamName) {
-        // Usa t.primaryTeam.teamName
-    } else {
-        console.warn('primaryTeam is undefined or does not have teamName');
-    }
-
-
     return (
-
         <div>
             <h2>{playerData.name}</h2>
-            {console.log('Player Data:', playerData)}
             <p><strong>Team:</strong> {playerData.primaryTeam.teamName}</p>
             <p><strong>Position:</strong> {playerData.positionDescription.strPos}</p>
             <p><strong>Birthdate:</strong> {new Date(playerData.birthDate.utcTime).toLocaleDateString()}</p>
