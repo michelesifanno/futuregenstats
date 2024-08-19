@@ -37,6 +37,17 @@ function Homepage() {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Box sx={{ padding: isMobile ? '0px' : '20px 40px' }}>
+                            <AdBanner
+                                adClient="ca-pub-1316608172290883"
+                                adSlot="1186890591"
+                                adFormat="auto"
+                                fullWidthResponsive={true}
+                                style={{ minHeight: '150px' }} // Aggiungi altezza minima qui
+                            />
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Box sx={{ padding: isMobile ? '0px' : '20px 40px' }}>
                             <Accordion defaultExpanded>
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon sx={{ fontSize: '20px' }} />}
@@ -52,11 +63,17 @@ function Homepage() {
                             </Accordion>
                         </Box>
                     </Grid>
-                    <AdBanner
-                        adClient="ca-pub-1316608172290883"
-                        adSlot="1186890591"
-                        adFormat="auto"
-                        fullWidthResponsive={true} />
+                    <Grid item xs={12}>
+                        <Box sx={{ padding: isMobile ? '0px' : '20px 40px' }}>
+                            <AdBanner
+                                adClient="ca-pub-1316608172290883"
+                                adSlot="1186890591"
+                                adFormat="auto"
+                                fullWidthResponsive={true}
+                                style={{ minHeight: '150px' }} // Aggiungi altezza minima qui
+                            />
+                        </Box>
+                    </Grid>
                     <Grid item xs={12}>
                         <Box sx={{ padding: isMobile ? '0px' : '20px 40px' }}>
                             <Accordion defaultExpanded>
@@ -74,11 +91,17 @@ function Homepage() {
                             </Accordion>
                         </Box>
                     </Grid>
-                    <AdBanner
-                        adClient="ca-pub-1316608172290883"
-                        adSlot="1186890591"
-                        adFormat="auto"
-                        fullWidthResponsive={true} />
+                    <Grid item xs={12}>
+                        <Box sx={{ padding: isMobile ? '0px' : '20px 40px' }}>
+                            <AdBanner
+                                adClient="ca-pub-1316608172290883"
+                                adSlot="1186890591"
+                                adFormat="auto"
+                                fullWidthResponsive={true}
+                                style={{ minHeight: '150px' }} // Aggiungi altezza minima qui
+                            />
+                        </Box>
+                    </Grid>
                     <Grid item xs={12} md={6}>
                         <Box id="best-gk" sx={{ padding: isMobile ? '0px' : '20px 40px', paddingRight: isMobile ? '0px' : '20px' }}>
                             <Accordion defaultExpanded={isDesktop}>
@@ -113,7 +136,17 @@ function Homepage() {
                             </Accordion>
                         </Box>
                     </Grid>
-
+                    <Grid item xs={12}>
+                        <Box sx={{ padding: isMobile ? '0px' : '20px 40px' }}>
+                            <AdBanner
+                                adClient="ca-pub-1316608172290883"
+                                adSlot="1186890591"
+                                adFormat="auto"
+                                fullWidthResponsive={true}
+                                style={{ minHeight: '150px' }} // Aggiungi altezza minima qui
+                            />
+                        </Box>
+                    </Grid>
                     <Grid item xs={12} md={6}>
                         <Box id="best-mf" sx={{ padding: isMobile ? '0px' : '20px 40px', paddingRight: isMobile ? '0px' : '20px' }}>
                             <Accordion defaultExpanded={isDesktop}>
@@ -131,7 +164,6 @@ function Homepage() {
                             </Accordion>
                         </Box>
                     </Grid>
-
                     <Grid item xs={12} md={6}>
                         <Box id="best-fw" sx={{ padding: isMobile ? '0px' : '20px 40px', paddingLeft: isMobile ? '0px' : '20px' }}>
                             <Accordion defaultExpanded={isDesktop}>
@@ -149,11 +181,17 @@ function Homepage() {
                             </Accordion>
                         </Box>
                     </Grid>
-                    <AdBanner
-                        adClient="ca-pub-1316608172290883"
-                        adSlot="1186890591"
-                        adFormat="auto"
-                        fullWidthResponsive={true} />
+                    <Grid item xs={12}>
+                        <Box sx={{ padding: isMobile ? '0px' : '20px 40px' }}>
+                            <AdBanner
+                                adClient="ca-pub-1316608172290883"
+                                adSlot="1186890591"
+                                adFormat="auto"
+                                fullWidthResponsive={true}
+                                style={{ minHeight: '150px' }} // Aggiungi altezza minima qui
+                            />
+                        </Box>
+                    </Grid>
                 </Grid>
             </Box>
         </>
