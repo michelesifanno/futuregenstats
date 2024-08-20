@@ -4,16 +4,15 @@
     ],
       "version": 2,
       "builds": [
-        { "src": "package.json", "use": "@vercel/node" }
+        {
+          "src": "api/**/*.js",
+          "use": "@vercel/node"
+        }
       ],
       "routes": [
         {
           "src": "/api/(.*)",
-          "dest": "/api/proxy.js?path=$1"
-        },
-        {
-          "src": "/(.*)",
-          "dest": "/index.html"
+          "dest": "/api/$1"
         }
       ]
     }
