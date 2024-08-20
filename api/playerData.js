@@ -14,10 +14,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Recupera i dati del giocatore
     const playerData = await fotmob.getPlayer(id);
-
-    // Invia i dati come risposta
     res.status(200).json(playerData);
   } catch (error) {
     console.error(error);
