@@ -1,6 +1,12 @@
 {
     "rewrites": [
       { "source": "/(.*)", "destination": "/" }
-      ]
+      ],
+        "version": 2,
+        "functions": {
+          "api/*.js": {
+            "runtime": "nodejs20.x"
+          }
+        }      
     }
    
