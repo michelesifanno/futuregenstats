@@ -87,3 +87,21 @@ body {
   width: 100%;
   height: auto; /* O specifica una dimensione se necessario */
 }
+
+.recent-matches {
+  font-size: 12px!important;
+  vertical-align: middle!important;
+}
+
+table {
+  width: 100%;
+}
+
+td, th {
+  vertical-align: middle; /* Allinea verticalmente al centro */
+  text-align: center; /* Allinea orizzontalmente al centro, se necessario */
+}
+
+img {
+  vertical-align: middle; /* Allinea l'immagine verticalmente al centro */
+}

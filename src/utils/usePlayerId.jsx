@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react';
+// hooks/usePlayerId.js
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import PlayerDetails from '../components/SinglePlayer/PlayerDetails';
 
-const PlayerSearch = ({ playerName }) => {
+const usePlayerId = (playerName) => {
     const [playerId, setPlayerId] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        if (!playerName) return;
+
         const fetchPlayerId = async () => {
             setLoading(true);
             try {
                 const response = await axios.get(
-                    `https://apigw.fotmob.com/searchapi/suggest?term=${encodeURIComponent(playerName)}&lang=it`
+                    `https://apigw.fotmob.com/searchapi/suggest?term=${encodeURIComponent(playerName)}&lang=en`
                 );
                 const players = response.data.squadMemberSuggest;
                 if (players.length > 0) {
@@ -31,15 +33,7 @@ const PlayerSearch = ({ playerName }) => {
         fetchPlayerId();
     }, [playerName]);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
-    if (!playerId) return <div>No player selected</div>;
-
-    return (
-        <div>
-            <PlayerDetails playerId={playerId} />
-        </div>
-    );
+    return { playerId, loading, error };
 };
 
-export default PlayerSearch;
+export default usePlayerId;

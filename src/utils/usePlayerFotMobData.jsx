@@ -11,11 +11,9 @@ const usePlayerFotMobData = (playerId) => {
         const fetchPlayerData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`https://api.allorigins.win/raw?url=https://www.fotmob.com/api/playerData?id=${playerId}`);
+                const response = await axios.get(`https://api.allorigins.win/raw?url=https://www.fotmob.com/api/playerData?id=${playerId}&lang=it`);
                 const data = response.data;
 
-                // Estrai e formatta i dati necessari
-                
                 setPlayerData(data);
             } catch (err) {
                 setError('Error fetching player data');
@@ -23,9 +21,13 @@ const usePlayerFotMobData = (playerId) => {
                 setLoading(false);
             }
         };
-        
-        fetchPlayerData();
+
+        if (playerId) {
+            fetchPlayerData();
+        }
     }, [playerId]);
+
+    // usePlayerFotMobData.js
 
     return { playerData, loading, error };
 };
