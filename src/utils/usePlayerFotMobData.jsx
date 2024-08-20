@@ -17,7 +17,7 @@ const usePlayerFotMobData = (playerId) => {
                 setPlayerData(data);
             } catch (err) {
                 console.error('Error fetching player data:', err); // Debug: mostra l'errore
-                setError('Error fetching player data');
+                setError('Error fetching player data ktm');
             } finally {
                 setLoading(false);
             }
