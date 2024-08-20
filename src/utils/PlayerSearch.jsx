@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PlayerDetails from '../components/PlayerDetails';
-import Fotmob from "fotmob";
 
-
-const fotmob = new Fotmob();
 
 const PlayerSearch = ({ playerName }) => {
     const [playerId, setPlayerId] = useState(null);

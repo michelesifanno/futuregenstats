@@ -9,12 +9,5 @@ export default defineConfig({
   // Configurazione per gestire il fallback al file index.html
   server: {
     historyApiFallback: true,
-    define: {
-      'process': {
-        versions: {
-          node: '0' // Puoi cambiare questo valore a seconda delle necessità
-        }
-      }
-    },
   },
 });
