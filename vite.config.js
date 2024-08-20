@@ -9,12 +9,12 @@ export default defineConfig({
   // Configurazione per gestire il fallback al file index.html
   server: {
     historyApiFallback: true,
-        proxy: {
-      '/api': {
-        target: 'https://www.fotmob.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
+    define: {
+      'process': {
+        versions: {
+          node: '0' // Puoi cambiare questo valore a seconda delle necessità
+        }
+      }
     },
   },
 });

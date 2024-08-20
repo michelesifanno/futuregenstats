@@ -1,6 +1,9 @@
 // usePlayerFotMobData.js
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Fotmob from "fotmob";
+
+const fotmob = new Fotmob();
 
 const usePlayerFotMobData = (playerId) => {
     const [playerData, setPlayerData] = useState(null);
@@ -11,7 +14,7 @@ const usePlayerFotMobData = (playerId) => {
         const fetchPlayerData = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`/api/api/playerData?id=${playerId}`);
+                let response = await fotmob.getPlayer(playerId)
                 const data = response.data;
 
                 // Estrai e formatta i dati necessari
