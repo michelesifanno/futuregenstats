@@ -39,6 +39,12 @@ export default function PlayerRecentMatches({ matches }) {
         setPage(0);
     };
 
+    const handleRowClick = (matchPageUrl) => {
+        // Apri la pagina del match in una nuova scheda
+        window.open(`https://fotmob.com/${matchPageUrl}`, '_blank', 'noreferrer');
+    };
+
+
     const paginatedMatches = matches ? matches.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : [];
 
     const defaultImage = '/competitions/globe.png'; // Percorso dell'immagine di fallback
@@ -77,9 +83,13 @@ export default function PlayerRecentMatches({ matches }) {
                         </TableHead>
                         <TableBody>
                             {paginatedMatches.map(match => (
-                                <TableRow key={match.id} style={{ verticalAlign: 'middle', padding:isMobile ? '0px!important' : '20px!important', fontSize: isMobile ? '12px!important' : '14px!important' }}>
+                                <TableRow
+                                    key={match.id}
+                                    style={{ cursor: 'pointer', verticalAlign: 'middle', padding: isMobile ? '0px!important' : '20px!important', fontSize: '14px!important' }}
+                                    onClick={() => handleRowClick(match.matchPageUrl)}
+                                >
                                     {isMobile ? (
-                                        <TableCell className='recent-matches'>
+                                        <TableCell sx={{fontSize:'12px!important'}}>
                                             <Grid container spacing={2} sx={{ marginBottom: '10px!important' }}>
                                                 <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
                                                     {match.leagueName}
