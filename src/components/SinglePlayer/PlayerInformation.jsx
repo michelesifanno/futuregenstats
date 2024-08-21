@@ -52,6 +52,11 @@ export default function PlayerInformation({
         }
     }, [id]);
 
+    useEffect(() => {
+        // Scrolla in alto quando il componente viene montato
+        window.scrollTo(0, 0);
+    }, [id]); // Questo effetto viene eseguito ogni volta che `id` cambia
+    
     const formatDate = (dateStr) => {
         if (!dateStr) return 'unavailable';
         const date = new Date(dateStr);
@@ -92,9 +97,10 @@ export default function PlayerInformation({
                                 <Typography
                                     sx={{
                                         fontWeight: 500,
-                                        fontSize: '20px',
+                                        fontSize: isMobile ? '18px' : '20px',
                                         textAlign: 'left',
                                         color: '#fff',
+                                        lineHeight:'28px',
                                     }}
                                 >
                                     {name || 'Unavailable'}
@@ -104,7 +110,7 @@ export default function PlayerInformation({
                                 <Typography
                                     sx={{
                                         fontWeight: 400,
-                                        fontSize: '16px',
+                                        fontSize: isMobile ? '14px' : '16px',
                                         textAlign: 'left',
                                         color: 'rgba(255, 255, 255, 0.7)',
                                     }}
@@ -118,7 +124,7 @@ export default function PlayerInformation({
                                 src={getTeamLogo(primaryTeam?.teamId)}
                                 alt={primaryTeam?.teamName || 'Team Logo'}
                                 style={{
-                                    width: '30px',
+                                    width: isMobile ? '40px' : '30px',
                                     height: 'auto', // Mantiene le proporzioni dell'immagine
                                     marginRight: '5px'
                                 }}
