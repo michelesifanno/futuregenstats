@@ -85,11 +85,6 @@ function Under18() {
                             </Accordion>
                         </Box>
                     </Grid>
-                    <AdBanner
-                        adClient="ca-pub-1316608172290883"
-                        adSlot="1186890591"
-                        adFormat="auto"
-                        fullWidthResponsive={true} />
                     <Grid item xs={12} md={6}>
                         <Box sx={{ padding: isMobile ? '0px' : '20px 40px', paddingRight: isMobile ? '0px' : '20px' }}>
                             <Accordion defaultExpanded>
