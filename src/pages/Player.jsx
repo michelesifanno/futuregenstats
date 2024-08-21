@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Skeleton from '@mui/material/Skeleton';
 import { usePlayer } from '../utils/usePlayer';
 import usePlayerId from '../utils/usePlayerId';
 import usePlayerFotMobData from '../utils/usePlayerFotMobData';
@@ -8,11 +7,11 @@ import { useTheme } from '@emotion/react';
 import { Box, Typography, Grid, CircularProgress, useMediaQuery } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import PlayerRecentMatches from '../components/SinglePlayer/PlayerRecentMatches';
-import PlayerName from '../components/SinglePlayer/PlayerName';
-import PlayerInfo from '../components/SinglePlayer/PlayerInfo';
 import PlayerPerformance from '../components/SinglePlayer/PlayerPerformance';
-import PlayerNews from '../components/SinglePlayer/PlayerNews';
 import PlayerInformation from '../components/SinglePlayer/PlayerInformation';
+import PlayerCurrentStats from '../components/SinglePlayer/PlayerCurrentStats';
+import PlayerTraits from '../components/SinglePlayer/PlayerTraits';
+
 
 export default function Player() {
     const { slug } = useParams();
@@ -23,6 +22,7 @@ export default function Player() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+      
     const phrases = [
         "Stiamo preparando i dati... 📊",
         "Stiamo mettendo in forma il giocatore... 💆🏻‍♂️",
@@ -77,8 +77,8 @@ export default function Player() {
         );
     }
 
-    const pageTitle = `${player?.name} - Profilo del Giocatore | Future Gen Stats`;
-    const metaDescription = `Scopri il profilo del giovane calciatore ${player?.name}, ${player?.positions} del ${club?.name}. Età, statistiche e ultime notizie.`;
+    const pageTitle = `Ultimate Stats for ${playerData?.name} - ${playerData?.positionDescription?.primaryPosition?.label} - ${playerData?.primaryTeam?.teamName} | Future Gen Stats`;
+    const metaDescription = `The latest performance stats of ${playerData?.name}, the ${playerData?.positionDescription?.primaryPosition?.label} from ${playerData?.primaryTeam?.teamName}. Don't miss out on the future star's key metrics.`;
 
     return (
         <>
@@ -109,19 +109,23 @@ export default function Player() {
                                 {...playerData}
                             />
                         </Box>
-                        <Box sx={{ padding: isMobile ? '10px 0px 0px 0px' : '10px' }}>
+                        <Box sx={{ padding: isMobile ? '0px 0px 0px 0px' : '10px' }}>
+                            <PlayerCurrentStats
+                                {...playerData}
+                            />
+                        </Box>
+                        <Box sx={{ padding: isMobile ? '0px' : '10px' }}>
                             <PlayerRecentMatches
                                 matches={playerData?.recentMatches}
                             />
                         </Box>
-                        <Box sx={{ padding: isMobile ? '10px 0px 0px 0px' : '10px' }}>
-                            <PlayerNews
-                                playerName={player?.name}
-                                playerClub={club?.name}
-                            />
-                        </Box>
                     </Grid>
                     <Grid item xs={12} md={4}>
+                    <Box sx={{ padding: isMobile ? '0px 0px' : '10px' }}>
+                            <PlayerTraits
+                            {...playerData}
+                            />
+                        </Box>
                         <Box sx={{ padding: isMobile ? '0px 0px' : '10px' }}>
                             <PlayerPerformance
                                 performance={performance}

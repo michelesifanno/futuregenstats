@@ -6,18 +6,11 @@ export default function PlayerInformation({
     id,
     name,
     birthDate,
-    isCaptain,
     primaryTeam,
     positionDescription,
     injuryInformation,
     internationalDuty,
     playerInformation,
-    mainLeague,
-    trophies,
-    recentMatches,
-    careerHistory,
-    traits,
-    meta,
 }) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -25,6 +18,7 @@ export default function PlayerInformation({
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
     const playerInfoMap = new Map(playerInformation?.map(item => [item.title, item]));
+
     const [imgSrc, setImgSrc] = useState(`https://www.fotmob.com/_next/image?url=https://images.fotmob.com/image_resources/playerimages/${id}.png&w=256&q=75`);
 
     const handleError = () => {
@@ -195,7 +189,7 @@ export default function PlayerInformation({
                                     marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
                                 }}
                             >
-                                Date of Birth
+                                {formatDate(birthDate?.utcTime)}
                             </Typography>
                             <Typography
                                 sx={{
@@ -205,7 +199,7 @@ export default function PlayerInformation({
                                     color: '#fff',
                                 }}
                             >
-                                {formatDate(birthDate?.utcTime)}
+                                {playerInfoMap.get("Age")?.value?.fallback || 'Unavailable'} years old
                             </Typography>
                         </Grid>
                         <Grid item xs={6} md={4} sx={{ padding: '20px!important', borderBottom: '1px solid rgba(255, 255, 255, 0.2)', borderRight: '1px solid rgba(255, 255, 255, 0.2)' }}>

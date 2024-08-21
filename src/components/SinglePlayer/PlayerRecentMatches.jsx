@@ -207,7 +207,6 @@ export default function PlayerRecentMatches({ matches }) {
     };
 
     return (
-        <div>
             <Accordion defaultExpanded>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="recent-matches" id="recent-matches">
                     <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
@@ -222,6 +221,5 @@ export default function PlayerRecentMatches({ matches }) {
                     )}
                 </AccordionDetails>
             </Accordion>
-        </div>
     );
 }

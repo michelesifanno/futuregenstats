@@ -101,3 +101,7 @@ td, th, tr {
 img {
   vertical-align: middle; /* Allinea l'immagine verticalmente al centro */
 }
+
+#current-stats.MuiAccordionSummary-root.Mui-expanded {
+  border-bottom: 1px solid rgba(23,29,141,0.2)!important;
+}
