@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useMediaQuery, Avatar, Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Paper, Typography, Accordion, AccordionSummary, AccordionDetails, CircularProgress } from '@mui/material';
+import { useMediaQuery, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Paper, Typography, Accordion, AccordionSummary, AccordionDetails, CircularProgress } from '@mui/material';
 import { useTheme } from '@emotion/react';
-import { flagCodes } from '../../utils/flagCodes';
-import { useClubAndCompetitionData } from '../../utils/useClubAndCompetitionData';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function PlayerRecentMatches({ matches }) {
@@ -11,8 +9,6 @@ export default function PlayerRecentMatches({ matches }) {
     const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
-    const { clubs, competitions } = useClubAndCompetitionData(); // Recupera i dati delle squadre e competizioni
-
     // Stato di caricamento
     const [loading, setLoading] = useState(true);
 
@@ -20,18 +16,14 @@ export default function PlayerRecentMatches({ matches }) {
         // Simula il caricamento dei dati
         const timer = setTimeout(() => {
             setLoading(false); // I dati sono stati caricati
-        }, 2000); // Intervallo di 1 secondo
+        }, 1000); // Intervallo di 1 secondo
 
         return () => clearTimeout(timer); // Pulizia del timer
     }, [matches]);
 
     useEffect(() => {
         // Simula il caricamento dei dati
-        if (matches) {
-            setLoading(false); // I dati sono stati caricati
-        } else {
-            setLoading(true); // I dati non sono ancora disponibili
-        }
+        setLoading(!matches); // I dati sono stati caricati o meno
     }, [matches]);
 
     // Paginazione
@@ -51,105 +43,141 @@ export default function PlayerRecentMatches({ matches }) {
 
     const defaultImage = '/competitions/globe.png'; // Percorso dell'immagine di fallback
 
-    // Dizionario di traduzione manuale
-    const nameTranslationDict = {
-        'lyon': 'olymp. lione',
-        'olymp. lione': 'lyon',
-        'marseille': 'marsiglia',
-        'marsiglia': 'marseille',
-        'brest': 'stade brestois',
-        'stade brestois': 'brest',
-        'paris saint-germain': 'paris sg',
-        'paris sg': 'paris saint-germain',
-        // Aggiungi altre traduzioni se necessario
-    };
-    
-    
-// Funzione per normalizzare il nome del team
-const normalizeTeamName = (teamName) => {
-    return teamName
-        .toLowerCase()
-        .replace(/^(ac|fc|cf|sc|cs|cd|ss|cr|-|as|bayer|stade|us)\s+/i, '') // Rimuovi articoli comuni
-        .replace(/\s+/g, '') // Rimuovi spazi
-        .slice(0, 7); // Mantieni solo i primi 5 caratteri
-};
-
-// Funzione per normalizzare e tradurre i nomi dei club
-const translateClubName = (name) => {
-    const normalizedName = normalizeTeamName(name);
-    return nameTranslationDict[normalizedName] || normalizedName;
-};
-
-const normalizeName = (name) => {
-    return name.trim().toLowerCase().replace(/[^a-z]/g, '').slice(0, 5);
-};
-
-// Funzione per ottenere il logo del club o della nazionale
-const getClubLogo = (teamName) => {
-    const translatedName = translateClubName(teamName);
-    const club = clubs.find(club => normalizeTeamName(club.name) === normalizeTeamName(translatedName));
-    if (club) {
-        return club.image || defaultImage; // Ritorna il logo del club se trovato
-    }
-
-    // Cerca tra le nazionali
-    const countryCode = Object.keys(flagCodes).find(
-        country => normalizeName(country) === normalizeName(translatedName)
-    );
-
-    if (countryCode) {
-        return `/flags/${flagCodes[countryCode]}.png`;
-    }
-    return defaultImage; // Se non si trova nulla, ritorna l'immagine di default
-};
-
-
-    const getCompetitionLogo = (competitionName) => {
-        const competition = competitions.find(comp => comp.competitionname === competitionName);
-        return competition ? competition.competitionimage || defaultImage : defaultImage;
-    };
-
-
-
     const renderRecentMatches = () => {
-        if (matches && matches.length === 0) {
-            return <Typography>Nessun match recente trovato nelle top 5 leghe europee 😔</Typography>;
+        if (!matches || matches.length === 0) {
+            return <Typography>Recent matches not found 😔</Typography>;
         }
-    
-        if (!matches || paginatedMatches.length === 0) {
-            return <Typography>Nessun match recente trovato nelle top 5 leghe europee 😔</Typography>;
-        }
+
         return (
             <>
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell>⏱️</TableCell>
-                                <TableCell>⚽️</TableCell>
-                                <TableCell>👟</TableCell>
-                                <TableCell>🟨</TableCell>
-                                <TableCell>🟥</TableCell>
-                                <TableCell>⭐️</TableCell>
+                                {isMobile ? (
+                                    null
+                                ) : (
+                                    <>
+                                        <TableCell></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell><Typography sx={{ fontSize: '16px' }}>⏱️</Typography></TableCell>
+                                        <TableCell><Typography sx={{ fontSize: '16px' }}>⚽️</Typography></TableCell>
+                                        <TableCell><Typography sx={{ fontSize: '16px' }}>👟</Typography></TableCell>
+                                        <TableCell><Typography sx={{ fontSize: '16px' }}>🟨</Typography></TableCell>
+                                        <TableCell><Typography sx={{ fontSize: '16px' }}>🟥</Typography></TableCell>
+                                        <TableCell><Typography sx={{ fontSize: '16px' }}>⭐️</Typography></TableCell>
+                                    </>
+                                )}
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {paginatedMatches.map(match => (
-                                <TableRow key={match.id} style={{ verticalAlign: 'middle' }}>
-                                    <TableCell className='recent-matches'><img src={getCompetitionLogo(match.leagueName)} alt={match.leagueName} style={{ width: '20px' }} /></TableCell>
-                                    <TableCell className='recent-matches'>{new Date(match.matchDate.utcTime).toLocaleDateString()}</TableCell>
-                                    <TableCell className='recent-matches'><img src={getClubLogo(match.opponentTeamName)} alt={match.opponentTeamName} style={{ width: '20px' }} /> - {match.opponentTeamName}</TableCell>
-                                    <TableCell className='recent-matches'>{match.homeScore}-{match.awayScore}</TableCell>
-                                    <TableCell className='recent-matches'>{match.minutesPlayed}</TableCell>
-                                    <TableCell className='recent-matches'>{match.goals}</TableCell>
-                                    <TableCell className='recent-matches'>{match.assists}</TableCell>
-                                    <TableCell className='recent-matches'>{match.yellowCards}</TableCell>
-                                    <TableCell className='recent-matches'>{match.redCards}</TableCell>
-                                    <TableCell className='recent-matches'>{match.ratingProps.num}</TableCell>
+                                <TableRow key={match.id} style={{ verticalAlign: 'middle', padding:isMobile ? '0px!important' : '20px!important', fontSize: isMobile ? '12px!important' : '14px!important' }}>
+                                    {isMobile ? (
+                                        <TableCell className='recent-matches'>
+                                            <Grid container spacing={2} sx={{ marginBottom: '10px!important' }}>
+                                                <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                                                    {match.leagueName}
+                                                </Grid>
+                                                <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                    {new Date(match.matchDate.utcTime).toLocaleDateString('it-IT', {
+                                                        day: 'numeric',
+                                                        month: 'short',
+                                                        year: 'numeric',
+                                                    })}
+                                                </Grid>
+                                            </Grid>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                                                    <img
+                                                        src={`https://www.fotmob.com/_next/image?url=https://images.fotmob.com/image_resources/logo/teamlogo/${match.opponentTeamId}_small.png&w=96&q=75`}
+                                                        alt={match.opponentTeamName}
+                                                        style={{ width: '30px' }}
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={3} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
+                                                    <span style={{ fontWeight: 500 }}>{match.opponentTeamName}</span>
+                                                    <span>{match.homeScore}-{match.awayScore}</span>
+                                                </Grid>
+                                                <Grid item xs={7} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                    {match.minutesPlayed > 0 && (
+                                                        <span style={{ padding: '2px 4px', borderRadius: '5px', border: '1px solid #ddd', margin: '0px 2px' }}>
+                                                            {match.minutesPlayed} '
+                                                        </span>
+                                                    )}
+                                                    {match.goals > 0 && (
+                                                        <span style={{ padding: '2px 4px', borderRadius: '5px', border: '1px solid #ddd', margin: '0px 2px' }}>
+                                                            {match.goals} ⚽️
+                                                        </span>
+                                                    )}
+                                                    {match.assists > 0 && (
+                                                        <span style={{ padding: '2px 4px', borderRadius: '5px', border: '1px solid #ddd', margin: '0px 2px' }}>
+                                                            {match.assists} 👟
+                                                        </span>
+                                                    )}
+                                                    {match.yellowCards > 0 && (
+                                                        <span style={{ padding: '2px 4px', borderRadius: '5px', border: '1px solid #ddd', margin: '0px 2px' }}>
+                                                            {match.yellowCards} 🟨
+                                                        </span>
+                                                    )}
+                                                    {match.redCards > 0 && (
+                                                        <span style={{ padding: '2px 4px', borderRadius: '5px', border: '1px solid #ddd', margin: '0px 2px' }}>
+                                                            {match.redCards} 🟥
+                                                        </span>
+                                                    )}
+                                                    <span style={{ fontWeight: '500', color: 'white', border: `1px solid ${match.ratingProps.bgcolor}`, backgroundColor: match.ratingProps.bgcolor, padding: '2px 4px', borderRadius: '5px' }}>
+                                                        {match.ratingProps.num}
+                                                    </span>
+                                                </Grid>
+                                            </Grid>
+                                        </TableCell>
+                                    ) : (
+                                        <>
+                                            <TableCell className='recent-matches'>
+                                                <img
+                                                    src={`https://www.fotmob.com/_next/image?url=https://images.fotmob.com/image_resources/logo/leaguelogo/${match.leagueId}_small.png&w=96&q=75`}
+                                                    alt={match.leagueName}
+                                                    style={{ width: '20px' }}
+                                                />
+                                            </TableCell>
+                                            <TableCell className='recent-matches'>
+                                                {new Date(match.matchDate.utcTime).toLocaleDateString('it-IT', {
+                                                    day: 'numeric',
+                                                    month: 'short',
+                                                    year: 'numeric',
+                                                })}
+                                            </TableCell>
+                                            <TableCell className='recent-matches'>
+                                                <img
+                                                    src={`https://www.fotmob.com/_next/image?url=https://images.fotmob.com/image_resources/logo/teamlogo/${match.opponentTeamId}_small.png&w=96&q=75`}
+                                                    alt={match.opponentTeamName}
+                                                    style={{ width: '20px', marginRight: '5px' }}
+                                                />
+                                                {match.opponentTeamName}
+                                            </TableCell>
+                                            <TableCell className='recent-matches'>{match.homeScore}-{match.awayScore}</TableCell>
+                                            <TableCell></TableCell>
+                                            <TableCell></TableCell>
+                                            <TableCell></TableCell>
+                                            <TableCell className='recent-matches'>{match.minutesPlayed}'</TableCell>
+                                            <TableCell className='recent-matches'>{match.goals}</TableCell>
+                                            <TableCell className='recent-matches'>{match.assists}</TableCell>
+                                            <TableCell className='recent-matches'>{match.yellowCards}</TableCell>
+                                            <TableCell className='recent-matches'>{match.redCards}</TableCell>
+                                            <TableCell>
+                                                <Typography sx={{ fontSize: '14px', fontWeight: '500', color: 'white' }}>
+                                                    <span style={{ border: `1px solid ${match.ratingProps.bgcolor}`, backgroundColor: match.ratingProps.bgcolor, padding: '2px 4px', borderRadius: '5px' }}>
+                                                        {match.ratingProps.num}
+                                                    </span>
+                                                </Typography>
+                                            </TableCell>
+                                        </>
+                                    )}
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -173,7 +201,7 @@ const getClubLogo = (teamName) => {
             <Accordion defaultExpanded>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="recent-matches" id="recent-matches">
                     <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
-                        Statistiche ultime partite
+                        Recent matches
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -186,4 +214,4 @@ const getClubLogo = (teamName) => {
             </Accordion>
         </div>
     );
-};
+}
