@@ -2,7 +2,7 @@ import React from 'react';
 import { useMediaQuery, Typography, Box } from '@mui/material';
 import { useTheme } from '@emotion/react';
 
-export default function PlayerPerformance({ performance = [], name }) {
+export default function PlayerResume({ performance = [], name }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
@@ -54,23 +54,17 @@ export default function PlayerPerformance({ performance = [], name }) {
       </Typography>
 
       <Typography variant="body1" sx={{ marginTop: 2, fontSize: isMobile ? '12px' : '14px' }}>
-        In the 2023/2024 season, <strong>{name}</strong> achieved a total of <strong>{totalGoals}</strong> goals and provided <strong>{totalAssists}</strong> assists across <strong>{totalMatches}</strong> matches. The player showcased remarkable endurance, clocking <strong>{totalMinutesPlayed}</strong> minutes on the field.
+        During the 2023/2024 season, <strong>{name}</strong> {isGoalkeeper
+          ? `conceded ${totalConcededGoals} goals and secured ${performance.reduce((acc, curr) => acc + (curr.to_nil || 0), 0)} clean sheets`
+          : `scored ${totalGoals} goals and provided ${totalAssists} assists`} across {totalMatches} matches. The player demonstrated impressive stamina, accumulating {totalMinutesPlayed} minutes on the pitch.
       </Typography>
 
       <Typography variant="body1" sx={{ marginTop: 2, fontSize: isMobile ? '12px' : '14px' }}>
-        In terms of discipline, <strong>{name}</strong> was relatively {isDisciplinary ? 'disciplined' : isAggressive ? 'aggressive' : 'balanced'}, having accumulated <strong>{totalYellowCards}</strong> yellow cards and <strong>{totalRedCards}</strong> red cards throughout the season. This indicates a {isDisciplinary ? 'well-disciplined player' : isAggressive ? 'player prone to aggressive behavior' : 'player with a balanced disciplinary record'}.
+        In terms of discipline, {name} was relatively {isDisciplinary ? 'disciplined' : isAggressive ? 'aggressive' : 'balanced'}, having accumulated {totalYellowCards} yellow cards and {totalRedCards} red cards throughout the season. This indicates a {isDisciplinary ? 'well-disciplined player' : isAggressive ? 'player prone to aggressive behavior' : 'player with a balanced disciplinary record'}.
       </Typography>
 
-      {isGoalkeeper && (
-        <>
-          <Typography variant="body1" sx={{ marginTop: 2, fontSize: isMobile ? '12px' : '14px' }}>
-            As a goalkeeper, <strong>{name}</strong> faced <strong>{totalConcededGoals}</strong> goals and managed to keep a clean sheet <strong>{performance.reduce((acc, curr) => acc + (curr.to_nil || 0), 0)}</strong> times.
-          </Typography>
-        </>
-      )}
-
       <Typography variant="body1" sx={{ marginTop: 2, fontSize: isMobile ? '12px' : '14px' }}>
-        The data provided by Future Gen Stats is sourced through advanced algorithms that meticulously analyze player performance metrics from the 2023/2024 season. These metrics are compared against those of other players to identify the most promising young talents. This rigorous evaluation process helps to spotlight these emerging stars, offering them greater visibility. Furthermore, it provides journalists and club directors with detailed statistical insights, enabling them to monitor and assess these players more closely. By showcasing these up-and-coming talents, Future Gen Stats plays a crucial role in helping talent scouts and media professionals stay informed about potential future stars.
+        The data provided by Future Gen Stats is sourced through advanced algorithms that meticulously analyze player performance metrics. These metrics are compared against those of other players to identify the most promising young talents. This rigorous evaluation process helps to spotlight these emerging stars, offering them greater visibility. Furthermore, it provides journalists and club directors with detailed statistical insights, enabling them to monitor and assess these players more closely. By showcasing these up-and-coming talents, Future Gen Stats plays a crucial role in helping talent scouts and media professionals stay informed about potential future stars.
       </Typography>
     </Box>
   );
