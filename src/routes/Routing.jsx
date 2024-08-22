@@ -3,6 +3,7 @@ import {
   } from "react-router-dom";
   import Root from '../pages/Root';
 import Homepage from "../pages/Homepage";
+import Home from "../pages/Home";
 import Player from "../pages/Player";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import Under18 from "../pages/Under18";
@@ -20,7 +21,7 @@ import Under23 from "../pages/Under23"
       children: [
         {
           path: "/",
-          element: <Homepage />
+          element: <Home />
         },
         {
           path: "/privacy-policy",

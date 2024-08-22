@@ -295,7 +295,7 @@ export default function PlayerInformation({
                                     color: '#fff',
                                 }}
                             >
-                                #{playerInfoMap.get("Shirt")?.value?.fallback || 'Unavailable'}
+                                #{playerInfoMap.get("Shirt")?.value?.fallback || '//'}
                             </Typography>
                         </Grid>
 

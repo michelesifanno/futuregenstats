@@ -3,8 +3,8 @@ import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Grid, u
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
-import BestPlayersByCompetition from '../components/BestPlayersByCompetition';
-import MostExperiencedPlayers from '../components/MostExperiencedPlayers';
+import BestPlayersByCompetition from '../components/Homepage/BestPlayersByCompetition';
+import MostExperiencedPlayers from '../components/Homepage/MostExperiencedPlayers';
 import BestGK from '../components/BestGK';
 import BestDF from '../components/BestDF';
 import BestMF from '../components/BestMF';

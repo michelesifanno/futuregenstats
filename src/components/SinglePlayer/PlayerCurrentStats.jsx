@@ -93,7 +93,7 @@ export default function PlayerCurrentStats({
                                     color: '#171D8D',
                                 }}
                             >
-                                {playerInfoMap.has("goals") ? playerInfoMap.get("goals") : 'Unavailable'}
+                                {playerInfoMap.has("goals") ? playerInfoMap.get("goals") : '0'}
                             </Typography>
                         </Grid>
                         <Grid item xs={6} md={3} sx={{ padding: '20px!important', borderBottom: '1px solid rgba(23,29,141,0.2)', borderRight: '1px solid rgba(23,29,141,0.2)' }}>
@@ -118,7 +118,7 @@ export default function PlayerCurrentStats({
                                     color: '#171D8D',
                                 }}
                             >
-                                {playerInfoMap.has("assists") ? playerInfoMap.get("assists") : 'Unavailable'}
+                                {playerInfoMap.has("assists") ? playerInfoMap.get("assists") : '0'}
                                 </Typography>
                         </Grid>
                         <Grid item xs={6} md={3} sx={{ padding: '20px!important', borderBottom: '1px solid rgba(23,29,141,0.2)' }}>
