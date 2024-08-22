@@ -61,6 +61,10 @@ export default function PlayerTraits({ traits }) {
     touches: '🦶🏻',
   };
 
+  if (timedOut) {
+    return null; // Ritorna null se il timeout è stato raggiunto
+  }
+  
   return (
     <>
       {loading ? (
