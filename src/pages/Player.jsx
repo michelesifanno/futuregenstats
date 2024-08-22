@@ -19,11 +19,13 @@ import PlayerResume from '../components/SinglePlayer/PlayerResume';
 export default function Player() {
     const { slug } = useParams();
     const { player, performance, club, loading: playerLoading, error: playerError } = usePlayer(slug);
-    const { playerId, loading: idLoading, error: idError } = usePlayerId(player?.name || '');
+    const { playerId, loading: idLoading, error: idError } = usePlayerId(player?.name, club?.name);
     const { playerData, teamColor, loading: fotMobLoading, error: fotMobError } = usePlayerFotMobData(playerId);
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+    const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
     
 
     const phrases = [
@@ -117,17 +119,18 @@ export default function Player() {
                                 {...playerData}
                             />
                         </Box>
-                        <Box sx={{ padding: isMobile ? '0px' : '10px' }}>
+                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
                             <PlayerRecentMatches
                                 matches={playerData?.recentMatches}
                             />
                         </Box>
-                        <Box sx={{ padding: isMobile ? '0px 0px' : '10px' }}>
+                        {isDesktop ? (<Box sx={{ padding: isMobile ? '0px' : '10px' }}>
                             <PlayerResume
                                 performance={performance}
                                 name={player?.name}
                             />
-                        </Box>
+                        </Box>) : null}
+                        
                     </Grid>
                     <Grid item xs={12} md={4}>
                     <Box sx={{ padding: isMobile ? '0px 0px' : '10px' }}>
@@ -135,7 +138,7 @@ export default function Player() {
                             {...playerData}
                             />
                         </Box>
-                        <Box sx={{ padding: isMobile ? '0px 0px' : '10px' }}>
+                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
                             <PlayerCareer
                                 {...playerData}
                             />
@@ -145,6 +148,12 @@ export default function Player() {
                                 {...playerData}
                             />
                         </Box>
+                        {(isMobile || isTablet) ? (<Box sx={{ padding: isMobile ? '0px' : '10px' }}>
+                            <PlayerResume
+                                performance={performance}
+                                name={player?.name}
+                            />
+                        </Box>) : null}
                     </Grid>
                 </Grid>
             </Box>

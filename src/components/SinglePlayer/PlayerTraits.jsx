@@ -25,15 +25,27 @@ export default function PlayerTraits({ traits }) {
 
   const [playerInfoMap, setPlayerInfoMap] = useState(new Map());
   const [loading, setLoading] = useState(true);
+  const [timedOut, setTimedOut] = useState(false);
 
   useEffect(() => {
+    // Imposta un timeout per mostrare un messaggio di errore se i dati non sono caricati in 5 secondi
+    const timer = setTimeout(() => {
+      if (loading) {
+        setTimedOut(true);
+        setLoading(false); // Ferma il circular progress
+      }
+    }, 5000);
+
     if (traits?.items) {
       const map = new Map(traits.items.map(item => [item.key, item.value]));
       setPlayerInfoMap(map);
       setLoading(false);
+      clearTimeout(timer); // Cancella il timeout se i dati vengono caricati in tempo
     } else {
       setLoading(true); // I dati non sono disponibili
     }
+
+    return () => clearTimeout(timer); // Pulizia del timeout se il componente si smonta
   }, [traits]);
 
   // Trova il valore massimo per normalizzare i dati
@@ -52,7 +64,11 @@ export default function PlayerTraits({ traits }) {
   return (
     <>
       {loading ? (
-        <CircularProgress />
+        timedOut ? (
+          <Typography sx={{ textAlign: 'center', color: 'red' }}>Dati non disponibili</Typography>
+        ) : (
+          <CircularProgress />
+        )
       ) : (
         <Accordion defaultExpanded>
           <AccordionSummary
