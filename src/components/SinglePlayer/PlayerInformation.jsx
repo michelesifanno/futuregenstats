@@ -50,7 +50,7 @@ export default function PlayerInformation({
         // Scrolla in alto quando il componente viene montato
         window.scrollTo(0, 0);
     }, [id]); // Questo effetto viene eseguito ogni volta che `id` cambia
-    
+
     const formatDate = (dateStr) => {
         if (!dateStr) return 'unavailable';
         const date = new Date(dateStr);
@@ -94,7 +94,7 @@ export default function PlayerInformation({
                                         fontSize: isMobile ? '18px' : '20px',
                                         textAlign: 'left',
                                         color: '#fff',
-                                        lineHeight:'28px',
+                                        lineHeight: '28px',
                                     }}
                                 >
                                     {name || 'Unavailable'}
@@ -139,6 +139,26 @@ export default function PlayerInformation({
                             )}
                         </Grid>
                     </Grid>
+                    {injuryInformation ? (
+                        <Grid container spacing={2} sx={{ alignItems: 'center', padding: '10px 20px!important', borderBottom: '1px solid rgba(255, 255, 255, 0.2)' }}>
+                            <Grid item xs={12}>
+                                <Typography
+                                    sx={{
+                                        fontWeight: 500,
+                                        fontSize: '14px',
+                                        textAlign: 'left',
+                                        color: '#fff',
+                                        lineHeight: '28px',
+                                    }}
+                                >
+                                    🏥 {injuryInformation.name}{' '}
+                                    <span style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                                        (Expected Return: {injuryInformation.expectedReturn?.expectedReturnFallback || 'Unavailable'})
+                                    </span>
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    ) : null}
                     <Grid container>
                         <Grid item xs={6} md={4} sx={{ padding: '20px!important', borderRight: '1px solid rgba(255, 255, 255, 0.2)', borderBottom: '1px solid rgba(255, 255, 255, 0.2)' }}>
                             <Typography

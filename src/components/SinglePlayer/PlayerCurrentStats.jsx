@@ -17,7 +17,6 @@ export default function PlayerCurrentStats({
     useEffect(() => {
         if (mainLeague?.stats) {
             const map = new Map(mainLeague.stats.map(item => [item.localizedTitleId, item.value]));
-            console.log('Player Info Map:', Array.from(map.entries())); // Debugging statement
             setPlayerInfoMap(map);
             setLoading(false);
         } else {

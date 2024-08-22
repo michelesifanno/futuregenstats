@@ -105,3 +105,11 @@ img {
 #current-stats.MuiAccordionSummary-root.Mui-expanded {
   border-bottom: 1px solid rgba(23,29,141,0.2)!important;
 }
+
+.MuiAccordion-root.Mui-expanded {
+  margin: 0px!important;
+}
+
+.career-history {
+  font-size: 12px!important;
+}

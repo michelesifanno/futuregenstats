@@ -28,21 +28,16 @@ export default function PlayerTraits({ traits }) {
 
   useEffect(() => {
     if (traits?.items) {
-      console.log('Traits items:', traits.items);
       const map = new Map(traits.items.map(item => [item.key, item.value]));
-      console.log('Player Traits Map:', Array.from(map.entries()));
       setPlayerInfoMap(map);
       setLoading(false);
     } else {
-      console.warn('No traits data available.');
       setLoading(true); // I dati non sono disponibili
     }
   }, [traits]);
 
   // Trova il valore massimo per normalizzare i dati
   const maxValue = Math.max(...(traits?.items || []).map(d => d.value), 1);
-
-  console.log('Max Value:', maxValue);
 
   // Icone per ogni tipo di dato
   const icons = {
@@ -70,7 +65,7 @@ export default function PlayerTraits({ traits }) {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '12px' : '14px', padding:'10px 0px' }}>
+            <Typography sx={{ fontWeight: 400, fontSize: '12px', padding:'0px 0px' }}>
               {traits.title}
             </Typography>
             <TableContainer component={Paper}>
