@@ -20,36 +20,44 @@ import PlayerCompetitions from '../components/SinglePlayer/PlayerCompetitions';
 export default function Player() {
     const { slug } = useParams();
     const { player, performance, club, loading: playerLoading, error: playerError } = usePlayer(slug);
-    const { playerId, loading: idLoading, error: idError } = usePlayerId(player?.name, club?.name);
-    const { playerData, teamColor, loading: fotMobLoading, error: fotMobError } = usePlayerFotMobData(playerId);
+    
+    const shouldFetchFotMobData = player && club &&
+        ["ES1", "IT1", "GB1", "L1", "FR1", "IT2"].includes(club?.competition_id) &&
+        [20, 21, 22, 23].includes(player?.age);
+
+    const { playerId, loading: idLoading, error: idError } = usePlayerId(
+        shouldFetchFotMobData ? player?.name : null,
+        shouldFetchFotMobData ? club?.name : null
+    );
+
+    const { playerData, teamColor, loading: fotMobLoading, error: fotMobError } = usePlayerFotMobData(
+        shouldFetchFotMobData ? playerId : null
+    );
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
-
     const phrases = [
-        "Stiamo preparando i dati... 📊",
-        "Stiamo mettendo in forma il giocatore... 💆🏻‍♂️",
-        "Stiamo stirando le divise... 👕",
-        "Arrivano eh... 🔥",
-        "Affilando i tacchetti... 👟"
+        "Loading data... 📊",
+        "Getting the player in shape... 💆🏻‍♂️",
+        "Ironing the jerseys... 👕",
+        "Hang tight... 🔥",
+        "Sharpening the cleats... 👟"
     ];
 
-    // Imposta una frase iniziale casuale
     const [funnyPhrase, setFunnyPhrase] = useState(phrases[Math.floor(Math.random() * phrases.length)]);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
             const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
             setFunnyPhrase(randomPhrase);
-        }, 2000); // Cambia frase ogni 2 secondi
+        }, 2000);
 
         return () => clearInterval(intervalId);
     }, []);
 
-    // Gestisci i vari stati di caricamento ed errore
     if (playerLoading || idLoading || fotMobLoading) {
         return (
             <Box sx={{
@@ -78,12 +86,10 @@ export default function Player() {
                 alignItems: 'center',
                 justifyContent: 'center',
             }}>
-                <Typography color="error">Errore: {playerError || idError || fotMobError}</Typography>
+                <Typography color="error">Error: {playerError || idError || fotMobError}</Typography>
             </Box>
         );
     }
-
-    const isMajorLeague = ["LaLiga", "Serie A", "Premier League", "Bundesliga", "Ligue 1", "Serie B"].includes(playerData?.mainLeague.leagueName);
 
     const pageTitle = `Ultimate Stats for ${playerData?.name} - ${playerData?.positionDescription?.primaryPosition?.label} - ${playerData?.primaryTeam?.teamName} | Future Gen Stats`;
     const metaDescription = `The latest performance stats of ${playerData?.name}, the ${playerData?.positionDescription?.primaryPosition?.label} from ${playerData?.primaryTeam?.teamName}. Don't miss out on the future star's key metrics.`;
@@ -99,7 +105,7 @@ export default function Player() {
                 padding: isMobile ? '70px 10px' : '90px 20px',
                 minHeight: '100vh',
             }}>
-                { isMajorLeague ?
+                { shouldFetchFotMobData ?
                 (
                     <>
                                     <Typography

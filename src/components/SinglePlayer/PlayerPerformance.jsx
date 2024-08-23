@@ -73,7 +73,8 @@ export default function PlayerPerformance({ performance = [], name }) {
         <Accordion defaultExpanded>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="general-stats-content" id="general-stats-header">
                 <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
-                    General Stats
+                    23/24 Season Stats <br />
+                    <span style={{fontSize:'10px'}}>We're working hard to keep the stats as fresh as possible.</span>
                 </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{padding:'0px!important'}}>

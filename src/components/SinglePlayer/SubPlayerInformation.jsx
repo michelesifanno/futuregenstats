@@ -55,7 +55,7 @@ export default function SubPlayerInformation({ playerId }) {
                         borderRadius: '5px',
                     }}
                 >
-                    <Grid container spacing={2} sx={{ alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.2)', padding: '10px 20px 0px 20px!important' }}>
+                    <Grid container spacing={2} sx={{ alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.2)', padding: '10px 20px 10px 20px!important' }}>
                         <Grid item xs={1}>
                             <img
                                 src={player.image}
@@ -71,7 +71,8 @@ export default function SubPlayerInformation({ playerId }) {
                                         fontSize: isMobile ? '18px' : '20px',
                                         textAlign: 'left',
                                         color: '#fff',
-                                        lineHeight: '28px',
+                                        lineHeight: '20px',
+                                        marginBottom:'5px'
                                     }}
                                 >
                                     {player.name || 'Unavailable'}
@@ -95,7 +96,7 @@ export default function SubPlayerInformation({ playerId }) {
                                 src={club.image}
                                 alt={club.name || 'Team Logo'}
                                 style={{
-                                    width: isMobile ? '40px' : '30px',
+                                    width: '50px',
                                     height: 'auto',
                                     marginRight: '5px'
                                 }}

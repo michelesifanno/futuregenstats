@@ -64,7 +64,8 @@ export default function PlayerCompetitions({ performance = [], name }) {
         id="competitions-stats-header"
       >
         <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
-          Competitions Stats
+          23/24 Competitions Stats <br />
+          <span style={{ fontSize: '10px' }}>We're working hard to keep the stats as fresh as possible.</span>
         </Typography>
       </AccordionSummary>
       <AccordionDetails sx={{ padding: 0 }}>
@@ -76,8 +77,12 @@ export default function PlayerCompetitions({ performance = [], name }) {
               <TableCell>👟</TableCell>
               <TableCell>👕</TableCell>
               <TableCell>⏱️</TableCell>
-              <TableCell>🥅</TableCell>
-              <TableCell>🛡️</TableCell>
+              {isGoalkeeper && (
+                <>
+                  <TableCell>🥅</TableCell>
+                  <TableCell>🛡️</TableCell>
+                </>
+              )}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -112,13 +117,13 @@ export default function PlayerCompetitions({ performance = [], name }) {
                   </TableCell>
                   {isGoalkeeper && (
                     <>
-                  <TableCell className="player-competitions">
-                    {comp.conceded_goals}
-                  </TableCell>
-                  <TableCell className="player-competitions">
-                    {comp.to_nil}
-                  </TableCell>
-                  </>
+                      <TableCell className="player-competitions">
+                        {comp.conceded_goals}
+                      </TableCell>
+                      <TableCell className="player-competitions">
+                        {comp.to_nil}
+                      </TableCell>
+                    </>
                   )}
                 </TableRow>
               )
