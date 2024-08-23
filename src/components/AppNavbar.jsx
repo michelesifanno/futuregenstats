@@ -6,7 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import DiamondOutlinedIcon from '@mui/icons-material/DiamondOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
-import MenuItems from './MenuItems'
+import MenuItems from './Menu/MenuItems'
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -45,7 +45,7 @@ export default function AppNavbar() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-    const drawerWidth = (isMobile || isTablet ) ? '100%' : '400px';
+    const drawerWidth = (isMobile || isTablet ) ? '70%' : '400px';
     const [searchDrawerOpen, setSearchDrawerOpen] = useState(false);
     const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
 
@@ -78,14 +78,14 @@ export default function AppNavbar() {
                             display: 'flex',
                             justifyContent: 'start',
                             alignItems: 'center',
-                            padding: isMobile ? '0px 10px!important' : '0px 20px!important',
+                            padding: isMobile ? '10px!important' : '0px 20px!important',
                         }}
                     >
                         <Link to="/" style={{ textDecoration: 'none', marginBottom:'-5px!important' }}>
                             <img
                                 src="/logo.png"
                                 alt="Future Gen Stats Logo"
-                                style={{ maxWidth: isMobile ? '180px' : '220px' }}
+                                style={{ maxWidth: isMobile ? '160px' : '200px' }}
                                 href="/"
                             />
                         </Link>
@@ -170,17 +170,6 @@ export default function AppNavbar() {
                                     fontSize: (isMobile || isTablet) ? '26px' : '30px',
                                 }}
                             />
-                            <Typography
-                                sx={{
-                                    fontSize: '12px',
-                                    color: 'third.main',
-                                    fontWeight: '500',
-                                    display: (isMobile || isTablet) ? 'none' : 'block',
-                                    marginTop: '2px',
-                                }}
-                            >
-                                IHG
-                            </Typography>
                         </IconButton>
                     </Grid>
 
@@ -192,12 +181,11 @@ export default function AppNavbar() {
                         md={1}
                         sx={{
                             display: 'flex',
-                            flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems: 'center',
                             padding: '0px!important',
-                            backgroundColor: '#171d8d',
-                            height: '100%',
+                            height:'100%',
+                            borderLeft:'1px solid rgba(255,255,255,0.2)'
                         }}
                     >
                         <IconButton
@@ -212,7 +200,7 @@ export default function AppNavbar() {
                                 alignItems: 'center',
                             }}
                         >
-                            <MenuIcon sx={{ fontSize: isMobile ? '36px' : '30px' }} />
+                            <MenuIcon sx={{ fontSize: '30px' }} />
                             <Typography
                                 sx={{
                                     fontSize: '12px',

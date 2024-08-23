@@ -14,12 +14,11 @@ const MenuLink = styled(Link)(({ theme }) => ({
 
 const MenuItemText = styled(ListItemText)(({ theme }) => ({
     '& .MuiTypography-root': {
-        fontSize: '16px',
-        fontWeight: 600,
+        fontSize: '14px',
+        fontWeight: 500,
         color: '#fff',
         textTransform: 'uppercase',
         margin: 0,
-        letterSpacing: '-0.5px',
         transition: 'color 0.3s',
     },
 }));
@@ -36,23 +35,17 @@ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
     },
 }));
 
-const accordionStyles = {
-    boxShadow: 'none',
-    border: '1px solid rgba(0, 0, 0, 0.125)',
-    '&:before': {
-        display: 'none',
-    },
-};
 
 export default function MenuAccordion() {
     return (
-        <Accordion defaultExpanded sx={accordionStyles}>
+        <Accordion defaultExpanded sx={{backgroundColor:'rgba(255, 255, 255, 0.0)!important'}}>
             <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
+                expandIcon={<ExpandMoreIcon sx={{color:'#fff'}} />}
                 aria-controls="menu-content"
                 id="menu-header"
+                sx={{backgroundColor:'rgba(255, 255, 255, 0.0)!important'}}
             >
-                <Typography variant="h6">Giovani per Età</Typography>
+                <Typography variant="h2" sx={{fontSize:'14px', color:'#fff'}}>Best Youth</Typography>
             </AccordionSummary>
             <AccordionDetails>
                 <List>
