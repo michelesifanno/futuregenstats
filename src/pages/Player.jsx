@@ -91,9 +91,10 @@ export default function Player() {
         );
     }
 
-    const pageTitle = `Ultimate Stats for ${playerData?.name} - ${playerData?.positionDescription?.primaryPosition?.label} - ${playerData?.primaryTeam?.teamName} | Future Gen Stats`;
-    const metaDescription = `The latest performance stats of ${playerData?.name}, the ${playerData?.positionDescription?.primaryPosition?.label} from ${playerData?.primaryTeam?.teamName}. Don't miss out on the future star's key metrics.`;
+    const pageTitle = `${player?.name} - ${player?.position} Stats & Performance at ${club?.name} | Future Gen Stats`;
+    const metaDescription = `Explore detailed performance stats and key metrics of ${player?.name}, playing as ${player?.position} for ${club?.name}. Stay updated with the latest achievements and career highlights of this promising player.`;
 
+    
     return (
         <>
             <Helmet>
