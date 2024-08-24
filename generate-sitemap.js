@@ -30,6 +30,11 @@ async function generateSitemap() {
       '/',
       '/privacy-policy',
       '/best-under-18',
+      '/best-under-19',
+      '/best-under-20',
+      '/best-under-21',
+      '/best-under-22',
+      '/best-under-23',
     ];
 
     // Mapperemo gli ID dei player in URL completi

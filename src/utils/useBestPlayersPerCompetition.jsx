@@ -10,7 +10,7 @@ const formatMarketValue = (value) => {
 };
 
 // Hook per ottenere i migliori giocatori per competizione e categoria di età
-export function useBestPlayersPerCompetition (competitionId, ageCategory) {
+export function useBestPlayersPerCompetition (competitionId) {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,7 +20,7 @@ export function useBestPlayersPerCompetition (competitionId, ageCategory) {
       try {
         setLoading(true);
         let query = supabase
-          .from('best_young_players_per_competition')
+          .from('best_young_players_by_competition')
           .select(`
             player_id,
             player_name,
@@ -42,10 +42,6 @@ export function useBestPlayersPerCompetition (competitionId, ageCategory) {
             )
           `)
           .eq('competition_id', competitionId);
-
-        if (ageCategory) {
-          query = query.eq('age_category', ageCategory);
-        }
 
         const { data, error } = await query;
 
@@ -110,7 +106,7 @@ export function useBestPlayersPerCompetition (competitionId, ageCategory) {
     if (competitionId) {
       fetchPlayers();
     }
-  }, [competitionId, ageCategory]);
+  }, [competitionId]);
 
   return { players, loading, error };
 };

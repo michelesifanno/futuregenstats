@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import { AppBar, Box, InputBase, Grid, Drawer, IconButton, Typography, useMediaQuery, Divider } from '@mui/material';
+import { AppBar, Box, InputBase, Grid, Drawer, IconButton, Typography, useMediaQuery, Divider, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
@@ -45,7 +45,7 @@ export default function AppNavbar() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-    const drawerWidth = (isMobile || isTablet ) ? '70%' : '400px';
+    const drawerWidth = (isMobile || isTablet) ? '70%' : '400px';
     const [searchDrawerOpen, setSearchDrawerOpen] = useState(false);
     const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
 
@@ -73,7 +73,7 @@ export default function AppNavbar() {
                         item
                         xs={6}
                         sm={4}
-                        md={2}
+                        md={3}
                         sx={{
                             display: 'flex',
                             justifyContent: 'start',
@@ -81,7 +81,7 @@ export default function AppNavbar() {
                             padding: isMobile ? '10px!important' : '0px 20px!important',
                         }}
                     >
-                        <Link to="/" style={{ textDecoration: 'none', marginBottom:'-5px!important' }}>
+                        <Link to="/" style={{ textDecoration: 'none', marginBottom: '-5px!important' }}>
                             <img
                                 src="/logo.png"
                                 alt="Future Gen Stats Logo"
@@ -96,7 +96,7 @@ export default function AppNavbar() {
                         <Grid
                             item
                             sm={6}
-                            md={8}
+                            md={6}
                             sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', padding: isTablet ? '0px 20px!important' : '0px 120px!important' }}
                         >
                             <Search>
@@ -141,36 +141,29 @@ export default function AppNavbar() {
                         item
                         xs={2}
                         sm={1}
-                        md={1}
+                        md={2}
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems: 'center',
                             padding: '0px!important',
-                            backgroundColor: (isMobile || isTablet) ? 'none' : '#00e8da',
                             height: '100%',
                         }}
                     >
-                        <IconButton
-                            color="inherit"
-                            aria-label="ihg"
-                            onClick={toggleSearchDrawer}
-                            sx={{
-                                padding: '0px',
-                                margin: '0px!important',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <DiamondOutlinedIcon
+                        <Button variant="outlined" startIcon={<DiamondOutlinedIcon sx={{color:'#fff', fontSize:'30px!important'}}/>}>
+                        <Typography
                                 sx={{
-                                    color: (isMobile || isTablet) ? 'secondary.main' : 'third.main',
-                                    fontSize: (isMobile || isTablet) ? '26px' : '30px',
+                                    fontSize: '14px',
+                                    color: 'secondary.main',
+                                    fontWeight: '500',
+                                    display: (isMobile || isTablet) ? 'none' : 'block',
+                                    marginTop: '1px',
                                 }}
-                            />
-                        </IconButton>
+                            >
+                                HIDDEN GEMS
+                            </Typography>
+                        </Button>
                     </Grid>
 
                     {/* Menu Icon */}
@@ -184,8 +177,8 @@ export default function AppNavbar() {
                             justifyContent: 'center',
                             alignItems: 'center',
                             padding: '0px!important',
-                            height:'100%',
-                            borderLeft:'1px solid rgba(255,255,255,0.2)'
+                            height: '100%',
+                            borderLeft: '1px solid rgba(255,255,255,0.2)'
                         }}
                     >
                         <IconButton
@@ -248,29 +241,29 @@ export default function AppNavbar() {
                 </Drawer>
 
                 <Drawer
-                anchor='right'
-                open={menuDrawerOpen}
-                onClose={handleDrawerClose}
-                sx={{ width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' } }}
-            >
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: '100%',
-                        padding: '10px',
-                        backgroundColor:'#171d8d',
-                    }}
+                    anchor='right'
+                    open={menuDrawerOpen}
+                    onClose={handleDrawerClose}
+                    sx={{ width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' } }}
                 >
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <IconButton onClick={handleDrawerClose} sx={{marginLeft:'auto', color:'#00e8da'}}>
-                            <CloseIcon />
-                        </IconButton>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            height: '100%',
+                            padding: '10px',
+                            backgroundColor: '#171d8d',
+                        }}
+                    >
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <IconButton onClick={handleDrawerClose} sx={{ marginLeft: 'auto', color: '#00e8da' }}>
+                                <CloseIcon />
+                            </IconButton>
+                        </Box>
+                        <Divider sx={{ marginY: '10px' }} />
+                        <MenuItems />
                     </Box>
-                    <Divider sx={{ marginY: '10px' }} />
-                    <MenuItems />
-                </Box>
-            </Drawer>
+                </Drawer>
 
 
             </AppBar>

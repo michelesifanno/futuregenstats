@@ -5,6 +5,9 @@ import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
 import BestPlayersByCompetition from '../components/Homepage/BestPlayersByCompetition';
 import MostExperiencedPlayers from '../components/Homepage/MostExperiencedPlayers';
+import YouthByCompetition from '../components/Homepage/YouthByCompetitions';
+import YouthByNationality from '../components/Homepage/YouthByNationality';
+import BestPlayersByAge from '../components/BestPlayersByAge';
 import BestGK from '../components/BestGK';
 import BestDF from '../components/BestDF';
 import BestMF from '../components/BestMF';
@@ -35,22 +38,51 @@ function Home() {
             </Helmet>
             <Box sx={{
                 background: theme.palette.secondary.main,
-                padding: isMobile ? '70px 10px' : '90px 20px',
+                padding: isMobile ? '70px 10px 10px 10px' : '95px 10px 20px 10px',
                 minHeight: '100vh',
             }}>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} md={3}>
-
+                    <Grid item xs={12} md={3} >
+                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
+                            <YouthByCompetition />
+                        </Box>
+                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
+                            <YouthByNationality />
+                        </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                                    <MostExperiencedPlayers />
+                            <MostExperiencedPlayers />
                         </Box>
                         <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                                    <BestPlayersByCompetition />
+                            <BestPlayersByCompetition />
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={3}>
+                    <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
+                            <BestPlayersByAge
+                            ageCategory={'Under 18'} />
+                        </Box>
+                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
+                            <BestPlayersByAge
+                            ageCategory={'Under 19'} />
+                        </Box>
+                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
+                            <BestPlayersByAge
+                            ageCategory={'Under 20'} />
+                        </Box>
+                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
+                            <BestPlayersByAge
+                            ageCategory={'Under 21'} />
+                        </Box>
+                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
+                            <BestPlayersByAge
+                            ageCategory={'Under 22'} />
+                        </Box>
+                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
+                            <BestPlayersByAge
+                            ageCategory={'Under 23'} />
+                        </Box>
 
                     </Grid>
                 </Grid>

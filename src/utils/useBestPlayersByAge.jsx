@@ -9,8 +9,8 @@ const formatMarketValue = (value) => {
     return `${(numericValue / 1000000).toFixed(1)} mil.`;
 };
 
-// Hook per ottenere i migliori giocatori per competizione e categoria di età
-export function useMostExperiencedPlayers(ageCategory) {
+// Hook per ottenere i migliori giocatori per ruolo e categoria di età
+export function useBestPlayersByAge(ageCategory) {
     const [players, setPlayers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -19,14 +19,21 @@ export function useMostExperiencedPlayers(ageCategory) {
         const fetchPlayers = async () => {
             try {
                 setLoading(true);
-                // Esegui la query per ottenere i giocatori basati sulla categoria di età
-                const { data, error } = await supabase
-                    .from('best_experienced_young_players')
+
+                let query = supabase
+                    .from('best_young_players_by_age')
                     .select(`
                         player_id,
                         player_name,
-                        total_score,
+                        role,
                         age_category,
+                        total_weighted_goals,
+                        total_weighted_assists,
+                        total_weighted_minutes_played,
+                        total_weighted_matches,
+                        total_weighted_to_nil,
+                        total_weighted_conceded_goals,
+                        total_score,
                         players (
                             image,
                             positions,
@@ -38,15 +45,19 @@ export function useMostExperiencedPlayers(ageCategory) {
                                 image
                             )
                         )
-                    `)
-                    .eq('age_category', ageCategory);
+                    `);
+                
+                if (ageCategory) {
+                    query = query.eq('age_category', ageCategory);
+                }
 
-                console.log('Data:', data); // Debug: log dei dati
+                const { data, error } = await query;
+
                 if (error) {
-                    console.error('Supabase Error:', error); // Debug: log degli errori
                     throw error;
                 }
 
+                // Formattazione dei dati
                 const formattedData = data.map(player => {
                     // Parsing delle posizioni
                     let positions = 'N/A';
@@ -92,17 +103,14 @@ export function useMostExperiencedPlayers(ageCategory) {
 
                 setPlayers(formattedData);
             } catch (err) {
-                console.error('Fetch Error:', err); // Debug: log degli errori
-                setError(err.message || 'Errore sconosciuto');
+                setError(err.message || 'Errore nel recupero dei dati');
             } finally {
                 setLoading(false);
             }
         };
 
-        if (ageCategory) {
-            fetchPlayers();
-        }
-    }, [ageCategory]);
+        fetchPlayers();
+    }, [ageCategory]); // Usa ageCategory come dipendenza
 
     return { players, loading, error };
-};
+}

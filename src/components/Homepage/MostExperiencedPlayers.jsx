@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Grid, Button, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableRow, Accordion, AccordionSummary, AccordionDetails, Tabs, Tab } from '@mui/material';
+import { Box, Grid, Button, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableRow, Accordion, AccordionSummary, AccordionDetails, Tabs, Tab, CircularProgress } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import { useMostExperiencedPlayers } from '../../utils/useMostExperiencedPlayers';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -30,15 +30,12 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 const rankStyles = {
   gold: {
-    backgroundColor: 'rgba(255, 215, 0, 0.1)',
     color: '#CCAD07',
   },
   silver: {
-    backgroundColor: 'rgba(192, 192, 192, 0.1)',
     color: '#959595',
   },
   bronze: {
-    backgroundColor: 'rgba(205, 127, 50, 0.1)',
     color: '#CD7F32',
   },
 };
@@ -50,15 +47,13 @@ export default function MostExperiencedPlayers() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
 
-
   // Tab change handler
   const handleTabChange = (event, newValue) => {
     setAgeCategory(newValue);
   };
 
-  const sortedPlayers = players.sort((a, b) => a.rank - b.rank);
+  const sortedPlayers = players.sort((a, b) => b.total_score - a.total_score).slice(0, 10); // Ordina in base al punteggio totale
 
-  if (playersError) return <p>Error: {playersError}</p>;
 
   return (
     <>
@@ -81,6 +76,7 @@ export default function MostExperiencedPlayers() {
             variant={isMobile ? 'scrollable' : 'standard'}
             scrollButtons="auto"
             centered
+            sx={{ borderBottom: '1px solid #f6f6f6' }}
           >
             <Tab label="Under 18" value="Under 18" sx={{ fontSize: '12px!important', padding: '10px', width: isMobile ? 'auto' : '16.66%!important', textAlign: 'center' }} />
             <Tab label="Under 19" value="Under 19" sx={{ fontSize: '12px!important', padding: '10px', width: isMobile ? 'auto' : '16.66%!important', textAlign: 'center' }} />
@@ -92,54 +88,86 @@ export default function MostExperiencedPlayers() {
           <TableContainer>
             <Table aria-label="most-experienced-players">
               <TableBody>
-                {sortedPlayers.map((player, index) => {
-                  let rankStyle = {};
-                  if (index === 0) {
-                    rankStyle = rankStyles.gold;
-                  } else if (index === 1) {
-                    rankStyle = rankStyles.silver;
-                  } else if (index === 2) {
-                    rankStyle = rankStyles.bronze;
-                  }
-                  return (
-                    <TableRow
-                      key={player.player_id}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 }, ...rankStyle, padding: isMobile ? '10px' : '20px' }}
-                    >
-                      <TableCell align="center">
-                        <Typography sx={{ fontWeight: 500, fontSize: '14px', color: rankStyle.color }}>
-                          {player.rank}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="left">
-                        <img src={player.player_image} alt={player.player_name} style={{ width: isMobile ? '26px' : '36px', borderRadius: '2px' }} />
-                      </TableCell>
-                      <TableCell align="left">
-                        <Typography sx={{ fontWeight: 500, fontSize: '14px' }}>
-                          <Link to={`/player/${player.player_id}`} style={{ textDecoration: 'none', color: '#333' }}>
-                            {player.player_name}
-                          </Link>
-                        </Typography>
-                        <Typography sx={{ fontWeight: 400, fontSize: '12px' }}>
-                          {player.positions}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="left">
-                        <img src={player.club_image} alt={`${player.club_name} logo`} style={{ width: isMobile ? '20px' : '30px' }} />
-                      </TableCell>
-                      <TableCell align="left" sx={{display: (isMobile || isTablet) ? 'none' : 'table-cell'}}>
-                      <Typography sx={{ fontWeight: 500, fontSize: '12px' }}>
-                          {player.marketvalue} {player.marketvaluecurrency}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="right">
-                        <Typography sx={{ fontWeight: 500, fontSize: '14px', color: rankStyle.color }}>
-                          {player.total_score}
-                        </Typography>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                {playersLoading ? (
+                  <Box sx={{ padding: '40px', display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress />
+                  </Box>) : (
+                  <>
+                    {sortedPlayers.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={6} align="center">
+                          <Typography>No players found</Typography>
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      sortedPlayers.map((player, index) => {
+                        // Determina lo stile di rango
+                        let rankStyle = {};
+                        if (index === 0) {
+                          rankStyle = rankStyles.gold;
+                        } else if (index === 1) {
+                          rankStyle = rankStyles.silver;
+                        } else if (index === 2) {
+                          rankStyle = rankStyles.bronze;
+                        }
+
+                        return (
+                          <TableRow
+                            key={player.player_id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 }, padding: isMobile ? '10px' : '20px' }}
+                          >
+                            <TableCell sx={{ textAlign: 'center' }}>
+                              <Grid container sx={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+                                <Grid item xs={1}>
+                                  <Typography sx={{ fontWeight: 500, fontSize: '14px', color: rankStyle.color, textAlign: 'center' }}>
+                                    {index + 1}
+                                  </Typography>
+                                </Grid>
+                                <Grid item xs={2} md={1}>
+                                  <img
+                                    src={player.player_image}
+                                    alt={player.player_name}
+                                    style={{ width: '40px', borderRadius: '2px' }}
+                                  />
+                                </Grid>
+                                <Grid item xs={6} md={5} sx={{ textAlign: 'left', padding: '0px 10px!important' }}>
+                                  <Typography sx={{ fontWeight: 500, fontSize: '14px' }}>
+                                    <Link to={`/player/${player.player_id}`} style={{ textDecoration: 'none', color: '#333' }}>
+                                      {player.player_name}
+                                    </Link>
+                                  </Typography>
+                                  <Typography sx={{ fontWeight: 400, fontSize: '12px' }}>
+                                    {player.positions}
+                                  </Typography>
+                                </Grid>
+                                <Grid item xs={1} sx={{ textAlign: 'center' }}>
+                                  <img
+                                    src={player.club_image}
+                                    alt={`${player.club_name} logo`}
+                                    style={{ width: '30px' }}
+                                  />
+                                </Grid>
+                                {isMobile ? (null) : (
+                                  <Grid item xs={2} sx={{ textAlign: 'right' }}>
+                                    <Typography sx={{ fontWeight: 500, fontSize: '12px' }}>
+                                      {player.marketvalue} {player.marketvaluecurrency}
+                                    </Typography>
+                                  </Grid>
+                                )}
+
+                                <Grid item xs={2}>
+                                  <Typography sx={{ fontWeight: 500, fontSize: '14px', color: rankStyle.color, textAlign: 'right' }}>
+                                    {player.total_score}
+                                  </Typography>
+                                </Grid>
+                              </Grid>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })
+                    )}
+                  </>
+                )}
               </TableBody>
             </Table>
           </TableContainer>
