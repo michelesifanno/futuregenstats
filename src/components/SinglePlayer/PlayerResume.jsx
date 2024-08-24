@@ -56,15 +56,17 @@ export default function PlayerResume({ performance = [], name }) {
       <Typography variant="body1" sx={{ marginTop: 2, fontSize: isMobile ? '12px' : '14px' }}>
         During the 2023/2024 season, <strong>{name}</strong> {isGoalkeeper
           ? `conceded ${totalConcededGoals} goals and secured ${performance.reduce((acc, curr) => acc + (curr.to_nil || 0), 0)} clean sheets`
-          : `scored ${totalGoals} goals and provided ${totalAssists} assists`} across {totalMatches} matches. The player demonstrated impressive stamina, accumulating {totalMinutesPlayed} minutes on the pitch.
+          : `scored ${totalGoals} goals and provided ${totalAssists} assists`} across {totalMatches} matches. The player demonstrated impressive stamina, accumulating {totalMinutesPlayed} minutes on the pitch. {isGoalkeeper
+            ? totalConcededGoals === 0 ? 'An absolute wall in goal, consistently keeping a clean sheet.' : totalConcededGoals <= 10 ? 'Despite conceding a few goals, they displayed strong defensive skills.' : 'A goalkeeper who, although conceding several goals, fought hard for the team.'
+            : totalGoals >= 20 ? 'A true goal machine, consistently finding the back of the net.' : totalGoals >= 10 ? 'A solid performer with a keen eye for goal.' : 'Although not prolific, they contributed valuable goals when it mattered most.'}
       </Typography>
 
       <Typography variant="body1" sx={{ marginTop: 2, fontSize: isMobile ? '12px' : '14px' }}>
-        In terms of discipline, {name} was relatively {isDisciplinary ? 'disciplined' : isAggressive ? 'aggressive' : 'balanced'}, having accumulated {totalYellowCards} yellow cards and {totalRedCards} red cards throughout the season. This indicates a {isDisciplinary ? 'well-disciplined player' : isAggressive ? 'player prone to aggressive behavior' : 'player with a balanced disciplinary record'}.
+        In terms of discipline, {name} was relatively {isDisciplinary ? 'disciplined' : isAggressive ? 'aggressive' : 'balanced'}, accumulating {totalYellowCards} yellow cards and {totalRedCards} red cards throughout the season. This indicates {isDisciplinary ? 'a well-disciplined player' : isAggressive ? 'a player prone to aggressive behavior' : 'a player with a balanced disciplinary record'}. {totalYellowCards === 0 && totalRedCards === 0 ? 'Their ability to stay composed under pressure is commendable.' : totalRedCards > 0 ? 'However, a bit more control on the field could benefit their game.' : 'Maintaining this balance will be key to their future success.'}
       </Typography>
 
       <Typography variant="body1" sx={{ marginTop: 2, fontSize: isMobile ? '12px' : '14px' }}>
-        The data provided by Future Gen Stats is sourced through advanced algorithms that meticulously analyze player performance metrics. These metrics are compared against those of other players to identify the most promising young talents. This rigorous evaluation process helps to spotlight these emerging stars, offering them greater visibility. Furthermore, it provides journalists and club directors with detailed statistical insights, enabling them to monitor and assess these players more closely. By showcasing these up-and-coming talents, Future Gen Stats plays a crucial role in helping talent scouts and media professionals stay informed about potential future stars.
+        The data provided by Future Gen Stats is sourced through advanced algorithms that meticulously analyze player performance metrics, helping to identify emerging talents. This rigorous evaluation process offers detailed insights, aiding scouts and media professionals in tracking the next generation of football stars.
       </Typography>
     </Box>
   );

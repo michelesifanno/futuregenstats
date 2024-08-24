@@ -73,16 +73,20 @@ export default function PlayerCompetitions({ performance = [], name }) {
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
-              <TableCell>⚽️</TableCell>
-              <TableCell>👟</TableCell>
-              <TableCell>👕</TableCell>
-              <TableCell>⏱️</TableCell>
+              {!isGoalkeeper && (
+                <>
+                  <TableCell>⚽️</TableCell>
+                  <TableCell>👟</TableCell>
+                </>
+              )}
               {isGoalkeeper && (
                 <>
                   <TableCell>🥅</TableCell>
                   <TableCell>🛡️</TableCell>
                 </>
               )}
+              <TableCell>👕</TableCell>
+              <TableCell>⏱️</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -103,18 +107,16 @@ export default function PlayerCompetitions({ performance = [], name }) {
                     />
                     {comp.competition_name}
                   </TableCell>
-                  <TableCell className="player-competitions">
-                    {comp.goals}
-                  </TableCell>
-                  <TableCell className="player-competitions">
-                    {comp.assists}
-                  </TableCell>
-                  <TableCell className="player-competitions">
-                    {comp.matches}
-                  </TableCell>
-                  <TableCell className="player-competitions">
-                    {comp.minutes_played}'
-                  </TableCell>
+                  {!isGoalkeeper && (
+                    <>
+                      <TableCell className="player-competitions">
+                        {comp.goals}
+                      </TableCell>
+                      <TableCell className="player-competitions">
+                        {comp.assists}
+                      </TableCell>
+                    </>
+                  )}
                   {isGoalkeeper && (
                     <>
                       <TableCell className="player-competitions">
@@ -125,6 +127,12 @@ export default function PlayerCompetitions({ performance = [], name }) {
                       </TableCell>
                     </>
                   )}
+                  <TableCell className="player-competitions">
+                    {comp.matches}
+                  </TableCell>
+                  <TableCell className="player-competitions">
+                    {comp.minutes_played}'
+                  </TableCell>
                 </TableRow>
               )
             ))}

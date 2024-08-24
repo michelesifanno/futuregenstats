@@ -74,230 +74,238 @@ export default function PlayerPerformance({ performance = [], name }) {
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="general-stats-content" id="general-stats-header">
                 <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
                     23/24 Season Stats <br />
-                    <span style={{fontSize:'10px'}}>We're working hard to keep the stats as fresh as possible.</span>
+                    <span style={{ fontSize: '10px' }}>We're working hard to keep the stats as fresh as possible.</span>
                 </Typography>
             </AccordionSummary>
-            <AccordionDetails sx={{padding:'0px!important'}}>
-                <Grid container>
+            <AccordionDetails sx={{ padding: '0px!important' }}>
+                {competitions ?
+                    (
+                        <Grid container>
 
-                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderRight: '1px solid #ddd', borderBottom: '1px solid #ddd' }}>
-                        <Typography
-                            sx={{
-                                fontWeight: 500,
-                                fontSize: '10px',
-                                textAlign: 'left',
-                                color: 'rgba(0, 0, 0, 0.7)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
-                            }}
-                        >
-                            Goals ⚽️
-                        </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Typography
-                                sx={{
-                                    fontWeight: 400,
-                                    fontSize: '14px',
-                                    textAlign: 'left',
-                                }}
-                            >
-                                {totalGoals}
-                            </Typography>
-                        </Box>
-                    </Grid>
+                            {!isGoalkeeper && (
+                                <>
+                                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderRight: '1px solid #ddd', borderBottom: '1px solid #ddd' }}>
+                                        <Typography
+                                            sx={{
+                                                fontWeight: 500,
+                                                fontSize: '10px',
+                                                textAlign: 'left',
+                                                color: 'rgba(0, 0, 0, 0.7)',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '1px',
+                                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
+                                            }}
+                                        >
+                                            Goals ⚽️
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                            <Typography
+                                                sx={{
+                                                    fontWeight: 400,
+                                                    fontSize: '14px',
+                                                    textAlign: 'left',
+                                                }}
+                                            >
+                                                {totalGoals}
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderBottom: '1px solid #ddd' }}>
-                        <Typography
-                            sx={{
-                                fontWeight: 500,
-                                fontSize: '10px',
-                                textAlign: 'left',
-                                color: 'rgba(0, 0, 0, 0.7)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
-                            }}
-                        >
-                            Assists 👟
-                        </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Typography
-                                sx={{
-                                    fontWeight: 400,
-                                    fontSize: '14px',
-                                    textAlign: 'left',
-                                }}
-                            >
-                                {totalAssists}
-                            </Typography>
-                        </Box>
-                    </Grid>
+                                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderBottom: '1px solid #ddd' }}>
+                                        <Typography
+                                            sx={{
+                                                fontWeight: 500,
+                                                fontSize: '10px',
+                                                textAlign: 'left',
+                                                color: 'rgba(0, 0, 0, 0.7)',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '1px',
+                                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
+                                            }}
+                                        >
+                                            Assists 👟
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                            <Typography
+                                                sx={{
+                                                    fontWeight: 400,
+                                                    fontSize: '14px',
+                                                    textAlign: 'left',
+                                                }}
+                                            >
+                                                {totalAssists}
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                </>
+                            )}
 
-                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderRight: '1px solid #ddd', borderBottom: '1px solid #ddd' }}>
-                        <Typography
-                            sx={{
-                                fontWeight: 500,
-                                fontSize: '10px',
-                                textAlign: 'left',
-                                color: 'rgba(0, 0, 0, 0.7)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
-                            }}
-                        >
-                            Matches 👕
-                        </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Typography
-                                sx={{
-                                    fontWeight: 400,
-                                    fontSize: '14px',
-                                    textAlign: 'left',
-                                }}
-                            >
-                                {totalMatches}
-                            </Typography>
-                        </Box>
-                    </Grid>
+                            {isGoalkeeper && (
+                                <>
+                                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderRight: '1px solid #ddd', borderBottom: '1px solid #ddd' }}>
+                                        <Typography
+                                            sx={{
+                                                fontWeight: 500,
+                                                fontSize: '10px',
+                                                textAlign: 'left',
+                                                color: 'rgba(0, 0, 0, 0.7)',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '1px',
+                                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
+                                            }}
+                                        >
+                                            Conceded Goals 🥅
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                            <Typography
+                                                sx={{
+                                                    fontWeight: 400,
+                                                    fontSize: '14px',
+                                                    textAlign: 'left',
+                                                }}
+                                            >
+                                                {totalConcededGoals}
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderBottom: '1px solid #ddd' }}>
-                        <Typography
-                            sx={{
-                                fontWeight: 500,
-                                fontSize: '10px',
-                                textAlign: 'left',
-                                color: 'rgba(0, 0, 0, 0.7)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
-                            }}
-                        >
-                            Minutes Played ⏱️
-                        </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Typography
-                                sx={{
-                                    fontWeight: 400,
-                                    fontSize: '14px',
-                                    textAlign: 'left',
-                                }}
-                            >
-                                {totalMinutesPlayed}
-                            </Typography>
-                        </Box>
-                    </Grid>
+                                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderBottom: '1px solid #ddd' }}>
+                                        <Typography
+                                            sx={{
+                                                fontWeight: 500,
+                                                fontSize: '10px',
+                                                textAlign: 'left',
+                                                color: 'rgba(0, 0, 0, 0.7)',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '1px',
+                                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
+                                            }}
+                                        >
+                                            Cleansheets 🛡️
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                            <Typography
+                                                sx={{
+                                                    fontWeight: 400,
+                                                    fontSize: '14px',
+                                                    textAlign: 'left',
+                                                }}
+                                            >
+                                                {totalGoals} ⚽️
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                </>
+                            )}
 
-                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderRight: '1px solid #ddd', borderBottom: '1px solid #ddd' }}>
-                        <Typography
-                            sx={{
-                                fontWeight: 500,
-                                fontSize: '10px',
-                                textAlign: 'left',
-                                color: 'rgba(0, 0, 0, 0.7)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
-                            }}
-                        >
-                            Yellow Cards
-                        </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Typography
-                                sx={{
-                                    fontWeight: 400,
-                                    fontSize: '14px',
-                                    textAlign: 'left',
-                                }}
-                            >
-                                {totalYellowCards} 🟨
-                            </Typography>
-                        </Box>
-                    </Grid>
+                            <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderRight: '1px solid #ddd', borderBottom: '1px solid #ddd' }}>
+                                <Typography
+                                    sx={{
+                                        fontWeight: 500,
+                                        fontSize: '10px',
+                                        textAlign: 'left',
+                                        color: 'rgba(0, 0, 0, 0.7)',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '1px',
+                                        marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
+                                    }}
+                                >
+                                    Matches 👕
+                                </Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: 400,
+                                            fontSize: '14px',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        {totalMatches}
+                                    </Typography>
+                                </Box>
+                            </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderBottom: '1px solid #ddd' }}>
-                        <Typography
-                            sx={{
-                                fontWeight: 500,
-                                fontSize: '10px',
-                                textAlign: 'left',
-                                color: 'rgba(0, 0, 0, 0.7)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
-                            }}
-                        >
-                            Red Cards
-                        </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Typography
-                                sx={{
-                                    fontWeight: 400,
-                                    fontSize: '14px',
-                                    textAlign: 'left',
-                                }}
-                            >
-                                {totalRedCards} 🟥
-                            </Typography>
-                        </Box>
-                    </Grid>
+                            <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderBottom: '1px solid #ddd' }}>
+                                <Typography
+                                    sx={{
+                                        fontWeight: 500,
+                                        fontSize: '10px',
+                                        textAlign: 'left',
+                                        color: 'rgba(0, 0, 0, 0.7)',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '1px',
+                                        marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
+                                    }}
+                                >
+                                    Minutes Played ⏱️
+                                </Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: 400,
+                                            fontSize: '14px',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        {totalMinutesPlayed}
+                                    </Typography>
+                                </Box>
+                            </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderRight: '1px solid #ddd', borderBottom: '1px solid #ddd' }}>
-                        <Typography
-                            sx={{
-                                fontWeight: 500,
-                                fontSize: '10px',
-                                textAlign: 'left',
-                                color: 'rgba(0, 0, 0, 0.7)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
-                            }}
-                        >
-                            Autogol ❌
-                        </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Typography
-                                sx={{
-                                    fontWeight: 400,
-                                    fontSize: '14px',
-                                    textAlign: 'left',
-                                }}
-                            >
-                                {totalOwnGoals}
-                            </Typography>
-                        </Box>
-                    </Grid>
+                            <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderRight: '1px solid #ddd', borderBottom: '1px solid #ddd' }}>
+                                <Typography
+                                    sx={{
+                                        fontWeight: 500,
+                                        fontSize: '10px',
+                                        textAlign: 'left',
+                                        color: 'rgba(0, 0, 0, 0.7)',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '1px',
+                                        marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
+                                    }}
+                                >
+                                    Yellow Cards
+                                </Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: 400,
+                                            fontSize: '14px',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        {totalYellowCards} 🟨
+                                    </Typography>
+                                </Box>
+                            </Grid>
 
-                    <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderBottom: '1px solid #ddd' }}>
-                        <Typography
-                            sx={{
-                                fontWeight: 500,
-                                fontSize: '10px',
-                                textAlign: 'left',
-                                color: 'rgba(0, 0, 0, 0.7)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
-                            }}
-                        >
-                            Penalty Gol ✅
-                        </Typography>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Typography
-                                sx={{
-                                    fontWeight: 400,
-                                    fontSize: '14px',
-                                    textAlign: 'left',
-                                }}
-                            >
-                                {totalPenaltyGoals}
-                            </Typography>
-                        </Box>
-                    </Grid>
+                            <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderBottom: '1px solid #ddd' }}>
+                                <Typography
+                                    sx={{
+                                        fontWeight: 500,
+                                        fontSize: '10px',
+                                        textAlign: 'left',
+                                        color: 'rgba(0, 0, 0, 0.7)',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '1px',
+                                        marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
+                                    }}
+                                >
+                                    Red Cards
+                                </Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: 400,
+                                            fontSize: '14px',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        {totalRedCards} 🟥
+                                    </Typography>
+                                </Box>
+                            </Grid>
 
-                    {isGoalkeeper && (
-                        <>
                             <Grid item xs={6} md={6} sx={{ padding: '20px!important', borderRight: '1px solid #ddd' }}>
                                 <Typography
                                     sx={{
@@ -310,7 +318,7 @@ export default function PlayerPerformance({ performance = [], name }) {
                                         marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
                                     }}
                                 >
-                                    Conceded Goals 🥅
+                                    Autogol ❌
                                 </Typography>
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                     <Typography
@@ -320,7 +328,7 @@ export default function PlayerPerformance({ performance = [], name }) {
                                             textAlign: 'left',
                                         }}
                                     >
-                                        {totalConcededGoals}
+                                        {totalOwnGoals}
                                     </Typography>
                                 </Box>
                             </Grid>
@@ -337,7 +345,7 @@ export default function PlayerPerformance({ performance = [], name }) {
                                         marginBottom: '8px', // Spazio tra il titolo e l'elemento successivo
                                     }}
                                 >
-                                    Cleansheets 🛡️
+                                    Penalty Gol ✅
                                 </Typography>
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                     <Typography
@@ -347,13 +355,17 @@ export default function PlayerPerformance({ performance = [], name }) {
                                             textAlign: 'left',
                                         }}
                                     >
-                                        {totalGoals} ⚽️
+                                        {totalPenaltyGoals}
                                     </Typography>
                                 </Box>
                             </Grid>
-                        </>
+
+                        </Grid>
+                    ) : (
+                        <Typography>
+                            Competitions stats not found 😔
+                        </Typography>
                     )}
-                </Grid>
             </AccordionDetails>
         </Accordion>
     );
