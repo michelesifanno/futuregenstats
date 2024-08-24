@@ -29,7 +29,7 @@ export default function Player() {
 
     const shouldFetchFotMobData = player && club &&
         ["ES1", "IT1", "GB1", "L1", "FR1", "IT2", "SCI", "CIT", "EL", "CL"].includes(club?.competition_id) &&
-        [19, 20, 21, 22, 23].includes(player?.age);
+        [16, 17, 18, 19, 20, 21, 22, 23].includes(player?.age);
 
     const { playerId, loading: idLoading, error: idError } = usePlayerId(
         shouldFetchFotMobData ? player?.name : null,
