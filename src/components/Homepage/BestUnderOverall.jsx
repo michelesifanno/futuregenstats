@@ -43,7 +43,7 @@ const rankStyles = {
 export default function BestUnderOverall() {
 
   const theme = useTheme();
-  const [ageCategory, setAgeCategory] = useState('Under 19');
+  const [ageCategory, setAgeCategory] = useState('Under 18');
   const { players, loading: playersLoading, error: playersError } = useBestPlayersByAge(ageCategory);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 

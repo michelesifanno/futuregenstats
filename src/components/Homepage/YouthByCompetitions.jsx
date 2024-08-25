@@ -11,50 +11,52 @@ export default function YouthByCompetition() {
         {
             name: 'Serie A',
             logo: 'https://tmssl.akamaized.net/images/logo/normal/it1.png?lm=1656073460',
-            link: 'competition/serie-a',
             id:'IT1',
         },
         {
             name: 'Premier League',
             logo: 'https://tmssl.akamaized.net/images/logo/normal/gb1.png?lm=1521104656',
-            link: 'competition/premier-league',
             id:'GB1',
         },
         {
             name: 'Bundesliga',
             logo: 'https://tmssl.akamaized.net/images/logo/normal/l1.png?lm=1666789901',
-            link: 'competition/bundesliga',
             id:'L1',
         },
         {
             name: 'La Liga',
             logo: 'https://tmssl.akamaized.net/images/logo/normal/es1.png?lm=1521104657',
-            link: 'competition/la-liga',
             id:'ES1',
         },
         {
             name: 'Ligue 1',
             logo: 'https://tmssl.akamaized.net/images/logo/normal/fr1.png?lm=1656073465',
-            link: 'competition/ligue-1',
             id: 'FR1',
-        },
-        {
-            name: 'Europa League',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/el.png?lm=1721915137',
-            link: 'competition/europa-league',
-            id: 'EL',
-        },
-        {
-            name: 'Champions League',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/cl.png?lm=1626810555',
-            link: 'competition/champions-league',
-            id: 'CL',
         },
         {
             name: 'Serie B',
             logo: 'https://tmssl.akamaized.net/images/logo/normal/it2.png?lm=1720690779',
-            link: 'competition/serie-b',
             id: 'IT2',
+        },
+        {
+            name: 'Serie C - Girone A',
+            logo: 'https://tmssl.akamaized.net/images/logo/normal/it3a.png?lm=1720690779',
+            id: 'IT3A',
+        },
+        {
+            name: 'Serie C - Girone B',
+            logo: 'https://tmssl.akamaized.net/images/logo/normal/it3b.png?lm=1720690779',
+            id: 'IT3B',
+        },
+        {
+            name: 'Serie C - Girone C',
+            logo: 'https://tmssl.akamaized.net/images/logo/normal/it3c.png?lm=1720690779',
+            id: 'IT3C',
+        },
+        {
+            name: 'Primavera',
+            logo: 'https://tmssl.akamaized.net/images/logo/normal/ij1.png?lm=1720690779',
+            id: 'IJ1',
         },
     ];
 
@@ -66,7 +68,7 @@ export default function YouthByCompetition() {
                 id="youth-by-competitions"
             >
                 <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
-                Young Players by Competitions 🏆
+                Young Players by League 🏆
                 </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ padding: '0px' }}>
@@ -84,7 +86,7 @@ export default function YouthByCompetition() {
                                     cursor: 'pointer',
                                 },
                             }}                        >
-                            <Link to={`/competition/${competition.id}`} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                            <Link to={`/league/${competition.id}`} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                                 <img
                                     src={competition.logo}
                                     alt={competition.name}

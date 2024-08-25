@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import supabase from '../supabase/client'; // Assicurati che questo percorso sia corretto
+import supabase from '../supabase/client';
 
 // Funzione per formattare il valore di mercato
 const formatMarketValue = (value) => {
@@ -9,27 +9,22 @@ const formatMarketValue = (value) => {
   return `${(numericValue / 1000000).toFixed(1)} mil.`;
 };
 
-// Hook per ottenere i migliori giocatori per competizione e categoria di età
-export function useBestPlayersPerCompetition (competitionId) {
+export function useMostMatchesByCompetition(competitionId) {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
   useEffect(() => {
     const fetchPlayers = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
-        setLoading(true);
-        let query = supabase
-          .from('best_young_players_by_competition')
+        const { data: players, error } = await supabase
+          .from('most_matches_per_competition')
           .select(`
             player_id,
             player_name,
-            competition_id,
-            competition_name,
-            total_score,
-            rank,
-            age_category,
             players (
               image,
               positions,
@@ -40,17 +35,19 @@ export function useBestPlayersPerCompetition (competitionId) {
                 name,
                 image
               )
-            )
+            ),
+            competition_id,
+            competition_name,
+            total_matches,
+            age_category
           `)
           .eq('competition_id', competitionId);
 
-        const { data, error } = await query;
-
         if (error) {
-          throw error;
+          throw new Error(error.message);
         }
 
-        const formattedData = data.map(player => {
+        const formattedData = players.map(player => {
           // Parsing delle posizioni
           let positions = 'N/A';
           try {
@@ -58,7 +55,7 @@ export function useBestPlayersPerCompetition (competitionId) {
             if (positionsObj && typeof positionsObj === 'object') {
               const positionsArray = Object.values(positionsObj)
                 .filter(pos => pos && pos.name);  // Filtra le posizioni che non sono null e hanno una proprietà name
-        
+
               if (positionsArray.length > 0) {
                 positions = positionsArray[0].name;  // Prende solo la prima posizione
               }
@@ -66,12 +63,12 @@ export function useBestPlayersPerCompetition (competitionId) {
           } catch (e) {
             console.error('Errore nella conversione di positions:', e);
           }
-        
+
           // Parsing delle nazionalità
           let nationalities = 'N/A';
           try {
             const nationalitiesArray = player.players.nationalities;
-            if (nationalitiesArray) {
+            if (Array.isArray(nationalitiesArray)) {
               nationalities = nationalitiesArray.map(nat => nat.name).join(', ');
             }
           } catch (e) {
@@ -81,10 +78,7 @@ export function useBestPlayersPerCompetition (competitionId) {
           return {
             player_id: player.player_id,
             player_name: player.player_name,
-            competition_id: player.competition_id,
-            competition_name: player.competition_name,
-            total_score: player.total_score,
-            rank: player.rank,
+            total_matches: player.total_matches,
             age_category: player.age_category,
             player_image: player.players.image,
             club_name: player.players.clubs.name,
@@ -97,17 +91,16 @@ export function useBestPlayersPerCompetition (competitionId) {
         });
 
         setPlayers(formattedData);
+
       } catch (err) {
-        setError(err.message);
+        setError(err.message || 'Something went wrong');
       } finally {
         setLoading(false);
       }
     };
 
-    if (competitionId) {
-      fetchPlayers();
-    }
+    fetchPlayers();
   }, [competitionId]);
 
   return { players, loading, error };
-};
+}

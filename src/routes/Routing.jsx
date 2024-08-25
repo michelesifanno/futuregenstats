@@ -2,9 +2,9 @@ import {
     createBrowserRouter,
   } from "react-router-dom";
   import Root from '../pages/Root';
-import Homepage from "../pages/Homepage";
 import Home from "../pages/Home";
 import Player from "../pages/Player";
+import Competition from "../pages/Competition";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import Under18 from "../pages/Under18";
 import Under19 from "../pages/Under19";
@@ -31,6 +31,10 @@ import Under23 from "../pages/Under23"
         {
           path: "/player/:slug",
           element: <Player />,
+        },
+        {
+          path: "/league/:slug",
+          element: <Competition />,
         },
         {
           path: "/best-under-18",

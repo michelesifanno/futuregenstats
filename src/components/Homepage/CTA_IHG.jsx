@@ -30,7 +30,7 @@ export default function CTA_IHG() {
                     <b>Discover who will shine next! 🌟 </b>
                 </Typography>
                 </Grid>
-                <Grid item xs={12} container justifyContent="flex-end" sx={{ padding: '0px 30px 30px 0px!important' }}>
+                <Grid item xs={12} container justifyContent="flex-end" sx={{ padding: '10px 30px 20px 0px!important' }}>
                     <Link to="/italian-hidden-gems">
                         <IconButton
                             color="inherit"
@@ -41,7 +41,7 @@ export default function CTA_IHG() {
                         </IconButton>
                     </Link>
                 </Grid>
-                <Grid item xs={12} container justifyContent="center" sx={{ padding: '0px!important' }}>
+                <Grid item xs={12} container justifyContent="center" sx={{ padding: '10px 0px 0px 0px!important' }}>
                     <StyledImage src='/ihg-cta.png' alt='Italian Hidden Gems CTA' style={{borderRadius:'5px'}} />
                 </Grid>
             </Grid>

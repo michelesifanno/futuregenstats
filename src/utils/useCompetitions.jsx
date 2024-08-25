@@ -12,7 +12,7 @@ export function useCompetitions () {
           setLoading(true);
           const { data, error } = await supabase
             .from('competitions')
-            .select('id, competitionname, competitionimage'); // Assumiamo che la colonna per il logo si chiami 'logo'
+            .select('*');
   
           if (error) {
             throw error;
