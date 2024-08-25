@@ -7,7 +7,8 @@ import BestPlayersByCompetition from '../components/Homepage/BestPlayersByCompet
 import MostExperiencedPlayers from '../components/Homepage/MostExperiencedPlayers';
 import YouthByCompetition from '../components/Homepage/YouthByCompetitions';
 import YouthByNationality from '../components/Homepage/YouthByNationality';
-import BestPlayersByAge from '../components/BestPlayersByAge';
+import CTA_IHG from '../components/Homepage/CTA_IHG';
+import BestUnderOverall from '../components/Homepage/BestUnderOverall';
 import BestGK from '../components/BestGK';
 import BestDF from '../components/BestDF';
 import BestMF from '../components/BestMF';
@@ -24,7 +25,7 @@ function Home() {
 
     const handleFilterChange = (event) => {
         setFilter(event.target.value);
-    };
+    }; 
 
     const pageTitle = `Future Gen Stats | Analysis of the Best Young Football Talents`;
     const metaDescription = `Future Gen Stats is the platform to monitor and analyze the best young football talents. Up-to-date data and advanced algorithms to evaluate top prospects.`;
@@ -49,41 +50,21 @@ function Home() {
                         <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
                             <YouthByNationality />
                         </Box>
+                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
+                            <BestUnderOverall />
+                        </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
+                    <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
+                            <BestPlayersByCompetition />
+                        </Box>
                         <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
                             <MostExperiencedPlayers />
                         </Box>
-                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                            <BestPlayersByCompetition />
-                        </Box>
                     </Grid>
-                    <Grid item xs={12} md={3}>
-                    <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                            <BestPlayersByAge
-                            ageCategory={'Under 18'} />
+                    <Grid item xs={12} md={3} sx={{ position: isDesktop ? 'sticky!important' : 'static', top: 0 }}>
+                    <Box sx={{ padding: isMobile ? '10px 0px' : '10px', position: isDesktop ? 'sticky' : 'static', top: '90px!important' }}>                            <CTA_IHG />
                         </Box>
-                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                            <BestPlayersByAge
-                            ageCategory={'Under 19'} />
-                        </Box>
-                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                            <BestPlayersByAge
-                            ageCategory={'Under 20'} />
-                        </Box>
-                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                            <BestPlayersByAge
-                            ageCategory={'Under 21'} />
-                        </Box>
-                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                            <BestPlayersByAge
-                            ageCategory={'Under 22'} />
-                        </Box>
-                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                            <BestPlayersByAge
-                            ageCategory={'Under 23'} />
-                        </Box>
-
                     </Grid>
                 </Grid>
             </Box>

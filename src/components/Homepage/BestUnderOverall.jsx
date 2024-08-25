@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Box, Grid, Button, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableRow, Accordion, AccordionSummary, AccordionDetails, CircularProgress } from '@mui/material';
+import { Box, Grid, Button, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableRow, Accordion, AccordionSummary, AccordionDetails, CircularProgress, Tabs, Tab } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
-import { useBestPlayersByAge } from '../utils/useBestPlayersByAge';
+import { useBestPlayersByAge } from '../../utils/useBestPlayersByAge';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
 
@@ -40,26 +40,54 @@ const rankStyles = {
   },
 };
 
-export default function BestPlayersByAge({ ageCategory }) {
+export default function BestUnderOverall() {
+
   const theme = useTheme();
+  const [ageCategory, setAgeCategory] = useState('Under 19');
   const { players, loading: playersLoading, error: playersError } = useBestPlayersByAge(ageCategory);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const sortedPlayers = players.sort((a, b) => b.total_score - a.total_score).slice(0, 3); // Ordina in base al punteggio totale
+  const handleAgeCategory = (event, newValue) => {
+    setAgeCategory(newValue);
+    const element = document.getElementById('best-youths-overral');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const sortedPlayers = players.sort((a, b) => b.total_score - a.total_score).slice(0, 10); // Ordina in base al punteggio totale
 
   return (
     <>
       <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="best-players-by-age"
-          id="best-players-by-age"
+          aria-controls="best-under-overral"
+          id="best-under-overral"
         >
           <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
-            Best {ageCategory} Players
+            Best Youths Overral ⭐️
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ padding: '0px' }}>
+        <Tabs
+            value={ageCategory}
+            onChange={handleAgeCategory}
+            indicatorColor="primary"
+            textColor="primary"
+            variant={'scrollable'}
+            scrollButtons="auto"
+            centered
+            sx={{ borderBottom: '1px solid #f6f6f6' }}
+          >
+            <Tab label="Under 18" value="Under 18" sx={{ fontSize: '12px!important', padding: '10px', textAlign: 'center' }} />
+            <Tab label="Under 19" value="Under 19" sx={{ fontSize: '12px!important', padding: '10px', textAlign: 'center' }} />
+            <Tab label="Under 20" value="Under 20" sx={{ fontSize: '12px!important', padding: '10px', textAlign: 'center' }} />
+            <Tab label="Under 21" value="Under 21" sx={{ fontSize: '12px!important', padding: '10px', textAlign: 'center' }} />
+            <Tab label="Under 22" value="Under 22" sx={{ fontSize: '12px!important', padding: '10px', textAlign: 'center' }} />
+            <Tab label="Under 23" value="Under 23" sx={{ fontSize: '12px!important', padding: '10px', textAlign: 'center' }} />
+          </Tabs>
+
           <TableContainer>
             <Table aria-label="most-experienced-players">
               <TableBody>

@@ -161,7 +161,7 @@ export default function AppNavbar() {
                                     marginTop: '1px',
                                 }}
                             >
-                                HIDDEN GEMS
+                                ITALIAN HIDDEN GEMS
                             </Typography>
                         </Button>
                     </Grid>

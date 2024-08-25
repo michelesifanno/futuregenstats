@@ -69,29 +69,31 @@ export default function PlayerCompetitions({ performance = [], name }) {
         </Typography>
       </AccordionSummary>
       <AccordionDetails sx={{ padding: 0 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell></TableCell>
-              {!isGoalkeeper && (
-                <>
-                  <TableCell>⚽️</TableCell>
-                  <TableCell>👟</TableCell>
-                </>
-              )}
-              {isGoalkeeper && (
-                <>
-                  <TableCell>🥅</TableCell>
-                  <TableCell>🛡️</TableCell>
-                </>
-              )}
-              <TableCell>👕</TableCell>
-              <TableCell>⏱️</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {Object.values(performanceByCompetition).map((comp, index) => (
-              comp.minutes_played > 0 && (
+        {Object.keys(performanceByCompetition).length === 0 ? (
+          <Typography>Matches not found 😔</Typography>
+        ) : (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell></TableCell>
+                {!isGoalkeeper && (
+                  <>
+                    <TableCell>⚽️</TableCell>
+                    <TableCell>👟</TableCell>
+                  </>
+                )}
+                {isGoalkeeper && (
+                  <>
+                    <TableCell>🥅</TableCell>
+                    <TableCell>🛡️</TableCell>
+                  </>
+                )}
+                <TableCell>👕</TableCell>
+                <TableCell>⏱️</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Object.values(performanceByCompetition).map((comp, index) => (
                 <TableRow
                   key={index}
                   sx={{
@@ -134,10 +136,10 @@ export default function PlayerCompetitions({ performance = [], name }) {
                     {comp.minutes_played}'
                   </TableCell>
                 </TableRow>
-              )
-            ))}
-          </TableBody>
-        </Table>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </AccordionDetails>
     </Accordion>
   );

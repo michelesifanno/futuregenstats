@@ -21,11 +21,6 @@ export default function Player() {
     const { slug } = useParams();
     const { player, performance, club, loading: playerLoading, error: playerError } = usePlayer(slug);
 
-    // Verifica i dati del giocatore e del club
-    useEffect(() => {
-        console.log('Player:', player);
-        console.log('Club:', club);
-    }, [player, club]);
 
     const shouldFetchFotMobData = player && club &&
         ["ES1", "IT1", "GB1", "L1", "FR1", "IT2", "SCI", "CIT", "EL", "CL"].includes(club?.competition_id) &&

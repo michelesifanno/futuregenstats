@@ -78,7 +78,7 @@ export default function BestPlayersByCompetition() {
           id="best-players-by-competition"
         >
           <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
-          Young Players by League 🎖️
+          Best Young Players by League 🎖️
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ padding: '0px' }}>
