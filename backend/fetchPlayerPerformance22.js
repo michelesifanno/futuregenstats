@@ -2,43 +2,8 @@ require('dotenv').config();
 const axios = require('axios');
 const supabase = require('./supabase');
 
-// Funzione per ottenere tutti gli ID dei giocatori dalla tabella `players` con paginazione
-const fetchAllPlayerIds = async () => {
-  let allIds = [];
-  let lastId = null;
-  let data;
-
-  do {
-    let query = supabase
-      .from('players')
-      .select('id')  // ID come text
-      .order('id', { ascending: true })
-      .limit(1000);
-      
-    if (lastId) {
-      query = query.gt('id', lastId);
-    }
-
-    const result = await query;
-    data = result.data;
-
-    if (result.error) {
-      console.error('Errore nel recupero degli ID dei giocatori:', result.error.message);
-      return [];
-    }
-
-    if (data.length > 0) {
-      allIds.push(...data.map(player => player.id));
-      lastId = data[data.length - 1].id;
-    }
-  } while (data.length === 1000);
-
-  console.log(`ID giocatori recuperati: ${allIds.length}`);
-  return allIds;
-};
-
-// Funzione per ottenere tutti gli ID delle performance dei giocatori dalla tabella `players_performance`
-const fetchAllPlayerPerformanceIds = async () => {
+// Funzione per ottenere tutti gli ID dei giocatori dalla tabella `player_performance_23`
+const fetchAllPlayerPerformance23Ids = async () => {
   let allIds = [];
   let lastId = null;
   let data;
@@ -58,7 +23,7 @@ const fetchAllPlayerPerformanceIds = async () => {
     data = result.data;
 
     if (result.error) {
-      console.error('Errore nel recupero degli ID delle performance:', result.error.message);
+      console.error('Errore nel recupero degli ID delle performance dalla tabella players_performance_23:', result.error.message);
       return [];
     }
 
@@ -70,7 +35,44 @@ const fetchAllPlayerPerformanceIds = async () => {
 
   // Rimuovere i duplicati usando Set
   const uniqueIds = [...new Set(allIds)];
-  console.log(`ID performance unici recuperati: ${uniqueIds.length}`);
+  console.log(`ID performance unici recuperati dalla tabella players_performance_23: ${uniqueIds.length}`);
+  return uniqueIds;
+};
+
+// Funzione per ottenere tutti gli ID delle performance già presenti nella tabella `player_performance_22`
+const fetchAllPlayerPerformance22Ids = async () => {
+  let allIds = [];
+  let lastId = null;
+  let data;
+
+  do {
+    let query = supabase
+      .from('players_performance_22')
+      .select('player_id')  // player_id come integer
+      .order('player_id', { ascending: true })
+      .limit(1000);
+      
+    if (lastId) {
+      query = query.gt('player_id', lastId);
+    }
+
+    const result = await query;
+    data = result.data;
+
+    if (result.error) {
+      console.error('Errore nel recupero degli ID delle performance dalla tabella players_performance_22:', result.error.message);
+      return [];
+    }
+
+    if (data.length > 0) {
+      allIds.push(...data.map(performance => performance.player_id.toString()));  // Converti a stringa
+      lastId = data[data.length - 1].player_id;
+    }
+  } while (data.length === 1000);
+
+  // Rimuovere i duplicati usando Set
+  const uniqueIds = [...new Set(allIds)];
+  console.log(`ID performance unici recuperati dalla tabella players_performance_22: ${uniqueIds.length}`);
   return uniqueIds;
 };
 
@@ -82,7 +84,7 @@ const fetchPlayerPerformance = async (playerId) => {
     params: {
       player_id: playerId,
       locale: 'UK',
-      season_id: '2023'
+      season_id: '2022'
     },
     headers: {
       'x-rapidapi-key': process.env.RAPID_API_KEY,
@@ -143,7 +145,7 @@ const insertPlayerPerformance = async (playerId, performanceData) => {
 
   try {
     const { data, error } = await supabase
-      .from('players_performance_23')
+      .from('players_performance_22')
       .upsert(performanceEntries, { onConflict: ['player_id', 'competition_id', 'club_id'] });
 
     if (error) {
@@ -159,21 +161,23 @@ const insertPlayerPerformance = async (playerId, performanceData) => {
 // Funzione principale
 const main = async () => {
   try {
-    // Recupera tutti gli ID dei giocatori e quelli delle performance
-    const allPlayerIds = await fetchAllPlayerIds();
-    const playerPerformanceIds = await fetchAllPlayerPerformanceIds();
+    // Recupera tutti gli ID dei giocatori da player_performance_23
+    const playerPerformance23Ids = await fetchAllPlayerPerformance23Ids();
 
-    // Trova gli ID mancanti
-    const missingPlayerIds = allPlayerIds.filter(id => !playerPerformanceIds.includes(id));
+    // Recupera tutti gli ID dei giocatori già presenti in player_performance_22
+    const playerPerformance22Ids = await fetchAllPlayerPerformance22Ids();
+
+    // Trova gli ID mancanti in player_performance_22
+    const missingPlayerIds = playerPerformance23Ids.filter(id => !playerPerformance22Ids.includes(id));
 
     // Verifica che il calcolo degli ID mancanti sia corretto
-    console.log(`ID mancanti per il fetch delle performance: ${missingPlayerIds.length}`);
+    console.log(`ID mancanti per il fetch delle performance per player_performance_22: ${missingPlayerIds.length}`);
     
     // Aggiungi un log dettagliato degli ID mancanti
     console.log(`ID mancanti: ${missingPlayerIds.join(', ')}`);
 
     if (missingPlayerIds.length === 0) {
-      console.log('Tutti i giocatori hanno già performance salvate.');
+      console.log('Tutti i giocatori hanno già performance salvate in player_performance_22.');
       return;
     }
 
