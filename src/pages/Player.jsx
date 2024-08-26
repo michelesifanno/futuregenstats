@@ -15,6 +15,7 @@ import PlayerCareer from '../components/SinglePlayer/PlayerCareer';
 import PlayerFaq from '../components/SinglePlayer/PlayerFaq';
 import PlayerResume from '../components/SinglePlayer/PlayerResume';
 import SubPlayerInformation from '../components/SinglePlayer/SubPlayerInformation';
+import AdBanner from '../components/AdBanner';
 import PlayerCompetitions from '../components/SinglePlayer/PlayerCompetitions';
 
 export default function Player() {
@@ -193,6 +194,9 @@ export default function Player() {
                                     <PlayerResume performance={performance} name={player?.name} />
                                 </Box>
                             ) : null}
+                        </Grid>
+                        <Grid item xs={12} sx={{minHeight:'50px!important'}}>
+                            <AdBanner />
                         </Grid>
                     </Grid>
                 )}

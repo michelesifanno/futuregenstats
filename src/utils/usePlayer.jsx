@@ -38,7 +38,7 @@ export function usePlayer(playerId) {
 
                 // Recupera le performance del giocatore
                 const { data: performanceData, error: performanceError } = await supabase
-                    .from('players_performance')
+                    .from('players_performance_23')
                     .select('*')
                     .eq('player_id', playerId);
                     console.log('Performance Data:', performanceData); // Log per verificare i dati delle performance
