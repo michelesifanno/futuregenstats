@@ -52,7 +52,7 @@ export default function Player() {
         return () => clearInterval(intervalId);
     }, []);
 
-    if (playerLoading || idLoading) {
+    if (playerLoading) {
         return (
             <Box sx={{
                 background: theme.palette.secondary.main,
@@ -69,7 +69,7 @@ export default function Player() {
         );
     }
 
-    if (playerError || idError || fotMobError) {
+    if (playerError) {
         console.error('Player Error:', playerError);
         console.error('ID Error:', idError);
         console.error('FotMob Error:', fotMobError);
