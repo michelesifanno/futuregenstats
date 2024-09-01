@@ -128,4 +128,4 @@ final_data = pd.merge(final_data, players[['id', 'name', 'club_id', 'new_id']], 
 print(final_data[['player_id', 'name', 'normalized_talent_score', 'classification', 'trend', 'new_id']].head(10))
 
 # Esportiamo i risultati in un file Excel
-final_data.to_excel('player_classification_and_trends.xlsx', index=False)
+final_data.to_csv('player_classification_and_trends.csv', index=False)
