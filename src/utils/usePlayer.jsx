@@ -31,7 +31,7 @@ export function usePlayer(playerId) {
                             image
                         )
                     `)
-                    .eq('id', playerId)
+                    .eq('new_id', playerId)
                     .single();
 
                 if (playerError) throw playerError;
@@ -40,7 +40,7 @@ export function usePlayer(playerId) {
                 const { data: performanceData, error: performanceError } = await supabase
                     .from('players_performance_23')
                     .select('*')
-                    .eq('player_id', playerId);
+                    .eq('new_id', playerId);
                     console.log('Performance Data:', performanceData); // Log per verificare i dati delle performance
                 if (performanceError) throw performanceError;
 
