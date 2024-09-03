@@ -8,13 +8,12 @@ import { Box, Typography, Grid, CircularProgress, useMediaQuery } from '@mui/mat
 import { Helmet } from 'react-helmet-async';
 import PlayerRecentMatches from '../components/SinglePlayer/PlayerRecentMatches';
 import PlayerPerformance from '../components/SinglePlayer/PlayerPerformance';
-import PlayerInformation from '../components/SinglePlayer/PlayerInformation';
 import PlayerCurrentStats from '../components/SinglePlayer/PlayerCurrentStats';
 import PlayerTraits from '../components/SinglePlayer/PlayerTraits';
 import PlayerCareer from '../components/SinglePlayer/PlayerCareer';
 import PlayerFaq from '../components/SinglePlayer/PlayerFaq';
 import PlayerResume from '../components/SinglePlayer/PlayerResume';
-import SubPlayerInformation from '../components/SinglePlayer/SubPlayerInformation';
+import PlayerInformation from '../components/SinglePlayer/PlayerInformation';
 import AdBanner from '../components/AdBanner';
 import PlayerCompetitions from '../components/SinglePlayer/PlayerCompetitions';
 
@@ -71,8 +70,6 @@ export default function Player() {
 
     if (playerError) {
         console.error('Player Error:', playerError);
-        console.error('ID Error:', idError);
-        console.error('FotMob Error:', fotMobError);
 
         return (
             <Box sx={{
@@ -84,7 +81,7 @@ export default function Player() {
                 alignItems: 'center',
                 justifyContent: 'center',
             }}>
-                <Typography color="error">Error: {playerError || idError || fotMobError}</Typography>
+                <Typography color="error">Error: {playerError}</Typography>
             </Box>
         );
     }
@@ -106,7 +103,7 @@ export default function Player() {
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={8}>
                             <Box sx={{ padding: isMobile ? '10px 0px 10px 0px' : '10px' }}>
-                                <SubPlayerInformation playerId={slug} />
+                                <PlayerInformation playerId={slug} />
                             </Box>
                             {isDesktop ? (
                                 <Box sx={{ padding: isMobile ? '0px' : '10px' }}>
