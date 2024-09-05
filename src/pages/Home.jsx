@@ -9,10 +9,6 @@ import YouthByCompetition from '../components/Homepage/YouthByCompetitions';
 import YouthByNationality from '../components/Homepage/YouthByNationality';
 import CTA_IHG from '../components/Homepage/CTA_IHG';
 import BestUnderOverall from '../components/Homepage/BestUnderOverall';
-import BestGK from '../components/BestGK';
-import BestDF from '../components/BestDF';
-import BestMF from '../components/BestMF';
-import BestFW from '../components/BestFW';
 import AdBanner from '../components/AdBanner';
 
 

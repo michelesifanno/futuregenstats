@@ -1,7 +1,7 @@
 import fs from 'fs';
 import fetch from 'node-fetch';
 
-const BASE_URL = 'https://www.futuregenstats.com/'; // Sostituisci con il tuo dominio
+const BASE_URL = 'https://www.futuregenstats.com/'; 
 const API_URL = 'https://kvrzbmvyyitdzuflqlsq.supabase.co/rest/v1/rpc/get_player_ids?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2cnpibXZ5eWl0ZHp1ZmxxbHNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI4MTIzMTYsImV4cCI6MjAzODM4ODMxNn0.RzxPzOlhZc3rWtKeWtX7HXY9cnvYcLzWjCu1SSYwTk4'; // Include API key directly in URL
 
 async function generateSitemap() {
@@ -39,6 +39,7 @@ async function generateSitemap() {
 
     // Mapperemo gli ID dei player in URL completi
     const playerRoutes = players.map(player => `player/${player.new_id}`);
+    
 
     // Unione delle route statiche e dinamiche
     const allRoutes = [...staticRoutes, ...playerRoutes];

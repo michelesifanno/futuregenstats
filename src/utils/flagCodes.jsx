@@ -205,4 +205,3 @@ export const flagCodes = {
     'Zambia': 'zm',
     'Zimbabwe': 'zw'
   };
-  

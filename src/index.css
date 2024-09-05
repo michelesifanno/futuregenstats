@@ -115,3 +115,11 @@ img {
 .player-competitions {
   font-size: 12px!important;
 }
+
+img.flag-style {
+  height: 20px !important;
+  border-radius: 50% !important;
+  width: 20px !important;
+  object-fit: cover !important;
+  margin-right: 10px;
+}

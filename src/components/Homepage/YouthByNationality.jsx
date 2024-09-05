@@ -4,11 +4,16 @@ import { useTheme } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
 import { useNationalities } from '../../utils/useNationalities';
+import NationFlag from '../NationFlag';
+
+  
+
 
 export default function YouthByNationality() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const { nations, loading, error } = useNationalities();
+
 
     if (loading) return <Typography>Loading...</Typography>;
     if (error) return <Typography color="error">Error: {error}</Typography>;
@@ -41,12 +46,9 @@ export default function YouthByNationality() {
                                 cursor: 'pointer',
                             },
                         }}                        >
-                        <Link to={`/nation/${nation.image}`} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-                            <img
-                                src={nation.image}
-                                alt={nation.name}
-                                style={{ width: '25px', marginRight: '20px' }}
-                            />
+                        <Link to={`/nation/${nation.name}`} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                            
+                        <NationFlag nation={nation} />
                             <Typography sx={{ fontWeight: 500, fontSize: '12px', color:'#333',
                             '&:hover': {
                                 color: '#2047e4', 
