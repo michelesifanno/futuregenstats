@@ -10,7 +10,7 @@ import YouthByNationality from '../components/Homepage/YouthByNationality';
 import CTA_IHG from '../components/Homepage/CTA_IHG';
 import BestUnderOverall from '../components/Homepage/BestUnderOverall';
 import AdBanner from '../components/AdBanner';
-
+import BestPlayers from '../components/Homepage/BestPlayers';
 
 function Home() {
     const theme = useTheme();
@@ -46,16 +46,10 @@ function Home() {
                         <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
                             <YouthByNationality />
                         </Box>
-                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                            <BestUnderOverall />
-                        </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                    <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                            <BestPlayersByCompetition />
-                        </Box>
                         <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                            <MostExperiencedPlayers />
+                            <BestPlayers />
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={3} sx={{ position: isDesktop ? 'sticky!important' : 'static', top: 0 }}>

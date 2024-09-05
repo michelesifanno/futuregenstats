@@ -28,7 +28,6 @@ def calculate_talent_score(row):
              row['conceded_goals'] * weight_conceded_goals +
              row['marketvalue'] * weight_market_value)
 
-
     # Aggiusta il punteggio per l'età (giocatori più giovani con buone performance sono più promettenti)
     if row['age'] == 21:
         score *= 1.0  # Nessun aumento per i giocatori di 21 anni
@@ -95,7 +94,7 @@ grouped_scores['classification'] = grouped_scores['normalized_talent_score'].app
 # Previsione della tendenza del punteggio
 def predict_trend(recent_score, previous_score):
     increase_threshold = 1.02  # Aumento del 3%
-    decrease_threshold = 0.97  # Diminuzione del 5%
+    decrease_threshold = 0.95  # Diminuzione del 3%
 
     if recent_score > previous_score * increase_threshold:
         return "On the Rise"

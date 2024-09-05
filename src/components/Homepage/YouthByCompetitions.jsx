@@ -39,34 +39,14 @@ export default function YouthByCompetition() {
             id: 'IT2',
         },
         {
-            name: 'Serie C - Girone A',
+            name: 'Serie C',
             logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IT3A.png',
             id: 'IT3A',
         },
         {
-            name: 'Serie C - Girone B',
-            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IT3B.png',
-            id: 'IT3B',
-        },
-        {
-            name: 'Serie C - Girone C',
-            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IT3C.png',
-            id: 'IT3C',
-        },
-        {
-            name: 'Primavera 1',
+            name: 'Primavera',
             logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IJ1.png',
             id: 'IJ1',
-        },
-        {
-            name: 'Primavera 2 - A',
-            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IJ1.png',
-            id: 'IJ2A',
-        },
-        {
-            name: 'Primavera 2 - B',
-            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IJ1.png',
-            id: 'IJ2B',
         },
     ];
 
