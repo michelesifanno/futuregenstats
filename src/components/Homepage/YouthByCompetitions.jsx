@@ -57,7 +57,7 @@ export default function YouthByCompetition() {
                 aria-controls="youth-by-competitions"
                 id="youth-by-competitions"
             >
-                <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
+                <Typography sx={{ fontWeight: 600, fontSize:'18px'}}>
                 Young Players by League 🏆
                 </Typography>
             </AccordionSummary>
@@ -69,7 +69,7 @@ export default function YouthByCompetition() {
                             xs={12} 
                             key={index} 
                             sx={{ 
-                                padding: '10px 20px!important', 
+                                padding: '12px 20px!important', 
                                 borderBottom: index !== competitions.length - 1 ? '1px solid #eee' : 'none',
                                 '&:hover': {
                                     backgroundColor: '#f5f5f5',
@@ -80,13 +80,13 @@ export default function YouthByCompetition() {
                                 <img
                                     src={competition.logo}
                                     alt={competition.name}
-                                    style={{ width: '25px', marginRight: '20px' }}
+                                    style={{ width: '25px', height:'32.5px', marginRight: '20px' }}
                                 />
-                                <Typography sx={{ fontWeight: 500, fontSize: '12px', color:'#333',
-                                '&:hover': {
-                                    color: '#2047e4', 
-                                },
- }}>
+                            <Typography sx={{ fontWeight: 600, fontSize: '14px', color:'#333',
+                            '&:hover': {
+                                color: '#2047e4', 
+                            },
+}}>
                                     {competition.name}
                                 </Typography>
                             </Link>

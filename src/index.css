@@ -117,9 +117,9 @@ img {
 }
 
 img.flag-style {
-  height: 20px !important;
+  height: 23px !important;
   border-radius: 50% !important;
-  width: 20px !important;
+  width: 23px !important;
   object-fit: cover !important;
-  margin-right: 10px;
+  margin-right: 22px;
 }
