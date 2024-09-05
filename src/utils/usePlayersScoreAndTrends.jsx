@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
-import supabase from '../supabase/client'; // Assicurati che questo percorso sia corretto
+import supabase from '../supabase/client';
 
-// Hook per ottenere i migliori giocatori per ruolo e categoria di età
+const formatMarketValue = (value) => {
+    if (!value) return 'N/A';
+    const numericValue = parseFloat(value);
+    if (isNaN(numericValue)) return 'N/A';
+    return `${(numericValue / 1000000).toFixed(1)} mil.`;
+};
+
 export function usePlayersScoreAndTrends() {
     const [players, setPlayers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,11 +18,11 @@ export function usePlayersScoreAndTrends() {
             try {
                 setLoading(true);
 
-                let query = supabase
+                // Recupera le informazioni dei giocatori e dei loro club
+                const { data: playersData, error: playersError } = await supabase
                     .from('player_score')
                     .select(`
                         player_id,
-                        name,
                         talent_score,
                         count,
                         average_talent_score,
@@ -25,6 +31,7 @@ export function usePlayersScoreAndTrends() {
                         trend,
                         id,
                         players (
+                            name,
                             image,
                             new_id,
                             positions,
@@ -39,61 +46,77 @@ export function usePlayersScoreAndTrends() {
                     `)
                     .order('normalized_talent_score', { ascending: false });
 
-                const { data, error } = await query;
+                if (playersError) throw playersError;
 
-                if (error) {
-                    throw error;
-                }
+                // Formatta i dati dei giocatori
+                const formattedPlayers = playersData.map((player) => formatPlayerData(player));
+                setPlayers(formattedPlayers);
 
-                // Formattazione dei dati
-                const formattedData = data.map(player => {
-                    // Conversione delle nazionalità
-                    let nationalities = 'N/A';
-                    if (player.players?.nationalities && Array.isArray(player.players.nationalities)) {
-                        nationalities = player.players.nationalities.map(nat => nat.name).join(', ');
-                    }
-
-                    // Conversione delle posizioni
-                    let positions = 'N/A';
-                    if (player.players?.positions && Array.isArray(player.players.positions)) {
-                        positions = player.players.positions.map(pos => pos.name).join(', ');
-                    }
-
-                    return {
-                        player_id: player.player_id,
-                        new_id: player.players?.new_id,
-                        name: player.name,
-                        talent_score: player.talent_score,
-                        count: player.count,
-                        average_talent_score: player.average_talent_score,
-                        normalized_talent_score: player.normalized_talent_score,
-                        classification: player.classification,
-                        trend: player.trend,
-                        id: player.id,
-                        image: player.players?.image,
-                        positions: positions,
-                        nationalities: nationalities,
-                        marketvalue: player.players?.marketvalue,
-                        marketvaluecurrency: player.players?.marketvaluecurrency,
-                        club_name: player.players?.clubs?.name,
-                        club_image: player.players?.clubs?.image
-                    };
-                });
-
-                console.log('Data fetched:'. formattedData);
-
-                setPlayers(formattedData);
             } catch (err) {
-                setError(err.message);
+                setError(err.message || 'Errore nel recupero dei dati');
             } finally {
                 setLoading(false);
             }
         };
-        
-
 
         fetchPlayers();
     }, []);
+
+    // Funzione per formattare i dati del giocatore
+    const formatPlayerData = (player) => {
+        if (!player) return null;
+    
+        let positions = 'N/A';
+        try {
+            const positionsObj = player.players?.positions;
+            if (positionsObj && typeof positionsObj === 'object') {
+                // Estrai le posizioni dall'oggetto
+                const positionsArray = Object.values(positionsObj)
+                    .filter(pos => pos && pos.name);  // Filtra solo i valori validi che hanno un nome
+                if (positionsArray.length > 0) {
+                    positions = positionsArray.map(pos => pos.name).join(', ');
+                }
+            }
+        } catch (e) {
+            console.error('Errore nella conversione di positions:', e);
+        }
+    
+        let nationalities = 'N/A';
+        try {
+            const nationalitiesArray = player.players?.nationalities;
+            if (nationalitiesArray && Array.isArray(nationalitiesArray)) {
+                nationalities = nationalitiesArray.map(nat => nat.name).join(', ');
+            }
+        } catch (e) {
+            console.error('Errore nella conversione di nationalities:', e);
+        }
+    
+        const marketValueNumeric = parseFloat(player.players?.marketvalue) || 0;
+        const marketValueFormatted = formatMarketValue(player.players?.marketvalue);
+    
+        return {
+            player_id: player.player_id,
+            new_id: player.players?.new_id,
+            name: player.players?.name,
+            talent_score: player.talent_score,
+            count: player.count,
+            average_talent_score: player.average_talent_score,
+            normalized_talent_score: player.normalized_talent_score,
+            classification: player.classification,
+            trend: player.trend,
+            id: player.id,
+            image: player.players?.image,
+            positions: positions,  // Posizioni aggiornate
+            nationalities: nationalities,
+            marketvalue: marketValueNumeric,
+            marketvaluecurrency: marketValueFormatted,
+            club: {
+                name: player.players?.clubs?.name || 'N/A',
+                image: player.players?.clubs?.image || '',
+            },
+        };
+    };
+    
 
     return { players, loading, error };
 }
