@@ -32,10 +32,9 @@ export default function BestPlayers() {
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
-    window.scrollTo({
-      top: 0, // Qui puoi impostare la posizione
-      behavior: 'smooth' // Scroll liscio
-    });
+    document.querySelector('#best-young-players').scrollIntoView({
+      behavior: 'smooth'
+    });      
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -53,7 +52,7 @@ export default function BestPlayers() {
           aria-controls="best-young-players"
           id="best-young-players"
         >
-          <Typography sx={{ fontWeight: 500, fontSize: isMobile ? '14px' : '16px' }}>
+          <Typography sx={{ fontWeight: 600, fontSize: isMobile ? '18px' : '20px'}}>
             Best Young Players ⭐️
           </Typography>
         </AccordionSummary>
@@ -88,26 +87,26 @@ export default function BestPlayers() {
                                   style={{ width: '51px', height:'54px', borderRadius: '100%', objectFit:'cover' }}
                                 />
                               </Grid>
-                              <Grid item xs={6} md={9} sx={{ textAlign: 'left', padding: '0px 10px!important' }}>
-                                <Typography sx={{ fontWeight: 700, fontSize: '16px' }}>
+                              <Grid item xs={6} md={8} sx={{ textAlign: 'left', padding: '0px 10px!important' }}>
+                                <Typography sx={{ fontWeight: 600, fontSize: isMobile ? '16px' : '18px', letterSpacing:'-0.2px'}}>
                                   <Link to={`/player/${player.new_id}`} style={{ textDecoration: 'none', color: '#333' }}>
                                     {player.name}
                                   </Link>
                                 </Typography>
-                                <Typography sx={{ fontWeight: 400, fontSize: '14px' }}>
+                                <Typography sx={{ fontWeight: 500, fontSize: '14px'}}>
                                   {player.positions}
                                 </Typography>
                               </Grid>
-                              <Grid item xs={2} md={1} sx={{ textAlign: 'right' }}>
+                              <Grid item xs={2} md={2} sx={{ textAlign: 'center' }}>
                                 <img
                                   src={player.club.image}
                                   alt={`${player.club.name} logo`}
-                                  style={{ width: '40px'}}
+                                  style={{ width: isMobile? '30px' : '36px'}}
                                 />
                               </Grid>
-                              <Grid item xs={2} md={1}>
-                                <Typography sx={{ fontWeight: 700, fontSize: '16px', textAlign: 'right', color:'#fff'}}>
-                                  <span style={{backgroundColor:getTalentScoreColor(player.normalized_talent_score), padding:'7px', borderRadius:'5px'}}>{player.normalized_talent_score}</span>
+                              <Grid item xs={2} md={1} sx={{justifyContent:'center', display:'flex'}}>
+                                <Typography sx={{ padding:'10px 0px', borderRadius:'5px', minWidth:'45px', fontWeight: 700, fontSize: '18px', textAlign: 'center', color:'#fff', backgroundColor:getTalentScoreColor(player.normalized_talent_score)}}>
+                                  {player.normalized_talent_score}
                                 </Typography>
                               </Grid>
                             </Grid>
@@ -128,6 +127,7 @@ export default function BestPlayers() {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
+            style={{margin:'0px!important', padding:'0px!important'}}
           />
         </AccordionDetails>
       </Accordion>

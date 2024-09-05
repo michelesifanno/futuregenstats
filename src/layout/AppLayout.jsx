@@ -38,7 +38,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Inter, Arial, sans-serif',
+    fontFamily: 'Inter, sans-serif',
   },
 });
 

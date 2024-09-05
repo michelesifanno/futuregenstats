@@ -72,9 +72,9 @@ export function usePlayersScoreAndTrends() {
             if (positionsObj && typeof positionsObj === 'object') {
                 // Estrai le posizioni dall'oggetto
                 const positionsArray = Object.values(positionsObj)
-                    .filter(pos => pos && pos.name);  // Filtra solo i valori validi che hanno un nome
+                    .filter(pos => pos && pos.group);  // Filtra solo i valori validi che hanno un nome
                 if (positionsArray.length > 0) {
-                    positions = positionsArray.map(pos => pos.name).join(', ');
+                    positions = positionsArray[0].group;
                 }
             }
         } catch (e) {
