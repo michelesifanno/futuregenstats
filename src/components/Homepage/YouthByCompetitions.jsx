@@ -10,53 +10,63 @@ export default function YouthByCompetition() {
     const competitions = [
         {
             name: 'Serie A',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/it1.png?lm=1656073460',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IT1.png',
             id:'IT1',
         },
         {
             name: 'Premier League',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/gb1.png?lm=1521104656',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/GB1.png',
             id:'GB1',
         },
         {
             name: 'Bundesliga',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/l1.png?lm=1666789901',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/L1.png',
             id:'L1',
         },
         {
             name: 'La Liga',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/es1.png?lm=1521104657',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/ES1.png',
             id:'ES1',
         },
         {
             name: 'Ligue 1',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/fr1.png?lm=1656073465',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/FR1.png',
             id: 'FR1',
         },
         {
             name: 'Serie B',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/it2.png?lm=1720690779',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IT2.png',
             id: 'IT2',
         },
         {
             name: 'Serie C - Girone A',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/it3a.png?lm=1720690779',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IT3A.png',
             id: 'IT3A',
         },
         {
             name: 'Serie C - Girone B',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/it3b.png?lm=1720690779',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IT3B.png',
             id: 'IT3B',
         },
         {
             name: 'Serie C - Girone C',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/it3c.png?lm=1720690779',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IT3C.png',
             id: 'IT3C',
         },
         {
-            name: 'Primavera',
-            logo: 'https://tmssl.akamaized.net/images/logo/normal/ij1.png?lm=1720690779',
+            name: 'Primavera 1',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IJ1.png',
             id: 'IJ1',
+        },
+        {
+            name: 'Primavera 2 - A',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IJ1.png',
+            id: 'IJ2A',
+        },
+        {
+            name: 'Primavera 2 - B',
+            logo: 'https://res.cloudinary.com/dfe8fzdna/image/upload/v1725534050/competitions/IJ1.png',
+            id: 'IJ2B',
         },
     ];
 
@@ -86,7 +96,7 @@ export default function YouthByCompetition() {
                                     cursor: 'pointer',
                                 },
                             }}                        >
-                            <Link to={`/league/${competition.id}`} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                            <Link to={`/league/${competition.name.toLowerCase().replace(/\s+/g, '-')}`} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                                 <img
                                     src={competition.logo}
                                     alt={competition.name}

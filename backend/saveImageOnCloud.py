@@ -10,7 +10,7 @@ cloudinary.config(
 )
 
 # Percorso della cartella con le immagini
-folder_path = '/Users/michelesifanno/Documents/REACT-PROJECTS/Future-Gen-Stats/public/competitions'
+folder_path = 'C:/Users/Utente/Documents/fgs/futuregenstats/backend/public'
 
 def upload_images(folder_path):
     # Verifica che la cartella esista

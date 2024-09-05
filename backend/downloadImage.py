@@ -38,8 +38,8 @@ def enhance_image(image, sharpness_factor=2.0, color_factor=1.2):
 
 # Funzione per processare una singola immagine
 def process_image(record):
-    image_url = record['image']
-    player_id = record['new_id']
+    image_url = record['competitionimage']
+    competition_id = record['id']
     
     # Scarica l'immagine
     image = download_image(image_url)
@@ -49,7 +49,7 @@ def process_image(record):
         enhanced_image = enhance_image(image, sharpness_factor=2.0, color_factor=1.2)
         
         # Crea il percorso di salvataggio
-        save_path = f"public/players/{player_id}.png"
+        save_path = f"public/competitions/{competition_id}.png"
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         
         # Salva l'immagine modificata
@@ -59,7 +59,7 @@ def process_image(record):
 # Funzione principale
 def process_images():
     # Estrae i dati dalla tabella players
-    data = supabase.table('players').select('new_id', 'image').execute()
+    data = supabase.table('competitions').select('id', 'competitionimage').execute()
     
     # Utilizza ThreadPoolExecutor per elaborare le immagini in parallelo
     with ThreadPoolExecutor(max_workers=4) as executor:
