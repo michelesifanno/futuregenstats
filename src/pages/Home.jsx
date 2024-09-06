@@ -39,7 +39,7 @@ function Home() {
                 minHeight: '100vh',
             }}>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} md={3} >
+                    <Grid item xs={12} md={3} order={{ xs: 2, md: 1 }}>
                         <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
                             <YouthByCompetition />
                         </Box>
@@ -47,12 +47,12 @@ function Home() {
                             <YouthByNationality />
                         </Box>
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
                         <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
                             <BestPlayers />
                         </Box>
                     </Grid>
-                    <Grid item xs={12} md={3} sx={{ position: isDesktop ? 'sticky!important' : 'static', top: 0 }}>
+                    <Grid item xs={12} md={3} sx={{ position: isDesktop ? 'sticky!important' : 'static', top: 0 }} order={{ xs: 3 }}>
                     <Box sx={{ padding: isMobile ? '10px 0px' : '10px', position: isDesktop ? 'sticky' : 'static', top: '90px!important' }}>
                         <CTA_IHG />
                         </Box>

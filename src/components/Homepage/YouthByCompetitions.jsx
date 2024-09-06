@@ -82,7 +82,7 @@ export default function YouthByCompetition() {
                                     alt={competition.name}
                                     style={{ width: '25px', height:'32.5px', marginRight: '20px' }}
                                 />
-                            <Typography sx={{ fontWeight: 600, fontSize: '14px', color:'#333',
+                            <Typography sx={{ fontWeight: 500, fontSize: '14px', color:'#333',
                             '&:hover': {
                                 color: '#2047e4', 
                             },

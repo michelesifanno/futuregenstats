@@ -46,6 +46,10 @@ body {
   align-items: center;
 }
 
+.MuiAccordionSummary-content, .MuiAccordionSummary-contentGutters {
+  margin: 20px 0px!important;
+}
+
 .value-stats {
   text-align: right!important;
   font-size: 12px!important;

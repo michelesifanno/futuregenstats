@@ -13,7 +13,8 @@ export function useNationalities() {
 
                 const { data, error } = await supabase
                     .from('nationalities')
-                    .select('*');
+                    .select('*')
+                    .order('name', { ascending: true });
 
                 console.log('Data fetched:', data); // Debugging log
                 if (error) {

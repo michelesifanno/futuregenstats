@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import {
-  Box, Grid, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableRow, Accordion, AccordionSummary, AccordionDetails, CircularProgress, TablePagination
-} from '@mui/material';
+import {Box, Grid, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableRow, Accordion, AccordionSummary, AccordionDetails, CircularProgress, TablePagination} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { usePlayersScoreAndTrends } from '../../utils/usePlayersScoreAndTrends';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -17,8 +15,6 @@ const getTalentScoreColor = (score) => {
   if (score > 20) return '#C7A234'; 
   if (20 < score) return '#C73434'; 
 };
-
-
 
 
 export default function BestPlayers() {
@@ -89,7 +85,7 @@ export default function BestPlayers() {
                               </Grid>
                               <Grid item xs={6} md={8} sx={{ textAlign: 'left', padding: '0px 10px!important' }}>
                               <Link to={`/player/${player.new_id}`} style={{ textDecoration: 'none', color: '#333' }}>
-                                <Typography sx={{ fontWeight: 600, fontSize: '16px', letterSpacing:'-0.2px',
+                                <Typography sx={{ fontWeight: 500, fontSize: '16px', letterSpacing:'-0.2px',
                                   '&:hover': {
                                 color: '#2047e4', 
                             },
@@ -109,7 +105,7 @@ export default function BestPlayers() {
                                 />
                               </Grid>
                               <Grid item xs={2} md={1} sx={{justifyContent:'center', display:'flex'}}>
-                                <Typography sx={{ padding:'10px 0px', borderRadius:'5px', minWidth:'45px', fontWeight: 700, fontSize: '18px', textAlign: 'center', color:'#fff', backgroundColor:getTalentScoreColor(player.normalized_talent_score)}}>
+                                <Typography sx={{ padding:'10px 0px', borderRadius:'7px', minWidth:'45px', fontWeight: 600, fontSize: '18px', textAlign: 'center', color:'#fff', backgroundColor:getTalentScoreColor(player.normalized_talent_score)}}>
                                   {player.normalized_talent_score}
                                 </Typography>
                               </Grid>
@@ -124,7 +120,7 @@ export default function BestPlayers() {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[10, 25, 50]}
+            rowsPerPageOptions={[]}
             component="div"
             count={players.length}
             rowsPerPage={rowsPerPage}

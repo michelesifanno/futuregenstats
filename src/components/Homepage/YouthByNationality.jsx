@@ -1,5 +1,5 @@
-import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, Typography, useMediaQuery, Grid } from '@mui/material';
+import { useState } from 'react';
+import {Box, Grid, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableRow, Accordion, AccordionSummary, AccordionDetails, CircularProgress, TablePagination} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
@@ -14,11 +14,23 @@ export default function YouthByNationality() {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const { nations, loading, error } = useNationalities();
 
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
-    if (loading) return <Typography>Loading...</Typography>;
-    if (error) return <Typography color="error">Error: {error}</Typography>;
-
-    console.log('Nations:', nations); // Debugging log
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+        document.querySelector('#nationalities-list').scrollIntoView({
+          behavior: 'smooth'
+        });      
+      };
+    
+      const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+      };
+    
+      const paginatedNations = nations ? nations.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : [];
+    
 
     return (
         <Accordion defaultExpanded>
@@ -32,8 +44,14 @@ export default function YouthByNationality() {
                 </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ padding: '0px' }}>
+            {loading ? (
+                  <Box sx={{ padding: '40px', display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress />
+                  </Box>
+                ) : (
+                  <>
                 <Grid container spacing={2}>
-                    {nations.slice(0, 10).map((nation, index) => (
+                    {paginatedNations.slice(0, 6).map((nation, index) => (
                         <Grid 
                         item 
                         xs={12} 
@@ -49,7 +67,7 @@ export default function YouthByNationality() {
                         <Link to={`/nation/${nation.name}`} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                             
                         <NationFlag nation={nation} />
-                            <Typography sx={{ fontWeight: 600, fontSize: '14px', color:'#333',
+                            <Typography sx={{ fontWeight: 500, fontSize: '14px', color:'#333',
                             '&:hover': {
                                 color: '#2047e4', 
                             },
@@ -60,6 +78,18 @@ export default function YouthByNationality() {
                     </Grid>
                 ))}
                 </Grid>
+                <TablePagination
+            rowsPerPageOptions={[]}
+            component="div"
+            count={nations.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            style={{margin:'0px!important', padding:'0px!important'}}
+          />
+                </>
+                )}
             </AccordionDetails>
         </Accordion>
     );

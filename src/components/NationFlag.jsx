@@ -10,7 +10,20 @@ const NationFlag = ({ nation }) => {
         'England': 'gb-eng',
         'Scotland': 'gb-sct',
         'Wales': 'gb-wls',
-        'Northern Ireland': 'gb-nir'
+        'Northern Ireland': 'gb-nir',
+        'Jersey': 'je',
+        'Bermuda': 'bm',
+        'Cape Verde': 'cv',
+        'Cote d\'Ivoire': 'ci',
+        'Curacao': 'cw',
+        'Gibraltar': 'gi',
+        'Hongkong': 'hk',
+        'Martinique': 'mq',
+        'Southern Sudan': 'ss',
+        'St. Kitts & Nevis': 'kn',
+        'St. Vincent & Grenadinen': 'vc',
+        'The Gambia': 'gm',
+        'United States': 'us'
     };
 
     // Controlla se la nazione richiede un file SVG locale
