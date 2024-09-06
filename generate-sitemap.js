@@ -38,8 +38,7 @@ async function generateSitemap() {
     ];
 
     // Mapperemo gli ID dei player in URL completi
-    const playerRoutes = players.map(player => `player/${player.new_id}`);
-    
+    const playerRoutes = players.map(player => `player/${player.id}`);
 
     // Unione delle route statiche e dinamiche
     const allRoutes = [...staticRoutes, ...playerRoutes];
