@@ -17,7 +17,6 @@ export function usePlayer(playerId) {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        console.log('Fetching data for playerId:', playerId);
         
         let isMounted = true; // Flag per evitare aggiornamenti dello stato se il componente è smontato
     
@@ -55,7 +54,6 @@ export function usePlayer(playerId) {
                 if (clubError) throw clubError;
     
                 if (isMounted) {
-                    console.log('Setting data:', { playerData, performanceData, clubData });
                     setPlayer(formatPlayerData(playerData));
                     setPerformance(performanceData);
                     setClub(clubData);

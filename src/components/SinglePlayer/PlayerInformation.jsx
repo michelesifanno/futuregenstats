@@ -5,6 +5,7 @@ import { usePlayer } from '../../utils/usePlayer';
 import { useScoreAndTrends } from '../../utils/useScoreAndTrends';
 import NationFlag from '../General/NationFlag';
 import { useTotalPerformance } from '../../utils/useTotalPerformance';
+import { useCurrentStats } from '../../utils/useCurrentStats';
 
 // Funzione per trasformare il nome nel formato corretto
 const formatNameForUrl = (name) => {

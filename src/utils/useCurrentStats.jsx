@@ -24,7 +24,6 @@ export function useCurrentStats({id}) {
 
             try {
                 setLoading(true);
-                console.log(`Richiesta delle performance per il giocatore ${playerId}`);
                 const response = await axios.request(options);
                 setPerformance(response.data.data || []);
             } catch (error) {

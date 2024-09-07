@@ -17,11 +17,6 @@ export default function Player() {
     const { player, performance, club, loading: playerLoading, error: playerError } = usePlayer(slug);
 
 
-    // Verifica i dati del giocatore e del club
-    useEffect(() => {
-        console.log('Player:', player);
-        console.log('Club:', club);
-    }, [player, club]);
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
