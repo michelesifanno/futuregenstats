@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Grid, useMediaQuery } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Grid, useMediaQuery } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
-import BestPlayersByCompetition from '../components/Homepage/BestPlayersByCompetition';
-import MostExperiencedPlayers from '../components/Homepage/MostExperiencedPlayers';
 import YouthByCompetition from '../components/Homepage/YouthByCompetitions';
 import YouthByNationality from '../components/Homepage/YouthByNationality';
 import CTA_IHG from '../components/Homepage/CTA_IHG';
-import BestUnderOverall from '../components/Homepage/BestUnderOverall';
 import AdBanner from '../components/AdBanner';
 import BestPlayers from '../components/Homepage/BestPlayers';
 

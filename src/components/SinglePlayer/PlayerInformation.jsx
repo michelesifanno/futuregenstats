@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useMediaQuery, Box, Grid, Typography, CircularProgress } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { usePlayer } from '../../utils/usePlayer';
+import { useScoreAndTrends } from '../../utils/useScoreAndTrends';
 import NationFlag from '../General/NationFlag';
-import SoccerShirt from '../General/SoccerShirt';
-
+import { useTotalPerformance } from '../../utils/useTotalPerformance';
 
 // Funzione per trasformare il nome nel formato corretto
 const formatNameForUrl = (name) => {
@@ -43,8 +43,19 @@ const ClubComponent = ({ name, id }) => {
     );
 };
 
+const getTalentScoreColor = (score) => {
+    if (score > 100) return '#C78E34';
+    if (score > 80) return '#C73473';
+    if (score > 60) return '#33C771';
+    if (score > 40) return '#3482C7';
+    if (score > 20) return '#C7A234';
+    if (20 < score) return '#C73434';
+};
+
 export default function PlayerInformation({ playerId }) {
-    const { player, club, error } = usePlayer(playerId);
+    const { player, club, error: playerError, loading: playerLoading } = usePlayer(playerId);
+    const { score, trends, error: scoreError, loading: scoreLoading } = useScoreAndTrends(playerId);
+    const { performance, loading: performanceLoading, error: performanceError } = useTotalPerformance(playerId);
     const [loading, setLoading] = useState(true);
 
     const theme = useTheme();
@@ -54,7 +65,6 @@ export default function PlayerInformation({ playerId }) {
 
 
     useEffect(() => {
-        console.log('Fetching data for playerId:', playerId);
         if (playerId) {
             setLoading(true);
             // Quando i dati vengono caricati, aggiorniamo lo stato di loading
@@ -69,26 +79,14 @@ export default function PlayerInformation({ playerId }) {
 
     useEffect(() => {
         // Scrolla in alto quando il componente viene montato
-        console.log('Scrolling to top');
         window.scrollTo(0, 0);
-    }, [playerId]);
-
-
-    useEffect(() => {
-        // Simula il caricamento dei dati per 1 secondo
-        if (playerId) {
-            const timer = setTimeout(() => {
-                setLoading(false);
-            }, 1000);
-            return () => clearTimeout(timer);
-        }
     }, [playerId]);
 
     return (
         <>
-            {loading ? (
+            {playerLoading ? (
                 <CircularProgress />
-            ) : error ? (
+            ) : playerError ? (
                 <Typography color="error">Error: {error}</Typography>
             ) : (
                 <Box
@@ -147,24 +145,27 @@ export default function PlayerInformation({ playerId }) {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12} sx={{ marginTop: isMobile ? '20px!important' : '40px!important' }}>
-                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                        <Typography
-                                            sx={{
-                                                fontWeight: 700,
-                                                fontSize: '36px',
-                                                lineHeight: '46px',
-                                                textAlign: 'left',
-                                                color: '#fff',
-                                            }}
-                                        >
-                                            {player.name}
-                                        </Typography>
-                                    </Box>
+                                <Grid item xs={10} sx={{ marginTop: isMobile ? '20px!important' : '40px!important', paddingRight: '10px!important' }}>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: 700,
+                                            fontSize: '36px',
+                                            lineHeight: '36px',
+                                            textAlign: 'left',
+                                            color: '#fff',
+                                        }}
+                                    >
+                                        {player.name}
+                                    </Typography>
                                 </Grid>
 
+                                <Grid item xs={2} sx={{ marginTop: isMobile ? '20px!important' : '40px!important', paddingLeft: '10px!important' }}>
+                                    <Typography sx={{ padding: '7px 0px', borderRadius: '5px', maxWidth: '40px', fontWeight: 600, fontSize: '18px', textAlign: 'center', color: '#fff', backgroundColor: getTalentScoreColor(score?.normalized_talent_score) }}>
+                                        {score?.normalized_talent_score}
+                                    </Typography>
+                                </Grid>
 
-                                <Grid item xs={4} sx={{ marginTop:'20px!important' }}>
+                                <Grid item xs={4} sx={{ marginTop: '20px!important' }}>
                                     <Typography
                                         sx={{
                                             fontWeight: 500,
@@ -174,7 +175,7 @@ export default function PlayerInformation({ playerId }) {
                                             color: '#fff',
                                         }}
                                     >
-                                        {player.age}
+                                        {player.age || '//'}
                                     </Typography>
                                     <Typography
                                         sx={{
@@ -190,7 +191,7 @@ export default function PlayerInformation({ playerId }) {
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={4} sx={{ marginTop:'20px!important' }}>
+                                <Grid item xs={4} sx={{ marginTop: '20px!important' }}>
                                     <Typography
                                         sx={{
                                             fontWeight: 500,
@@ -200,7 +201,14 @@ export default function PlayerInformation({ playerId }) {
                                             color: '#fff',
                                         }}
                                     >
-                                        {player.height} <span style={{ fontSize: '14px' }}>m.</span>
+                                        {player.height ? (
+                                            <>
+                                                {player.height} <span style={{ fontSize: '14px' }}>m.</span>
+                                            </>
+                                        ) : (
+                                            '//'
+                                        )}
+
                                     </Typography>
                                     <Typography
                                         sx={{
@@ -216,7 +224,7 @@ export default function PlayerInformation({ playerId }) {
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={4} sx={{ marginTop:'20px!important'}}>
+                                <Grid item xs={4} sx={{ marginTop: '20px!important' }}>
                                     <Typography
                                         sx={{
                                             fontWeight: 500,
@@ -253,7 +261,7 @@ export default function PlayerInformation({ playerId }) {
                                             color: '#fff',
                                         }}
                                     >
-                                        X
+                                        {(performance?.goals) || '//'}
                                     </Typography>
                                     <Typography
                                         sx={{
@@ -279,7 +287,7 @@ export default function PlayerInformation({ playerId }) {
                                             color: '#fff',
                                         }}
                                     >
-                                        X
+                                        {(performance?.assists) || '//'}
                                     </Typography>
                                     <Typography
                                         sx={{
@@ -306,7 +314,7 @@ export default function PlayerInformation({ playerId }) {
                                             textTransform: 'capitalize'
                                         }}
                                     >
-                                        X
+                                        {(performance?.matches) || '//'}
                                     </Typography>
                                     <Typography
                                         sx={{
@@ -355,8 +363,9 @@ export default function PlayerInformation({ playerId }) {
                             />
                         </Grid>
                     </Grid>
-                </Box>
-            )}
+                </Box >
+            )
+            }
         </>
     );
 }

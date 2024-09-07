@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePlayer } from '../utils/usePlayer';
-import usePlayerId from '../utils/usePlayerId';
-import usePlayerFotMobData from '../utils/usePlayerFotMobData';
+import { useCurrentStats } from '../utils/useCurrentStats';
 import { useTheme } from '@emotion/react';
 import { Box, Typography, Grid, CircularProgress, useMediaQuery } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import PlayerRecentMatches from '../components/SinglePlayer/PlayerRecentMatches';
 import PlayerPerformance from '../components/SinglePlayer/PlayerPerformance';
-import PlayerCurrentStats from '../components/SinglePlayer/PlayerCurrentStats';
-import PlayerTraits from '../components/SinglePlayer/PlayerTraits';
-import PlayerCareer from '../components/SinglePlayer/PlayerCareer';
-import PlayerFaq from '../components/SinglePlayer/PlayerFaq';
 import PlayerResume from '../components/SinglePlayer/PlayerResume';
 import PlayerInformation from '../components/SinglePlayer/PlayerInformation';
 import AdBanner from '../components/AdBanner';
 import PlayerCompetitions from '../components/SinglePlayer/PlayerCompetitions';
 
+
 export default function Player() {
     const { slug } = useParams();
     const { player, performance, club, loading: playerLoading, error: playerError } = usePlayer(slug);
+
 
     // Verifica i dati del giocatore e del club
     useEffect(() => {
@@ -31,8 +27,6 @@ export default function Player() {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-
-
 
     if (playerLoading) {
         return (
@@ -95,7 +89,7 @@ export default function Player() {
                         </Grid>
                         <Grid item xs={12} md={4}>
                             <Box sx={{ padding: isMobile ? '0px 0px' : '10px' }}>
-                                <PlayerPerformance performance={performance} name={player.name} />
+                                <PlayerPerformance playerId={player?.id} />
                             </Box>
                             <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
                                 <PlayerCompetitions performance={performance} name={player.name} />

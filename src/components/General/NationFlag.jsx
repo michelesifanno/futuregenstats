@@ -30,23 +30,15 @@ const NationFlag = ({ nation }) => {
         ? nation
         : [nation];
 
-    // Log di debug per visualizzare il contenuto di nationsArray
-    console.log('Nations array:', nationsArray);
-
     return (
         <div className="flags-container">
             {nationsArray.map((nat, index) => {
                 const nationName = typeof nat === 'string' ? nat : nat.name;
                 const nationCode = flagCodes[nationName];
 
-                // Log di debug per ciascuna nazione nel ciclo
-                console.log(`Rendering flag for: ${nationName} (Code: ${nationCode})`);
 
                 if (localFlags[nationName]) {
                     const svgPath = `/flags/${localFlags[nationName]}.svg`;
-
-                    // Log di debug per percorsi SVG locali
-                    console.log(`Using local SVG for: ${nationName}, Path: ${svgPath}`);
 
                     return (
                         <img
@@ -59,8 +51,6 @@ const NationFlag = ({ nation }) => {
                 }
 
                 if (nationCode) {
-                    // Log di debug per l'uso di react-world-flags
-                    console.log(`Using react-world-flags for: ${nationName}, Code: ${nationCode}`);
 
                     return (
                         <Flag
@@ -71,8 +61,6 @@ const NationFlag = ({ nation }) => {
                     );
                 }
 
-                // Log per le nazioni non trovate
-                console.log(`No flag found for: ${nationName}`);
 
                 return null;
             })}
