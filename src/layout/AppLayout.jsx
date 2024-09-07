@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import AppNavbar from '../components/AppNavbar';
+import AppNavbar from '../components/General/AppNavbar';
 import Footer from '../components/Footer/Footer';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material/styles';

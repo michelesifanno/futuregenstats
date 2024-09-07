@@ -4,8 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
 import { useNationalities } from '../../utils/useNationalities';
-import NationFlag from '../NationFlag';
-
+import NationFlag from '../General/NationFlag';
   
 
 
@@ -67,7 +66,7 @@ export default function YouthByNationality() {
                         <Link to={`/nation/${nation.name}`} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                             
                         <NationFlag nation={nation} />
-                            <Typography sx={{ fontWeight: 500, fontSize: '14px', color:'#333',
+                            <Typography sx={{ fontWeight: 500, fontSize: '14px', color:'#333', marginLeft:'17px',
                             '&:hover': {
                                 color: '#2047e4', 
                             },

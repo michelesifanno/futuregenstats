@@ -6,7 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import DiamondOutlinedIcon from '@mui/icons-material/DiamondOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
-import MenuItems from './Menu/MenuItems'
+import MenuItems from '../Menu/MenuItems'
 
 
 const Search = styled('div')(({ theme }) => ({

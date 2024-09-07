@@ -40,7 +40,8 @@ export function usePlayersScoreAndTrends() {
                             marketvaluecurrency,
                             clubs (
                                 name,
-                                image
+                                image,
+                                competition_id
                             )
                         )
                     `)
@@ -113,6 +114,7 @@ export function usePlayersScoreAndTrends() {
             club: {
                 name: player.players?.clubs?.name || 'N/A',
                 image: player.players?.clubs?.image || '',
+                competition_id: player.players?.clubs?.competition_id || ''
             },
         };
     };

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Box, Grid, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableRow, Accordion, AccordionSummary, AccordionDetails, CircularProgress, TablePagination} from '@mui/material';
+import { Box, Grid, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableRow, Accordion, AccordionSummary, AccordionDetails, CircularProgress, TablePagination } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { usePlayersScoreAndTrends } from '../../utils/usePlayersScoreAndTrends';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -8,12 +8,12 @@ import { Link } from 'react-router-dom';
 
 
 const getTalentScoreColor = (score) => {
-  if (score > 100) return '#C78E34'; 
-  if (score > 80) return '#C73473'; 
-  if (score > 60) return '#33C771'; 
-  if (score > 40) return '#3482C7'; 
-  if (score > 20) return '#C7A234'; 
-  if (20 < score) return '#C73434'; 
+  if (score > 100) return '#C78E34';
+  if (score > 80) return '#C73473';
+  if (score > 60) return '#33C771';
+  if (score > 40) return '#3482C7';
+  if (score > 20) return '#C7A234';
+  if (20 < score) return '#C73434';
 };
 
 
@@ -30,7 +30,7 @@ export default function BestPlayers() {
     setPage(newPage);
     document.querySelector('#best-young-players').scrollIntoView({
       behavior: 'smooth'
-    });      
+    });
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -40,6 +40,28 @@ export default function BestPlayers() {
 
   const paginatedPlayers = players ? players.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : [];
 
+  // Funzione per trasformare il nome nel formato corretto
+const formatNameForUrl = (name) => {
+  return name.toLowerCase().replace(/\s+/g, '-');
+};
+
+const ClubComponent = ({ name, id }) => {
+  // Costruisci l'URL dell'immagine
+  const formattedName = formatNameForUrl(name);
+  const imageUrl = `https://res.cloudinary.com/dfe8fzdna/image/upload/v1724882443/${id}/${formattedName}.png`;
+
+  return (
+    <img
+      src={imageUrl}
+      alt={name || 'Team Logo'}
+      style={{
+        width: isMobile ? '30px' : '36px'
+      }}
+    />
+  );
+};
+
+
   return (
     <>
       <Accordion defaultExpanded>
@@ -48,7 +70,7 @@ export default function BestPlayers() {
           aria-controls="best-young-players"
           id="best-young-players"
         >
-          <Typography sx={{ fontWeight: 600, fontSize: '18px'}}>
+          <Typography sx={{ fontWeight: 600, fontSize: '18px' }}>
             Best Young Players ⭐️
           </Typography>
         </AccordionSummary>
@@ -80,32 +102,32 @@ export default function BestPlayers() {
                                 <img
                                   src={player.image}
                                   alt={player.name}
-                                  style={{ width: '51px', height:'54px', borderRadius: '100%', objectFit:'cover' }}
+                                  style={{ width: '51px', height: '54px', borderRadius: '100%', objectFit: 'cover' }}
                                 />
                               </Grid>
                               <Grid item xs={6} md={8} sx={{ textAlign: 'left', padding: '0px 10px!important' }}>
-                              <Link to={`/player/${player.new_id}`} style={{ textDecoration: 'none', color: '#333' }}>
-                                <Typography sx={{ fontWeight: 500, fontSize: '16px', letterSpacing:'-0.2px',
-                                  '&:hover': {
-                                color: '#2047e4', 
-                            },
-                                }}>
+                                <Link to={`/player/${player.new_id}`} style={{ textDecoration: 'none', color: '#333' }}>
+                                  <Typography sx={{
+                                    fontWeight: 500, fontSize: '16px', letterSpacing: '-0.2px',
+                                    '&:hover': {
+                                      color: '#2047e4',
+                                    },
+                                  }}>
                                     {player.name}
-                                </Typography>
+                                  </Typography>
                                 </Link>
-                                <Typography sx={{ fontWeight: 500, fontSize: '14px'}}>
+                                <Typography sx={{ fontWeight: 500, fontSize: '14px' }}>
                                   {player.positions}
                                 </Typography>
                               </Grid>
                               <Grid item xs={2} md={2} sx={{ textAlign: 'center' }}>
-                                <img
-                                  src={player.club.image}
-                                  alt={`${player.club.name} logo`}
-                                  style={{ width: isMobile? '30px' : '36px'}}
+                                <ClubComponent
+                                  name={player.club.name}
+                                  id={player.club.competition_id}
                                 />
                               </Grid>
-                              <Grid item xs={2} md={1} sx={{justifyContent:'center', display:'flex'}}>
-                                <Typography sx={{ padding:'10px 0px', borderRadius:'7px', minWidth:'45px', fontWeight: 600, fontSize: '18px', textAlign: 'center', color:'#fff', backgroundColor:getTalentScoreColor(player.normalized_talent_score)}}>
+                              <Grid item xs={2} md={1} sx={{ justifyContent: 'center', display: 'flex' }}>
+                                <Typography sx={{ padding: '10px 0px', borderRadius: '7px', minWidth: '45px', fontWeight: 600, fontSize: '18px', textAlign: 'center', color: '#fff', backgroundColor: getTalentScoreColor(player.normalized_talent_score) }}>
                                   {player.normalized_talent_score}
                                 </Typography>
                               </Grid>
@@ -127,7 +149,7 @@ export default function BestPlayers() {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-            style={{margin:'0px!important', padding:'0px!important'}}
+            style={{ margin: '0px!important', padding: '0px!important' }}
           />
         </AccordionDetails>
       </Accordion>

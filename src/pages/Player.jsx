@@ -32,24 +32,7 @@ export default function Player() {
     const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
-    const phrases = [
-        "Loading data... 📊",
-        "Getting the player in shape... 💆🏻‍♂️",
-        "Ironing the jerseys... 👕",
-        "Hang tight... 🔥",
-        "Sharpening the cleats... 👟"
-    ];
 
-    const [funnyPhrase, setFunnyPhrase] = useState(phrases[Math.floor(Math.random() * phrases.length)]);
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-            setFunnyPhrase(randomPhrase);
-        }, 2000);
-
-        return () => clearInterval(intervalId);
-    }, []);
 
     if (playerLoading) {
         return (
@@ -63,7 +46,6 @@ export default function Player() {
                 justifyContent: 'center',
             }}>
                 <CircularProgress />
-                <Typography sx={{ marginTop: 2 }}>{funnyPhrase}</Typography>
             </Box>
         );
     }
@@ -86,7 +68,7 @@ export default function Player() {
         );
     }
 
-    const pageTitle = `${player?.name} - ${player?.position} Stats & Performance at ${club?.name} | Future Gen Stats`;
+    const pageTitle = `${player?.name} - ${player?.positions} Stats & Performance at ${club?.name} | Future Gen Stats`;
     const metaDescription = `Explore detailed performance stats and key metrics of ${player?.name}, playing as ${player?.position} for ${club?.name}. Stay updated with the latest achievements and career highlights of this promising player.`;
 
     return (
@@ -97,7 +79,7 @@ export default function Player() {
             </Helmet>
             <Box sx={{
                 background: theme.palette.secondary.main,
-                padding: isMobile ? '70px 10px' : '90px 20px',
+                padding: isMobile ? '70px 10px 10px 10px' : '95px 10px 20px 10px',
                 minHeight: '100vh',
             }}>
                     <Grid container spacing={2}>

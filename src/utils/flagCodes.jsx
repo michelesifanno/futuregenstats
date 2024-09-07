@@ -187,7 +187,7 @@ export const flagCodes = {
     'Tonga': 'to',
     'Trinidad and Tobago': 'tt',
     'Tunisia': 'tn',
-    'Turkey': 'tr',
+    'Türkiye': 'tr',
     'Turkmenistan': 'tm',
     'Tuvalu': 'tv',
     'Uganda': 'ug',

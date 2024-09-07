@@ -17,11 +17,14 @@ export function usePlayer(playerId) {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        console.log('Fetching data for playerId:', playerId);
+        
+        let isMounted = true; // Flag per evitare aggiornamenti dello stato se il componente è smontato
+    
         const fetchPlayerAndPerformance = async () => {
             try {
                 setLoading(true);
                 
-                // Recupera le informazioni del giocatore e del club
                 const { data: playerData, error: playerError } = await supabase
                     .from('players')
                     .select(`
@@ -33,40 +36,50 @@ export function usePlayer(playerId) {
                     `)
                     .eq('new_id', playerId)
                     .single();
-
+    
                 if (playerError) throw playerError;
-
-                // Recupera le performance del giocatore
+    
                 const { data: performanceData, error: performanceError } = await supabase
                     .from('players_performance_23')
                     .select('*')
                     .eq('new_id', playerId);
-                    console.log('Performance Data:', performanceData); // Log per verificare i dati delle performance
+    
                 if (performanceError) throw performanceError;
-
-                // Recupera le informazioni del club
+    
                 const { data: clubData, error: clubError } = await supabase
                     .from('clubs')
                     .select('*')
                     .eq('id', playerData?.club_id)
                     .single();
-
+    
                 if (clubError) throw clubError;
-
-                // Setta i dati nello stato
-                setPlayer(formatPlayerData(playerData));
-                setPerformance(performanceData);
-                setClub(clubData);
-
+    
+                if (isMounted) {
+                    console.log('Setting data:', { playerData, performanceData, clubData });
+                    setPlayer(formatPlayerData(playerData));
+                    setPerformance(performanceData);
+                    setClub(clubData);
+                }
+    
             } catch (err) {
-                setError(err.message || 'Errore nel recupero dei dati');
+                if (isMounted) {
+                    console.error('Fetch error:', err);
+                    setError(err.message || 'Errore nel recupero dei dati');
+                }
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         };
-
+    
         fetchPlayerAndPerformance();
+    
+        return () => {
+            isMounted = false; // Pulizia del flag
+        };
     }, [playerId]);
+    
 
     // Funzione per formattare i dati del giocatore
     const formatPlayerData = (player) => {
