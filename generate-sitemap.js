@@ -2,7 +2,7 @@ import fs from 'fs';
 import fetch from 'node-fetch';
 
 const BASE_URL = 'https://www.futuregenstats.com/'; 
-const API_URL = 'https://kvrzbmvyyitdzuflqlsq.supabase.co/rest/v1/rpc/get_player_ids?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2cnpibXZ5eWl0ZHp1ZmxxbHNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI4MTIzMTYsImV4cCI6MjAzODM4ODMxNn0.RzxPzOlhZc3rWtKeWtX7HXY9cnvYcLzWjCu1SSYwTk4'; // Include API key directly in URL
+const API_URL = 'https://kvrzbmvyyitdzuflqlsq.supabase.co/rest/v1/rpc/get_player_ids?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2cnpibXZ5eWl0ZHp1ZmxxbHNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI4MTIzMTYsImV4cCI6MjAzODM4ODMxNn0.RzxPzOlhZc3rWtKeWtX7HXY9cnvYcLzWjCu1SSYwTk4&limit=none';
 
 async function generateSitemap() {
   try {
@@ -29,12 +29,6 @@ async function generateSitemap() {
     const staticRoutes = [
       '/',
       '/privacy-policy',
-      '/best-under-18',
-      '/best-under-19',
-      '/best-under-20',
-      '/best-under-21',
-      '/best-under-22',
-      '/best-under-23',
     ];
 
     // Mapperemo gli ID dei player in URL completi
