@@ -4,6 +4,8 @@ import { useTheme } from '@mui/material/styles';
 import { usePlayersScoreAndTrends } from '../../utils/usePlayersScoreAndTrends';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
+import PlayerComponent from '../General/PlayerComponent';
+import ClubComponent from '../General/ClubComponent';
 
 
 
@@ -39,27 +41,6 @@ export default function BestPlayers() {
   };
 
   const paginatedPlayers = players ? players.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : [];
-
-  // Funzione per trasformare il nome nel formato corretto
-const formatNameForUrl = (name) => {
-  return name.toLowerCase().replace(/\s+/g, '-');
-};
-
-const ClubComponent = ({ name, id }) => {
-  // Costruisci l'URL dell'immagine
-  const formattedName = formatNameForUrl(name);
-  const imageUrl = `https://res.cloudinary.com/dfe8fzdna/image/upload/v1724882443/${id}/${formattedName}.png`;
-
-  return (
-    <img
-      src={imageUrl}
-      alt={name || 'Team Logo'}
-      style={{
-        width: isMobile ? '30px' : '36px'
-      }}
-    />
-  );
-};
 
 
   return (
@@ -99,10 +80,10 @@ const ClubComponent = ({ name, id }) => {
                           <TableCell sx={{ textAlign: 'center' }}>
                             <Grid container sx={{ alignItems: 'center', justifyContent: 'flex-start' }}>
                               <Grid item xs={2} md={1}>
-                                <img
-                                  src={player.image}
-                                  alt={player.name}
-                                  style={{ width: '51px', height: '54px', borderRadius: '100%', objectFit: 'cover' }}
+                                <PlayerComponent
+                                  id={player.new_id}
+                                  width={51}
+                                  height={54}  
                                 />
                               </Grid>
                               <Grid item xs={6} md={8} sx={{ textAlign: 'left', padding: '0px 10px!important' }}>
