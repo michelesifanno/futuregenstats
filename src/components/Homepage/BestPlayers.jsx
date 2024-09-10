@@ -12,7 +12,7 @@ const getTalentScoreColor = (score) => {
   if (score > 80) return '#C73473';
   if (score > 60) return '#33C771';
   if (score > 40) return '#3482C7';
-  if (score > 20) return '#C7A234';
+  if (score > 20) return '#C76434';
   if (20 < score) return '#C73434';
 };
 

@@ -1,55 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useMediaQuery, Box, Grid, Typography, CircularProgress } from '@mui/material';
+import { useMediaQuery, Box, Grid, Typography, CircularProgress, Divider } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { usePlayer } from '../../utils/usePlayer';
 import { useScoreAndTrends } from '../../utils/useScoreAndTrends';
 import NationFlag from '../General/NationFlag';
+import ClubComponent from '../General/ClubComponent'
+import PlayerComponent from '../General/PlayerComponent';
 import { useTotalPerformance } from '../../utils/useTotalPerformance';
 import { useCurrentStats } from '../../utils/useCurrentStats';
 
-// Funzione per trasformare il nome nel formato corretto
-const formatNameForUrl = (name) => {
-    return name.toLowerCase().replace(/\s+/g, '-');
-};
-
-const ClubComponent = ({ name, id }) => {
-    // Costruisci l'URL dell'immagine
-    const formattedName = formatNameForUrl(name);
-    const imageUrl = `https://res.cloudinary.com/dfe8fzdna/image/upload/v1724882443/${id}/${formattedName}.png`;
-
-    return (
-        <span
-            style={{
-                width: '36px',
-                height: '36px',
-                backgroundColor: '#fff',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                border: '1px solid #f8f8f8'
-            }}
-        >
-            <img
-                src={imageUrl}
-                alt={name || 'Team Logo'}
-                style={{
-                    width: '30px',
-                    height: '30px',
-                    objectFit: 'contain',
-                }}
-            />
-        </span>
-    );
-};
 
 const getTalentScoreColor = (score) => {
     if (score > 100) return '#C78E34';
     if (score > 80) return '#C73473';
     if (score > 60) return '#33C771';
     if (score > 40) return '#3482C7';
-    if (score > 20) return '#C7A234';
+    if (score > 20) return '#C76434';
     if (20 < score) return '#C73434';
 };
 
@@ -58,6 +24,7 @@ export default function PlayerInformation({ playerId }) {
     const { score, trends, error: scoreError, loading: scoreLoading } = useScoreAndTrends(playerId);
     const { performance, loading: performanceLoading, error: performanceError } = useTotalPerformance(playerId);
     const [loading, setLoading] = useState(true);
+
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -99,7 +66,7 @@ export default function PlayerInformation({ playerId }) {
                     <Grid container spacing={2} sx={{ alignItems: 'top' }}>
 
                         {/* Main Content Grid */}
-                        <Grid item xs={12} md={6} sx={{ padding: isMobile ? '20px!important' : '40px!important' }}>
+                        <Grid item xs={12} sx={{ padding: isMobile ? '40px 20px!important' : '40px!important' }}>
                             <Grid container spacing={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                 <Grid item xs={6} md={5}>
                                     <Typography
@@ -146,7 +113,14 @@ export default function PlayerInformation({ playerId }) {
                                     />
                                 </Grid>
 
-                                <Grid item xs={10} sx={{ marginTop: isMobile ? '20px!important' : '40px!important', paddingRight: '10px!important' }}>
+                                <Grid item xs={12} md={1} sx={{ marginTop: isMobile ? '20px!important' : '40px!important' }}>
+                                    <PlayerComponent
+                                        id={playerId}
+                                        width={60}
+                                        height={65}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={9} sx={{ marginTop: isMobile ? '20px!important' : '40px!important' }}>
                                     <Typography
                                         sx={{
                                             fontWeight: 700,
@@ -160,13 +134,47 @@ export default function PlayerInformation({ playerId }) {
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={2} sx={{ marginTop: isMobile ? '20px!important' : '40px!important', paddingLeft: '10px!important' }}>
-                                    <Typography sx={{ padding: '7px 0px', borderRadius: '5px', maxWidth: '40px', fontWeight: 600, fontSize: '18px', textAlign: 'center', color: '#fff', backgroundColor: getTalentScoreColor(score?.normalized_talent_score) }}>
-                                        {score?.normalized_talent_score}
-                                    </Typography>
-                                </Grid>
+                                {isDesktop ? (
+                                    <Grid item xs={2} md={2} sx={{ marginTop: isMobile ? '20px!important' : '40px!important', paddingLeft: '10px!important' }}>
+                                        <Typography sx={{ padding: '7px 0px', borderRadius: '5px', maxWidth: '40px', fontWeight: 600, fontSize: '18px', textAlign: 'center', color: '#fff', backgroundColor: getTalentScoreColor(score?.normalized_talent_score) }}>
+                                            {score?.normalized_talent_score}
+                                        </Typography>
+                                    </Grid>
 
-                                <Grid item xs={4} sx={{ marginTop: '20px!important' }}>
+                                ) : (null)}
+                                <Grid item sx={12}>
+                                <Divider sx={{ margin: '20px 0 10px 0', borderColor: 'rgba(255, 255, 255, 0.4)!important' }} />
+                                </Grid>
+                                {isMobile || isTablet ? (
+                                    <Grid item xs={4} md={3} sx={{ marginTop: '30px!important', padding: '0px!important' }}>
+                                        <Typography
+                                            sx={{
+                                                fontWeight: 500,
+                                                fontSize: '22px',
+                                                lineHeight: '36px',
+                                                textAlign: 'left',
+                                                color: getTalentScoreColor(score?.normalized_talent_score)
+                                            }}
+                                        >
+                                            {score?.normalized_talent_score}
+                                        </Typography>
+                                        <Typography
+                                            sx={{
+                                                fontWeight: 500,
+                                                fontSize: '10px',
+                                                textAlign: 'left',
+                                                color: 'rgba(255, 255, 255, 0.7)',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '1px',
+                                            }}
+                                        >
+                                            FGS Score
+                                        </Typography>
+
+                                    </Grid>
+                                ) : (null)}
+
+                                <Grid item xs={4} md={3} sx={{ marginTop: '30px!important', padding: '0px!important' }}>
                                     <Typography
                                         sx={{
                                             fontWeight: 500,
@@ -192,7 +200,7 @@ export default function PlayerInformation({ playerId }) {
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={4} sx={{ marginTop: '20px!important' }}>
+                                <Grid item xs={4} md={3} sx={{ marginTop: '30px!important', padding: '0px!important' }}>
                                     <Typography
                                         sx={{
                                             fontWeight: 500,
@@ -225,7 +233,7 @@ export default function PlayerInformation({ playerId }) {
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={4} sx={{ marginTop: '20px!important' }}>
+                                <Grid item xs={4} md={3} sx={{ marginTop: '30px!important', padding: '0px!important' }}>
                                     <Typography
                                         sx={{
                                             fontWeight: 500,
@@ -248,11 +256,65 @@ export default function PlayerInformation({ playerId }) {
                                             letterSpacing: '1px',
                                         }}
                                     >
-                                        Preferred Foot
+                                        Pref. Foot
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={4} sx={{ marginTop: '20px!important' }}>
+                                <Grid item xs={4} md={3} sx={{ marginTop: '30px!important', padding: '0px!important' }}>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: 500,
+                                            fontSize: '22px',
+                                            lineHeight: '36px',
+                                            textAlign: 'left',
+                                            color: '#fff',
+                                            textTransform: 'capitalize'
+                                        }}
+                                    >
+                                        {player.shirtnumber || '//'}
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: 500,
+                                            fontSize: '10px',
+                                            textAlign: 'left',
+                                            color: 'rgba(255, 255, 255, 0.7)',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '1px',
+                                        }}
+                                    >
+                                        Shirt Num.
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={4} md={3} sx={{ marginTop: '30px!important', padding: '0px!important' }}>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: 500,
+                                            fontSize: '22px',
+                                            lineHeight: '36px',
+                                            textAlign: 'left',
+                                            color: '#fff',
+                                            textTransform: 'capitalize'
+                                        }}
+                                    >
+                                        {player.marketvalue || '//'}
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            fontWeight: 500,
+                                            fontSize: '10px',
+                                            textAlign: 'left',
+                                            color: 'rgba(255, 255, 255, 0.7)',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '1px',
+                                        }}
+                                    >
+                                        Value Mkt
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={4} md={3} sx={{ marginTop: '30px!important', padding: '0px!important' }}>
                                     <Typography
                                         sx={{
                                             fontWeight: 500,
@@ -278,7 +340,7 @@ export default function PlayerInformation({ playerId }) {
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={4} sx={{ marginTop: '20px!important' }}>
+                                <Grid item xs={4} md={3} sx={{ marginTop: '30px!important', padding: '0px!important' }}>
                                     <Typography
                                         sx={{
                                             fontWeight: 500,
@@ -304,7 +366,7 @@ export default function PlayerInformation({ playerId }) {
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={4} sx={{ marginTop: '20px!important' }}>
+                                <Grid item xs={4} md={3} sx={{ marginTop: '30px!important', padding: '0px!important' }}>
                                     <Typography
                                         sx={{
                                             fontWeight: 500,
@@ -331,28 +393,12 @@ export default function PlayerInformation({ playerId }) {
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={12} sx={{ marginTop: isMobile ? '20px!important' : '40px!important' }}>
-                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                        <Typography
-                                            sx={{
-                                                fontWeight: 400,
-                                                fontSize: '20px',
-                                                lineHeight: '30px',
-                                                textAlign: 'left',
-                                                color: '#fff',
-                                            }}
-                                        >
-                                            Value Market: <b> € {player.marketvalue}</b>
-                                        </Typography>
-                                    </Box>
-                                </Grid>
-
 
                             </Grid>
                         </Grid>
 
                         {/* Image Grid */}
-                        <Grid item xs={12} md={6} sx={{ padding: isMobile ? '0px!important' : '20px 20px 0px 20px!important' }}>
+                        {/* <Grid item xs={12} md={6} sx={{ padding: isMobile ? '0px!important' : '20px 20px 0px 20px!important' }}>
                             <img
                                 src='https://res.cloudinary.com/dfe8fzdna/image/upload/v1725706798/updating_nytpd4.png'
                                 alt='Player image'
@@ -362,7 +408,7 @@ export default function PlayerInformation({ playerId }) {
                                     objectFit: 'contain',
                                 }}
                             />
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Box >
             )
