@@ -5,6 +5,7 @@ import {
 import Home from "../pages/Home";
 import Player from "../pages/Player";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
+import League from "../pages/League";
 
 
   export const router = createBrowserRouter([
@@ -25,6 +26,12 @@ import PrivacyPolicy from "../pages/PrivacyPolicy";
           path: "/player/:slug",
           element: <Player />,
         },
+
+        {
+          path: "/league/:slug",
+          element: <League />,
+        },
+
           ]
         }
       ]

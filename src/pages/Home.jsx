@@ -31,26 +31,21 @@ function Home() {
             </Helmet>
             <Box sx={{
                 background: theme.palette.secondary.main,
-                padding: isMobile ? '70px 10px 10px 10px' : '95px 10px 20px 10px',
+                padding: isMobile ? '70px 10px 10px 10px' : '100px 80px 20px 80px',
                 minHeight: '100vh',
             }}>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} md={3} order={{ xs: 2, md: 1 }}>
+                <Grid item xs={12} md={8}>
+                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
+                            <BestPlayers />
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
                         <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
                             <YouthByCompetition />
                         </Box>
                         <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
                             <YouthByNationality />
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
-                        <Box sx={{ padding: isMobile ? '10px 0px' : '10px' }}>
-                            <BestPlayers />
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} md={3} sx={{ position: isDesktop ? 'sticky!important' : 'static', top: 0 }} order={{ xs: 3 }}>
-                    <Box sx={{ padding: isMobile ? '10px 0px' : '10px', position: isDesktop ? 'sticky' : 'static', top: '90px!important' }}>
-                        <CTA_IHG />
                         </Box>
                     </Grid>
                 </Grid>

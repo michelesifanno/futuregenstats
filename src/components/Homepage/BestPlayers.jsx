@@ -51,7 +51,7 @@ export default function BestPlayers() {
           aria-controls="best-young-players"
           id="best-young-players"
         >
-          <Typography sx={{ fontWeight: 600, fontSize: '18px' }}>
+          <Typography sx={{ fontWeight: 600, fontSize: isMobile ? '18px' : '20px' }}>
             Best Young Players ⭐️
           </Typography>
         </AccordionSummary>
@@ -89,7 +89,7 @@ export default function BestPlayers() {
                               <Grid item xs={6} md={8} sx={{ textAlign: 'left', padding: '0px 10px!important' }}>
                                 <Link to={`/player/${player.new_id}`} style={{ textDecoration: 'none', color: '#333' }}>
                                   <Typography sx={{
-                                    fontWeight: 500, fontSize: '16px', letterSpacing: '-0.2px',
+                                    fontWeight: 500, fontSize: isMobile ? '16px' : '18px', letterSpacing: '-0.2px',
                                     '&:hover': {
                                       color: '#2047e4',
                                     },
@@ -97,7 +97,7 @@ export default function BestPlayers() {
                                     {player.name}
                                   </Typography>
                                 </Link>
-                                <Typography sx={{ fontWeight: 500, fontSize: '14px' }}>
+                                <Typography sx={{ fontWeight: 400, fontSize: isMobile ? '14px' : '16px', color:'#888' }}>
                                   {player.positions}
                                 </Typography>
                               </Grid>

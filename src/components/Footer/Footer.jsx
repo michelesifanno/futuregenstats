@@ -52,7 +52,7 @@ export default function Footer() {
                                 color: '#fff',
                             }}
                         >
-                            Future Gen Stats is an advanced data aggregation platform focused exclusively on young football players. Our system collects and analyzes performance data from emerging talents across various leagues, comparing them through a series of sophisticated filters. By evaluating key metrics, Future Gen Stats identifies the top-performing youth players, providing valuable insights for scouts, coaches, and media professionals. Our goal is to spotlight the stars of tomorrow by offering a comprehensive, data-driven perspective on the next generation of football talent.
+                            FutureGenStats is an educational project aimed at exploring the potential of data analytics in football. While the platform gathers and analyzes performance data of young football players, its primary purpose is to serve as a learning tool for developing advanced skills in data aggregation, analysis, and web development. The insights generated are part of a broader educational exercise and are not intended for professional use. Through this project, we aim to deepen our understanding of the football industry while enhancing technical expertise in data-driven solutions.
                         </Typography>
                     </Grid>
                 </Grid>
