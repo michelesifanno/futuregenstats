@@ -8,7 +8,7 @@ const formatMarketValue = (value) => {
     return `${(numericValue / 1000000).toFixed(1)} mil.`;
 };
 
-export function useLeaguePlayersScoreAndTrends( slug ) {
+export function useLeaguePlayersScoreAndTrends({ competitionId }) {
     const [players, setPlayers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -17,6 +17,16 @@ export function useLeaguePlayersScoreAndTrends( slug ) {
         const fetchPlayers = async () => {
             try {
                 setLoading(true);
+
+                const { data: clubs, error: clubsError } = await supabase
+                    .from('clubs')
+                    .select('id')
+                    .eq('competition_id', competitionId);
+
+                if (clubsError) throw clubsError;
+
+                const clubIds = clubs.map(club => club.id);
+
 
                 // Recupera le informazioni dei giocatori e dei loro club
                 const { data: playersData, error: playersError } = await supabase
@@ -30,6 +40,7 @@ export function useLeaguePlayersScoreAndTrends( slug ) {
                         classification,
                         trend,
                         id,
+                        club_id,
                         players (
                             name,
                             image,
@@ -42,13 +53,12 @@ export function useLeaguePlayersScoreAndTrends( slug ) {
                                 name,
                                 image,
                                 competition_id
-                            )
+                        )
                         )
                     `)
-                    .eq('clubs.competition_id', slug)
+                    .in('club_id', clubIds)  // Usa clubIds per filtrare
                     .order('normalized_talent_score', { ascending: false });
 
-                    console.log(playersData); // Controlla cosa viene restituito
 
                 if (playersError) throw playersError;
 
@@ -63,13 +73,13 @@ export function useLeaguePlayersScoreAndTrends( slug ) {
             }
         };
 
-        if (slug) {
+        if (competitionId) {
             fetchPlayers();
         } else {
             setError('Competition ID non fornito.');
             setLoading(false);
         }
-    }, [slug]);
+    }, [competitionId]);
 
     // Funzione per formattare i dati del giocatore
     const formatPlayerData = (player) => {
@@ -77,16 +87,25 @@ export function useLeaguePlayersScoreAndTrends( slug ) {
 
         let positions = 'N/A';
         try {
-            const positionsArray = player.players?.positions || [];
-            positions = positions.length > 0 ? positions.join(', ') : 'N/A'; // Converti l'array in stringa
+            const positionsObj = player.players?.positions;
+            if (positionsObj && typeof positionsObj === 'object') {
+                // Estrai le posizioni dall'oggetto
+                const positionsArray = Object.values(positionsObj)
+                    .filter(pos => pos && pos.group);  // Filtra solo i valori validi che hanno un nome
+                if (positionsArray.length > 0) {
+                    positions = positionsArray[0].group;
+                }
+            }
         } catch (e) {
             console.error('Errore nella conversione di positions:', e);
         }
 
         let nationalities = 'N/A';
         try {
-            const nationalitiesArray = player.players?.nationalities || [];
-            nationalities = nationalitiesArray.length > 0 ? nationalitiesArray.map(nat => nat.name).join(', ') : 'N/A'; // Converti l'array in stringa
+            const nationalitiesArray = player.players?.nationalities;
+            if (nationalitiesArray && Array.isArray(nationalitiesArray)) {
+                nationalities = nationalitiesArray.map(nat => nat.name).join(', ');
+            }
         } catch (e) {
             console.error('Errore nella conversione di nationalities:', e);
         }
