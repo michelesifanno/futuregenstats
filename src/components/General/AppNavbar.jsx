@@ -71,17 +71,15 @@ export default function AppNavbar() {
                     {/* Logo */}
                     <Grid
                         item
-                        xs={6}
-                        sm={4}
-                        md={3}
+                        xs={12}
                         sx={{
                             display: 'flex',
-                            justifyContent: 'start',
+                            justifyContent: 'center',
                             alignItems: 'center',
                             padding: isMobile ? '10px!important' : '0px 20px!important',
                         }}
                     >
-                        <Link to="/" style={{ textDecoration: 'none', marginBottom: '-5px!important' }}>
+                        <Link to="/" style={{ textDecoration: 'none', marginBottom: '-5px!important', textAlign:'center' }}>
                             <img
                                 src="/logo.png"
                                 alt="Future Gen Stats Logo"
@@ -91,7 +89,7 @@ export default function AppNavbar() {
                         </Link>
                     </Grid>
 
-                    {/* Search bar (visible on tablets and desktops) */}
+                    {/* Search bar (visible on tablets and desktops) 
                     {!isMobile && (
                         <Grid
                             item
@@ -111,7 +109,6 @@ export default function AppNavbar() {
                         </Grid>
                     )}
 
-                    {/* Mobile search icon */}
                     {isMobile && (
                         <Grid
                             item
@@ -136,7 +133,6 @@ export default function AppNavbar() {
                         </Grid>
                     )}
 
-                    {/* IHG Icon and text */}
                     <Grid
                         item
                         xs={2}
@@ -166,7 +162,6 @@ export default function AppNavbar() {
                         </Button>
                     </Grid>
 
-                    {/* Menu Icon */}
                     <Grid
                         item
                         xs={2}
@@ -207,9 +202,9 @@ export default function AppNavbar() {
                             </Typography>
                         </IconButton>
                     </Grid>
+*/}
                 </Grid>
 
-                {/* Drawer per la barra di ricerca mobile */}
                 <Drawer
                     anchor="top"
                     open={searchDrawerOpen}
